@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
+import Login from './components/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
@@ -41,6 +42,7 @@ function App() {
       <Route exact path="/drinks" component={ Drinks } />
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/explore" component={ Explore } />
+      <Route exact path="/" component={ Login } />
     </Switch>
   );
 }

@@ -8,7 +8,7 @@ function Validate() {
 
       const VALIDATE_BUTTON = (email.includes('@')
        && email.includes('.com')
-       && password.length >= MIN_CHAR);
+       && password.length > MIN_CHAR);
 
       if (VALIDATE_BUTTON) {
         setDisabled(false);
