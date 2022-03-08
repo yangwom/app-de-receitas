@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function Cards({ foodList }) {
   const arrayFood = foodList !== undefined;
@@ -22,5 +23,5 @@ export default function Cards({ foodList }) {
 }
 
 Cards.propTypes = {
-  foodsCategory: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  foodList: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
 }.isRequired;
