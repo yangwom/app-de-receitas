@@ -1,11 +1,15 @@
 import React from 'react';
 import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 
 function ExploreNationalities() {
   return (
-    <Header>
-      Explore Nationalities
-    </Header>
+    <div>
+      <Header>
+        Explore Nationalities
+      </Header>
+      <Footer />
+    </div>
   );
 }
 

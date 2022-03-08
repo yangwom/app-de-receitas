@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import SearchBar from '../SearchBar';
 import ButtonSearch from '../ButtonSearch';
+import './style.css';
 
 function Header({ children }) {
   const history = useHistory();
