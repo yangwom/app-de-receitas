@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-function Foods({ history }) {
+function Foods() {
   return (
     <div>
-      <Header history={ history }>
+      <Header>
         Foods
       </Header>
       <Footer />
     </div>
-
   );
 }
 

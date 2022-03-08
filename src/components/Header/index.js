@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import SearchBar from '../SearchBar';
 import ButtonSearch from '../ButtonSearch';
 import './style.css';
 
-function Header({ children, history }) {
+function Header({ children }) {
+  const history = useHistory();
   const [ShouldSearchBar, setShouldSearchBar] = useState(false);
   const verify = children === 'Foods' || children === 'Drinks' || children
     === 'Explore Nationalities';

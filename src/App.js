@@ -15,45 +15,52 @@ import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreIngredients from './pages/ExploreIngredients';
 import ExploreNationalities from './pages/ExploreNationalities';
+import MyProvider from './context/MyContext';
 
 function App() {
   return (
-    <div className="App">
-      <img src={ Camera } alt="camera" />
-      <Switch>
-        {/*  <Route exact path="/foods:id" component={} />
-      <Route exact path="/foods:id/in-progress" component={} />
-      <Route exact path="/drinks:id" component={} />
-      <Route exact path="/drinks:id/in-progress" component={} /> */}
+    <MyProvider>
+      <div className="App">
+        <img src={ Camera } alt="camera" className="camera" />
+        <Switch>
+          {/*  <Route exact path="/foods:id/in-progress" component={} />
+            <Route exact path="/drinks:id/in-progress" component={} /> */}
 
-        <Route
-          exact
-          path="/explore/drinks/nationalities"
-          component={ ExploreNationalities }
-        />
-        <Route
-          exact
-          path="/explore/foods/nationalities"
-          component={ ExploreNationalities }
-        />
-        <Route
-          exact
-          path="/explore/drinks/ingredients"
-          component={ ExploreIngredients }
-        />
-        <Route exact path="/explore/foods/ingredients" component={ ExploreIngredients } />
-        <Route exact path="/explore/drinks" component={ ExploreDrinks } />
-        <Route exact path="/explore/foods" component={ ExploreFoods } />
-        <Route exact path="/done-recipes" component={ DoneRecipes } />
-        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-        <Route exact path="/foods" component={ Foods } />
-        <Route exact path="/drinks" component={ Drinks } />
-        <Route exact path="/profile" component={ Profile } />
-        <Route exact path="/explore" component={ Explore } />
-        <Route exact path="/" component={ Login } />
-      </Switch>
+          <Route
+            exact
+            path="/explore/drinks/nationalities"
+            component={ ExploreNationalities }
+          />
+          <Route exact path="/foods/{id-da-receita}" component={ Foods } />
+          <Route exact path="/drinks/{id-da-receita}" component={ Drinks } />
+          <Route
+            exact
+            path="/explore/foods/nationalities"
+            component={ ExploreNationalities }
+          />
+          <Route
+            exact
+            path="/explore/drinks/ingredients"
+            component={ ExploreIngredients }
+          />
+          <Route
+            exact
+            path="/explore/foods/ingredients"
+            component={ ExploreIngredients }
+          />
+          <Route exact path="/explore/drinks" component={ ExploreDrinks } />
+          <Route exact path="/explore/foods" component={ ExploreFoods } />
+          <Route exact path="/done-recipes" component={ DoneRecipes } />
+          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+          <Route exact path="/foods" component={ Foods } />
+          <Route exact path="/drinks" component={ Drinks } />
+          <Route exact path="/profile" component={ Profile } />
+          <Route exact path="/explore" component={ Explore } />
+          <Route exact path="/" component={ Login } />
+        </Switch>
 
-    </div>
+      </div>
+    </MyProvider>
   );
 }
 
