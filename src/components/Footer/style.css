@@ -1,0 +1,23 @@
+footer {
+  align-items: center;
+  background-color: #f2c08f;
+  border-radius: 0 0 35px 35px;
+  bottom: 0;
+  display: flex;
+  height: 60px;
+  justify-content: space-around;
+  position: fixed;
+  text-align: center;
+  width: 354px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  margin-right: 36px;
+}
+
+footer img {
+  width: 26px;
+}
+
