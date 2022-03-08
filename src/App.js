@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
+import Login from './components/Login';
 import Foods from './pages/Foods';
 import Camera from './images/camera.png';
 import Drinks from './pages/Drinks';
@@ -24,31 +25,30 @@ function App() {
       <Route exact path="/foods:id/in-progress" component={} />
       <Route exact path="/drinks:id" component={} />
       <Route exact path="/drinks:id/in-progress" component={} /> */}
-        <Route
-          exact
-          path="/explore/drinks/nationalities"
-          component={ ExploreNationalities }
-        />
-        <Route
-          exact
-          path="/explore/foods/nationalities"
-          component={ ExploreNationalities }
-        />
-        <Route
-          exact
-          path="/explore/drinks/ingredients"
-          component={ ExploreIngredients }
-        />
-        <Route exact path="/explore/foods/ingredients" component={ ExploreIngredients } />
-        <Route exact path="/explore/drinks" component={ ExploreDrinks } />
-        <Route exact path="/explore/foods" component={ ExploreFoods } />
-        <Route exact path="/done-recipes" component={ DoneRecipes } />
-        <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-        <Route exact path="/foods" component={ Foods } />
-        <Route exact path="/drinks" component={ Drinks } />
-        <Route exact path="/profile" component={ Profile } />
-        <Route exact path="/explore" component={ Explore } />
-      </Switch>
+
+      <Route
+        exact
+        path="/explore/drinks/nationalities"
+        component={ ExploreNationalities }
+      />
+      <Route
+        exact
+        path="/explore/foods/nationalities"
+        component={ ExploreNationalities }
+      />
+      <Route exact path="/explore/drinks/ingredients" component={ ExploreIngredients } />
+      <Route exact path="/explore/foods/ingredients" component={ ExploreIngredients } />
+      <Route exact path="/explore/drinks" component={ ExploreDrinks } />
+      <Route exact path="/explore/foods" component={ ExploreFoods } />
+      <Route exact path="/done-recipes" component={ DoneRecipes } />
+      <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+      <Route exact path="/foods" component={ Foods } />
+      <Route exact path="/drinks" component={ Drinks } />
+      <Route exact path="/profile" component={ Profile } />
+      <Route exact path="/explore" component={ Explore } />
+      <Route exact path="/" component={ Login } />
+    </Switch>
+
     </div>
   );
 }
