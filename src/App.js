@@ -43,6 +43,7 @@ function App() {
       <Route exact path="/profile" component={ Profile } />
       <Route exact path="/explore" component={ Explore } />
       <Route exact path="/" component={ Login } />
+      {/* teste */}
     </Switch>
   );
 }
