@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { fetchFoods, fetchFoodsCategory } from '../../services/fechApi';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-
 import Cards from '../../components/Cards';
 import FoodsCategory from '../../components/FoodsCategory';
-import Footer from '../../components/Footer';
 
 function Foods({ history }) {
   const [food, setFood] = useState();
