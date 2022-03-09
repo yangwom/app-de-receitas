@@ -13,7 +13,7 @@ function Footer() {
           <img
             src={ mealIcon }
             alt="melalIcon"
-            className="melalIcon"
+            className="icon"
             data-testid="food-bottom-btn"
           />
         </Link>
@@ -21,7 +21,7 @@ function Footer() {
           <img
             src={ exploreIcon }
             alt="exploreIcon"
-            className="exploreIcon"
+            className="icon"
             data-testid="explore-bottom-btn"
           />
         </Link>
@@ -29,7 +29,7 @@ function Footer() {
           <img
             src={ drinkIcon }
             alt="drinkIcon"
-            className="drinkIcon"
+            className="icon"
             data-testid="drinks-bottom-btn"
           />
         </Link>
