@@ -1,3 +1,52 @@
 header {
-  margin-right: 35px;
+  background-color: #f2c08f;
+  color: #fc6432;
+  font-family: Caveat , cursive;
+  font-size: 20px;
+  width: 358px;
+}
+
+header button {
+  background-color: transparent;
+  border: none;
+}
+
+header button img {
+  border: none;
+  cursor: pointer;
+  width: 35px;
+}
+
+.container-camera {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.container-camera img {
+  margin-top: 5px;
+}
+
+.container-header {
+  align-items: center;
+  display: flex;
+  height: 80px;
+  justify-content: space-around;
+}
+
+.profile-icon {
+  background-color: #f2c08f;
+  border: none;
+  cursor: pointer;
+  width: 38px;
+}
+
+.icon:hover {
+  opacity: 0.5;
+}
+
+.container-searchBar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }

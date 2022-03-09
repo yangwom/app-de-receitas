@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
-import Login from './components/Login';
+import Login from './components/Login/Login';
 import Foods from './pages/Foods';
-import Camera from './images/camera.png';
 import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
@@ -19,48 +17,53 @@ import MyProvider from './context/MyContext';
 
 function App() {
   return (
-    <MyProvider>
-      <div className="App">
-        <img src={ Camera } alt="camera" className="camera" />
-        <Switch>
-          {/*  <Route exact path="/foods:id/in-progress" component={} />
+    <>
+      <div className="title-group">
+        <h1>App De Receitas</h1>
+        <span>Grupo - 18</span>
+      </div>
+      <MyProvider>
+        <div className="App">
+          <Switch>
+            {/*  <Route exact path="/foods:id/in-progress" component={} />
             <Route exact path="/drinks:id/in-progress" component={} /> */}
 
-          <Route
-            exact
-            path="/explore/drinks/nationalities"
-            component={ ExploreNationalities }
-          />
-          <Route exact path="/foods/{id-da-receita}" component={ Foods } />
-          <Route exact path="/drinks/{id-da-receita}" component={ Drinks } />
-          <Route
-            exact
-            path="/explore/foods/nationalities"
-            component={ ExploreNationalities }
-          />
-          <Route
-            exact
-            path="/explore/drinks/ingredients"
-            component={ ExploreIngredients }
-          />
-          <Route
-            exact
-            path="/explore/foods/ingredients"
-            component={ ExploreIngredients }
-          />
-          <Route exact path="/explore/drinks" component={ ExploreDrinks } />
-          <Route exact path="/explore/foods" component={ ExploreFoods } />
-          <Route exact path="/done-recipes" component={ DoneRecipes } />
-          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-          <Route exact path="/foods" component={ Foods } />
-          <Route exact path="/drinks" component={ Drinks } />
-          <Route exact path="/profile" component={ Profile } />
-          <Route exact path="/explore" component={ Explore } />
-          <Route exact path="/" component={ Login } />
-        </Switch>
+            <Route
+              exact
+              path="/explore/drinks/nationalities"
+              component={ ExploreNationalities }
+            />
+            <Route exact path="/foods/{id-da-receita}" component={ Foods } />
+            <Route exact path="/drinks/{id-da-receita}" component={ Drinks } />
+            <Route
+              exact
+              path="/explore/foods/nationalities"
+              component={ ExploreNationalities }
+            />
+            <Route
+              exact
+              path="/explore/drinks/ingredients"
+              component={ ExploreIngredients }
+            />
+            <Route
+              exact
+              path="/explore/foods/ingredients"
+              component={ ExploreIngredients }
+            />
+            <Route exact path="/explore/drinks" component={ ExploreDrinks } />
+            <Route exact path="/explore/foods" component={ ExploreFoods } />
+            <Route exact path="/done-recipes" component={ DoneRecipes } />
+            <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+            <Route exact path="/foods" component={ Foods } />
+            <Route exact path="/drinks" component={ Drinks } />
+            <Route exact path="/profile" component={ Profile } />
+            <Route exact path="/explore" component={ Explore } />
+            <Route exact path="/" component={ Login } />
+          </Switch>
 
-      </div>
-    </MyProvider>
+        </div>
+      </MyProvider>
+    </>
   );
 }
 

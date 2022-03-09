@@ -1,0 +1,35 @@
+.container__filter {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+}
+
+.container__filter input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #f27b50;
+  margin-bottom: 3px;
+}
+
+.container__filter input:focus {
+  outline: none;
+}
+
+.container__filter button {
+  background-color: #f27b50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  width: 70%;
+}
+
+.label__filter {
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+}
