@@ -11,3 +11,10 @@ export const fetchFoodsCategory = async () => {
   const data = await response.json();
   return data;
 };
+
+export const fetchDrinksCards = async () => {
+  const urlDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(urlDrinks);
+  const data = await response.json();
+  return data;
+};
