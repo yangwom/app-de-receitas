@@ -1,48 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { fetchFoods, fetchFoodsCategory } from '../../services/fechApi';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-
+import React, { useContext } from 'react';
 import Cards from '../../components/Cards';
-import FoodsCategory from '../../components/FoodsCategory';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import { MyContext } from '../../context/MyContext';
 
-function Foods({ history }) {
-  const [food, setFood] = useState();
+function Foods() {
+  const { foods, foodCategory,
+    getSearchByCategory } = useContext(MyContext);
+  const MAX_RECIPES = 12;
+  const MAX_CATEGORY = 5;
+  const slicedFoods = foods.slice(0, MAX_RECIPES);
+  const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
 
-  const getFoods = async () => {
-    const foods = await fetchFoods();
-    setFood(foods.meals);
-  };
-  useEffect(() => {
-    getFoods();
-  }, []);
-
-  const [foodCategory, setFoodCategory] = useState();
-
-  const getFoodsCategory = async () => {
-    const foods = await fetchFoodsCategory();
-    setFoodCategory(foods.meals);
-  };
-  useEffect(() => {
-    getFoodsCategory();
-  }, []);
-  console.log(foodCategory);
   return (
     <>
-      <Header history={ history }>
+      <Header>
         Foods
       </Header>
-      <Cards foodList={ food } />
-      <FoodsCategory foodsCategory={ foodCategory } />
+      <ul>
+        { foods.length !== 0 && slicedFoods
+          .map((food, index) => (
+            <Cards
+              key={ food.idMeal }
+              index={ index }
+              src={ food.strMealThumb }
+              id={ food.idMeal }
+              name={ food.strMeal }
+            />
+          ))}
+
+      </ul>
+
+      { foodCategory.length !== 0 && slicedCategory
+        .map((category, index) => (
+          <button
+            data-testid={ `${category.strCategory}-category-filter` }
+            key={ index }
+            type="button"
+            onClick={ () => getSearchByCategory(category.strCategory) }
+          >
+            { category.strCategory }
+          </button>
+        ))}
       <Footer />
     </>
   );
 }
-
-Foods.propTypes = {
-  history: PropTypes.string,
-}.isRequired;
 
 export default Foods;

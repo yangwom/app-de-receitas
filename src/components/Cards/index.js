@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Cards({ foodList }) {
-  const arrayFood = foodList !== undefined;
-  const number = 12;
+export default function Cards({ id, src, name, index }) {
   return (
-    <ul>
-      {arrayFood === true
-        ? foodList
-          .filter((food) => foodList.indexOf(food) < number)
-          .map((food, index) => (
-            <li data-testid={ `${index}-recipe-card` } key={ food.idMeal }>
-              <div>
-                <img src={ food.strMealThumb } alt="imagem" />
-                <h1>{food.strMeal}</h1>
-              </div>
-            </li>
-          ))
-        : 'carregando'}
-    </ul>
+
+    <li data-testid={ `${index}-recipe-card` } key={ id }>
+      <div className="card-food">
+        <img
+          data-testid={ `${index}-card-img` }
+          src={ src }
+          alt="imagem"
+        />
+        <h4 data-testid={ `${index}-card-name` }>{ name }</h4>
+      </div>
+    </li>
+
   );
 }
 
 Cards.propTypes = {
-  foodList: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  id: PropTypes.number,
+  src: PropTypes.string,
+  name: PropTypes.string,
+  index: PropTypes.number,
 }.isRequired;
