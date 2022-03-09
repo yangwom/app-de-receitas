@@ -1,50 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { fetchFoods, fetchFoodsCategory } from '../../services/fechApi';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import React, { useContext } from 'react';
 import Cards from '../../components/Cards';
-import FoodsCategory from '../../components/FoodsCategory';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import { MyContext } from '../../context/MyContext';
 
 function Foods() {
-  const [foods, setFoods] = useState();
+  const { foods, foodCategory,
+    getSearchByCategory } = useContext(MyContext);
+  const MAX_RECIPES = 12;
+  const MAX_CATEGORY = 5;
+  const slicedFoods = foods.slice(0, MAX_RECIPES);
+  const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
 
-  const getFoods = async () => {
-    const data = await fetchFoods();
-    setFoods(data.meals);
-  };
-  useEffect(() => {
-    getFoods();
-  }, []);
-
-  const [foodCategory, setFoodCategory] = useState();
-
-  const getFoodsCategory = async () => {
-    const data = await fetchFoodsCategory();
-    setFoodCategory(data.meals);
-  };
-  useEffect(() => {
-    getFoodsCategory();
-  }, []);
-  console.log(foods);
-  const verify = foods !== undefined;
-  console.log(verify);
   return (
     <>
       <Header>
         Foods
       </Header>
-      { verify === true ? foods.filter((food) => drink.indexOf(food) < number)
-        .map((food, index) => (
-          <Cards
-            key={ food.idMeal }
-            index={ index }
-            src={ food.strMealThumb }
-            id={ food.idMeal }
-            name={ food.strMeal }
-          />
-        )) : 'carregando'}
+      <ul>
+        { foods.length !== 0 && slicedFoods
+          .map((food, index) => (
+            <Cards
+              key={ food.idMeal }
+              index={ index }
+              src={ food.strMealThumb }
+              id={ food.idMeal }
+              name={ food.strMeal }
+            />
+          ))}
 
-      <FoodsCategory foodsCategory={ foodCategory } />
+      </ul>
+
+      { foodCategory.length !== 0 && slicedCategory
+        .map((category, index) => (
+          <button
+            data-testid={ `${category.strCategory}-category-filter` }
+            key={ index }
+            type="button"
+            onClick={ () => getSearchByCategory(category.strCategory) }
+          >
+            { category.strCategory }
+          </button>
+        ))}
       <Footer />
     </>
   );

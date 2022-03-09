@@ -8,7 +8,7 @@
   flex-direction: column;
   height: 640px;
   min-height: 640px;
-  overflow: auto;
+  overflow: auto; 
   position: relative;
   width: 360px;
 }
