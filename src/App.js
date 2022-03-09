@@ -3,8 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
-import Login from './components/Login';
-import Foods from './pages/Foods';
+import Login from './pages/Login';
 import Camera from './images/camera.png';
 import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
@@ -16,6 +15,7 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreIngredients from './pages/ExploreIngredients';
 import ExploreNationalities from './pages/ExploreNationalities';
 import MyProvider from './context/MyContext';
+import Foods from './pages/Foods';
 
 function App() {
   return (
