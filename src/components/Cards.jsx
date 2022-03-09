@@ -11,9 +11,13 @@ export default function Cards({ foodList }) {
           .filter((food) => foodList.indexOf(food) < number)
           .map((food, index) => (
             <li data-testid={ `${index}-recipe-card` } key={ food.idMeal }>
-              <div>
-                <img src={ food.strMealThumb } alt="imagem" />
-                <h1>{food.strMeal}</h1>
+              <div className="card-food">
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ food.strMealThumb }
+                  alt="imagem"
+                />
+                <h4 data-testid={ `${index}-card-name` }>{food.strMeal}</h4>
               </div>
             </li>
           ))

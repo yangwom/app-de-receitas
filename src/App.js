@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
 import Login from './components/Login';
-import Foods from './pages/Foods';
+import Foods from './pages/Foods/index';
 import Camera from './images/camera.png';
 import Drinks from './pages/Drinks';
 import Profile from './pages/Profile';
