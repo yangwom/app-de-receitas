@@ -6,6 +6,7 @@ import Footer from '../../components/Footer';
 
 import Cards from '../../components/Cards';
 import FoodsCategory from '../../components/FoodsCategory';
+import Footer from '../../components/Footer';
 
 function Foods({ history }) {
   const [food, setFood] = useState();
