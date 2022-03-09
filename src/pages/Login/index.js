@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Validate from '../../components/hooks/useValidateLogin';
+import logo from '../../images/logoApp.png';
+import './styles.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -16,30 +18,35 @@ function Login() {
   };
 
   return (
-    <form>
-      <input
-        type="email"
-        onChange={ (e) => setEmail(e.target.value) }
-        placeholder="EMAIL"
-        value={ email }
-        data-testid="email-input"
-      />
-      <input
-        type="password"
-        data-testid="password-input"
-        placeholder="PASSWORD"
-        onChange={ (e) => setPassword(e.target.value) }
-        value={ password }
-      />
-      <button
-        type="submit"
-        data-testid="login-submit-btn"
-        disabled={ disabled }
-        onClick={ onClickButton }
-      >
-        Enter
-      </button>
-    </form>
+    <div className="login">
+      <div className="login__container">
+        <img src={ logo } alt="logo" className="login__logo" />
+      </div>
+      <form className="login__form">
+        <input
+          type="email"
+          onChange={ (e) => setEmail(e.target.value) }
+          placeholder="Email"
+          value={ email }
+          data-testid="email-input"
+        />
+        <input
+          type="password"
+          data-testid="password-input"
+          placeholder="Password"
+          onChange={ (e) => setPassword(e.target.value) }
+          value={ password }
+        />
+        <button
+          type="submit"
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          onClick={ onClickButton }
+        >
+          Enter
+        </button>
+      </form>
+    </div>
   );
 }
 
