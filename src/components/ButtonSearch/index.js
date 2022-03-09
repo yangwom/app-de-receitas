@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import searchIcon from '../../images/searchIcon.svg';
+import './styles.css';
 
 function ButtonSearch({ ShouldSearchBar, setShouldSearchBar }) {
   return (
@@ -12,6 +13,7 @@ function ButtonSearch({ ShouldSearchBar, setShouldSearchBar }) {
         data-testid="search-top-btn"
         src={ searchIcon }
         alt="Search"
+        className="icon"
       />
     </button>
   );

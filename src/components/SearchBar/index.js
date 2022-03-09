@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
+import './styles.css';
 import {
   fetchIngredientFood,
   fetchNameFood,
@@ -78,7 +79,7 @@ function SearchBar() {
   }
 
   return (
-    <div>
+    <div className="container__filter">
       <input
         data-testid="search-input"
         onChange={ ({ target: value }) => {
@@ -86,44 +87,47 @@ function SearchBar() {
         } }
         type="text"
       />
-      <label
-        htmlFor="inputSearchRadio"
-        onChange={ ({ target: { value } }) => { radioInput.current = value; } }
-      >
-        {' '}
-        Ingredient
-        <input
-          data-testid="ingredient-search-radio"
-          id="inputSearchRadio"
-          name="radioInput"
-          type="radio"
-          value="Ingredient"
-        />
+      <div className="container__filter-radio">
+        <label
+          className="label__filter"
+          htmlFor="inputSearchRadio"
+          onChange={ ({ target: { value } }) => { radioInput.current = value; } }
+        >
+          Ingredient
+          <input
+            data-testid="ingredient-search-radio"
+            id="inputSearchRadio"
+            name="radioInput"
+            type="radio"
+            value="Ingredient"
+          />
+          <span>Name</span>
+          <input
+            id="inputSearchRadio"
+            name="radioInput"
+            type="radio"
+            value="Name"
+            data-testid="name-search-radio"
+          />
 
-        Name
-        <input
-          id="inputSearchRadio"
-          name="radioInput"
-          type="radio"
-          value="Name"
-          data-testid="name-search-radio"
-        />
-
-        First letter
-        <input
-          data-testid="first-letter-search-radio"
-          id="inputSearchRadio"
-          name="radioInput"
-          type="radio"
-          value="First letter"
-        />
-      </label>
-      <input
+          First letter
+          <input
+            data-testid="first-letter-search-radio"
+            id="inputSearchRadio"
+            name="radioInput"
+            type="radio"
+            value="First letter"
+          />
+        </label>
+      </div>
+      <button
         data-testid="exec-search-btn"
         onClick={ () => handleClick() }
         type="button"
-        value="Search"
-      />
+      >
+        search
+      </button>
+
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Validate from './hooks/useValidateLogin';
+import Validate from '../../components/hooks/useValidateLogin';
 
 function Login() {
   const [email, setEmail] = useState('');
