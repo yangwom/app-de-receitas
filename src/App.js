@@ -43,11 +43,11 @@ function App() {
               path="/explore/foods/nationalities"
               component={ ExploreNationalities }
             />
-            {/* <Route
+            <Route
               exact
               path="/explore/drinks/ingredients"
               component={ ExploreIngredients }
-            /> */}
+            />
             <Route
               exact
               path="/explore/foods/ingredients"

@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 
 function Recomendation(props) {
   const { recomendation } = props;
+  console.log(recomendation);
   return (
     <div>
       <h1>Recomendation</h1>
-      <ul>
-        { recomendation.map((drink, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            { drink.strDrink }
+      { recomendation.map((item, index) => (
+        <ul
+          key={ index }
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <li>
+            <img src={ item.strDrinksThumb } alt="item" />
           </li>
-        )) }
-      </ul>
+        </ul>
+      )) }
     </div>
   );
 }
