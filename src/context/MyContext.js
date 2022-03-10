@@ -16,6 +16,7 @@ function MyProvider({ children }) {
   const [drinks, setDrinks] = useState([]);
   const [foodCategory, setFoodCategory] = useState([]);
   const [drinkCategory, setDrinkCategory] = useState([]);
+  const [category, setCategory] = useState();
 
   const getFoods = async () => {
     const data = await fetchFoods();
@@ -64,6 +65,11 @@ function MyProvider({ children }) {
     drinkCategory,
     getSearchByCategory,
     getFetchDrinkByCategory,
+    setFoods,
+    getFoods,
+    getDrink,
+    category,
+    setCategory,
   };
 
   return (

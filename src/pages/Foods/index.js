@@ -5,9 +5,13 @@ import Header from '../../components/Header';
 import { MyContext } from '../../context/MyContext';
 
 function Foods() {
-  const [category, setCategory] = useState();
-  const { foods, foodCategory,
-    getSearchByCategory, getFoods } = useContext(MyContext);
+  const {
+    foods,
+    foodCategory,
+    getSearchByCategory,
+    getFoods,
+    category,
+    setCategory } = useContext(MyContext);
 
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
@@ -20,7 +24,7 @@ function Foods() {
         Foods
       </Header>
       <div className="container__foods">
-        { foodCategory && slicedCategory
+        { foodCategory.length !== 0 && slicedCategory
           .map(({ strCategory }, index) => (
             <button
               data-testid={ `${strCategory}-category-filter` }
@@ -36,7 +40,7 @@ function Foods() {
                 }
               } }
             >
-              { strCategory }
+              {strCategory }
             </button>
           ))}
         <ul style={ { display: 'grid', gridTemplateColumns: 'repeat(3, 100px' } }>
