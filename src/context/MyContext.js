@@ -66,6 +66,7 @@ function MyProvider({ children }) {
     drinkCategory,
     getSearchByCategory,
     getFetchDrinkByCategory,
+    setFoods,
   };
 
   return (

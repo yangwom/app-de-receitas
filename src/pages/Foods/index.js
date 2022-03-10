@@ -5,13 +5,17 @@ import Header from '../../components/Header';
 import { MyContext } from '../../context/MyContext';
 
 function Foods() {
-  const { foods, foodCategory,
+  const {
+    foods,
+    foodCategory,
     getSearchByCategory } = useContext(MyContext);
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
   const slicedFoods = foods.slice(0, MAX_RECIPES);
   const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
-
+  const onClickFilter = (category) => {
+    getSearchByCategory(category.strCategory);
+  };
   return (
     <>
       <Header>
@@ -37,7 +41,7 @@ function Foods() {
             data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
             type="button"
-            onClick={ () => getSearchByCategory(category.strCategory) }
+            onClick={ () => onClickFilter(category.strCategory) }
           >
             { category.strCategory }
           </button>
