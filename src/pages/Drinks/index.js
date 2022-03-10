@@ -20,6 +20,16 @@ function Drinks() {
       <Header>
         Drinks
       </Header>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => {
+          getDrink();
+        } }
+      >
+        All
+
+      </button>
       { drinkCategory.length !== 0 && slicedCategory
         .map(({ strCategory }, index) => (
           <button

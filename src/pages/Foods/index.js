@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -24,6 +24,16 @@ function Foods() {
         Foods
       </Header>
       <div className="container__foods">
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => {
+            getFoods();
+          } }
+        >
+          All
+
+        </button>
         { foodCategory.length !== 0 && slicedCategory
           .map(({ strCategory }, index) => (
             <button

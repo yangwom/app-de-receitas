@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory, Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 export default function Cards({ id, src, name, index }) {
+  const history = useHistory();
+  const pathName = history.location.pathname;
   return (
-
-    <li data-testid={ `${index}-recipe-card` } key={ id }>
-      <div className="card-food">
+    <Link to={ `${pathName}/${id}` }>
+      <div
+        className="card-food"
+        data-testid={ `${index}-recipe-card` }
+        key={ id }
+      >
         <img
           data-testid={ `${index}-card-img` }
           src={ src }
@@ -13,8 +20,7 @@ export default function Cards({ id, src, name, index }) {
         />
         <h4 data-testid={ `${index}-card-name` }>{ name }</h4>
       </div>
-    </li>
-
+    </Link>
   );
 }
 
