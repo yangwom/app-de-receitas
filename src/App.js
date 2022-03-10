@@ -30,11 +30,11 @@ function App() {
             {/*  <Route exact path="/foods:id/in-progress" component={} />
             <Route exact path="/drinks:id/in-progress" component={} /> */}
 
-            {/* <Route
+            <Route
               exact
               path="/explore/drinks/nationalities"
               component={ ExploreNationalities }
-            /> */}
+            />
             <Route exact path="/foods/:id" component={ DetailsRecipesFoods } />
             <Route exact path="/foods" component={ Foods } />
             <Route exact path="/drinks/:id" component={ DetailsRecipesDrinks } />
@@ -43,11 +43,11 @@ function App() {
               path="/explore/foods/nationalities"
               component={ ExploreNationalities }
             />
-            {/* <Route
+            <Route
               exact
               path="/explore/drinks/ingredients"
               component={ ExploreIngredients }
-            /> */}
+            />
             <Route
               exact
               path="/explore/foods/ingredients"
