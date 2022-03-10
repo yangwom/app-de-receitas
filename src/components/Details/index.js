@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Details(props) {
-  const { src, title, category, instructions, video } = props;
+  const { src, title, category, instructions, video, ingredients } = props;
   return (
     <div>
       <img
@@ -31,15 +31,16 @@ function Details(props) {
         { category }
 
       </h3>
-      {/* <ul>
-        {map((ingredient, _, index) => (
+      <ul>
+        { ingredients.map((ingredient, index) => (
           <li
+            key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
           >
-            {ingredient}
+            { ingredient }
           </li>
-        ))}
-      </ul> */}
+        )) }
+      </ul>
       <h3
         data-testid="instructions"
       >
@@ -54,9 +55,6 @@ function Details(props) {
       >
         <track kind="captions" />
       </video>
-      {/* <recomendation
-        data-testid={ `${index}-recomendation-card` }
-      /> */}
       <input
         type="button"
         value="start recipe"
@@ -73,6 +71,7 @@ Details.propTypes = {
   category: PropTypes.string,
   instructions: PropTypes.string,
   video: PropTypes.video,
+  ingredients: PropTypes.array,
 }.isRequired;
 
 export default Details;

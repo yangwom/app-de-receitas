@@ -25,3 +25,10 @@ export const fetchFoodId = async (id) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchRecomendationDrinks = async () => {
+  const endpointRecomendation = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(endpointRecomendation);
+  const data = await response.json();
+  return data;
+};
