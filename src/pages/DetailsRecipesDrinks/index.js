@@ -7,7 +7,7 @@ import Recomendation from '../../components/Recomendation';
 
 function DetailsRecipesDrinks() {
   const [useDrinks, setUseDrinks] = useState([]);
-  const [useIngredients, setUseIngredients] = useState([]);
+  const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
 
   const { id } = useParams();
@@ -25,23 +25,21 @@ function DetailsRecipesDrinks() {
     setUseRecommended(response.meals);
   }
 
-  function getIngredients() {
-    const ingredients = [];
+  function getmeasureAndIngredients() {
+    const measureAndIngredients = [];
+
     for (let i = 1; i <= NUMBER_INGREDIENTS; i += 1) {
       if (useDrinks[0][`strIngredient${i}`]) {
-        ingredients.push(useDrinks[0][`strIngredient${i}`]);
+        measureAndIngredients.push(`${useDrinks[0][`strIngredient${i}`]}: 
+          ${useDrinks[0][`strMeasure${i}`]}`);
       }
     }
-    setUseIngredients(ingredients);
+    setUseMeasureAndIngredients(measureAndIngredients);
   }
-
-  console.log(useIngredients);
-  console.log(useDrinks[0]);
-  console.log(useRecommended);
 
   useEffect(() => {
     if (useDrinks[0] !== undefined) {
-      getIngredients();
+      getmeasureAndIngredients();
     }
   }, [useDrinks]);
 
@@ -50,16 +48,18 @@ function DetailsRecipesDrinks() {
     getDetailsRecipesRecomendationFoods();
   }, []);
 
+  console.log(useDrinks);
+
   return (
     <div>
-      <h1>oi</h1>
       {useDrinks[0] !== undefined
       && <Details
         src={ useDrinks[0].strMealThumb }
-        title={ useDrinks[0].srtMeal }
+        title={ useDrinks[0].strDrink }
         category={ useDrinks[0].strCategory }
+        alcoholic={ useDrinks[0].strAlcoholic }
         instructions={ useDrinks[0].strInstructions }
-        ingredients={ useIngredients }
+        measureAndIngredients={ useMeasureAndIngredients }
         video={ useDrinks[0].strYoutube }
         recomendation={ useRecommended }
       />}

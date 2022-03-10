@@ -7,8 +7,10 @@ import Recomendation from '../../components/Recomendation';
 
 function DetailsRecipesFoods() {
   const [useFoods, setUseFoods] = useState([]);
-  const [useIngredients, setUseIngredients] = useState([]);
+  const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
+
+  console.log(useRecommended);
 
   const { id } = useParams();
   const NUMBER_INGREDIENTS = 20;
@@ -25,23 +27,23 @@ function DetailsRecipesFoods() {
     setUseRecommended(response.drinks);
   }
 
-  function getIngredients() {
-    const ingredients = [];
+  function getmeasureAndIngredients() {
+    const measureAndIngredients = [];
+
     for (let i = 1; i <= NUMBER_INGREDIENTS; i += 1) {
       if (useFoods[0][`strIngredient${i}`]) {
-        ingredients.push(useFoods[0][`strIngredient${i}`]);
+        measureAndIngredients.push(`${useFoods[0][`strIngredient${i}`]}: 
+          ${useFoods[0][`strMeasure${i}`]}`);
       }
     }
-    setUseIngredients(ingredients);
+    setUseMeasureAndIngredients(measureAndIngredients);
   }
 
-  console.log(useIngredients);
   console.log(useFoods[0]);
-  console.log(useRecommended);
 
   useEffect(() => {
     if (useFoods[0] !== undefined) {
-      getIngredients();
+      getmeasureAndIngredients();
     }
   }, [useFoods]);
 
@@ -52,14 +54,13 @@ function DetailsRecipesFoods() {
 
   return (
     <div>
-      <h1>oi</h1>
       {useFoods[0] !== undefined
       && <Details
         src={ useFoods[0].strMealThumb }
-        title={ useFoods[0].srtMeal }
+        title={ useFoods[0].strMeal }
         category={ useFoods[0].strCategory }
         instructions={ useFoods[0].strInstructions }
-        ingredients={ useIngredients }
+        measureAndIngredients={ useMeasureAndIngredients }
         video={ useFoods[0].strYoutube }
         recomendation={ useRecommended }
       />}
