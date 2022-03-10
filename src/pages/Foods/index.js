@@ -13,37 +13,38 @@ function Foods() {
   const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
 
   return (
-    <>
+    <div>
       <Header>
         Foods
       </Header>
-      <ul>
-        { foods.length !== 0 && slicedFoods
-          .map((food, index) => (
-            <Cards
-              key={ food.idMeal }
-              index={ index }
-              src={ food.strMealThumb }
-              id={ food.idMeal }
-              name={ food.strMeal }
-            />
+      <div className="container__foods">
+        { foodCategory.length !== 0 && slicedCategory
+          .map((category, index) => (
+            <button
+              data-testid={ `${category.strCategory}-category-filter` }
+              key={ index }
+              type="button"
+              onClick={ () => getSearchByCategory(category.strCategory) }
+            >
+              { category.strCategory }
+            </button>
           ))}
+        <ul style={ { display: 'grid', gridTemplateColumns: 'repeat(3, 100px' } }>
+          { foods.length !== 0 && slicedFoods
+            .map((food, index) => (
+              <Cards
+                key={ food.idMeal }
+                index={ index }
+                src={ food.strMealThumb }
+                id={ food.idMeal }
+                name={ food.strMeal }
+              />
+            ))}
 
-      </ul>
-
-      { foodCategory.length !== 0 && slicedCategory
-        .map((category, index) => (
-          <button
-            data-testid={ `${category.strCategory}-category-filter` }
-            key={ index }
-            type="button"
-            onClick={ () => getSearchByCategory(category.strCategory) }
-          >
-            { category.strCategory }
-          </button>
-        ))}
-      <Footer />
-    </>
+        </ul>
+        <Footer />
+      </div>
+    </div>
   );
 }
 
