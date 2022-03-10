@@ -12,6 +12,7 @@ function Details(props) {
     alcoholic } = props;
   console.log(title);
   console.log(category);
+  
   return (
     <div>
       <img

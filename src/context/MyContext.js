@@ -12,12 +12,11 @@ import {
 export const MyContext = createContext();
 
 function MyProvider({ children }) {
-  const [foodSearch, setFoodSearch] = useState([]);
-  const [drinkSearch, setDrinkSearch] = useState([]);
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [foodCategory, setFoodCategory] = useState([]);
   const [drinkCategory, setDrinkCategory] = useState([]);
+  const [category, setCategory] = useState();
 
   const getFoods = async () => {
     const data = await fetchFoods();
@@ -55,17 +54,22 @@ function MyProvider({ children }) {
     getFoodsCategory();
     getDrinksCategory();
   }, []);
+
   const contextValue = {
-    foodSearch,
-    drinkSearch,
-    setFoodSearch,
-    setDrinkSearch,
+    getFoods,
+    setFoods,
+    setDrinks,
     drinks,
     foodCategory,
     foods,
     drinkCategory,
     getSearchByCategory,
     getFetchDrinkByCategory,
+    setFoods,
+    getFoods,
+    getDrink,
+    category,
+    setCategory,
   };
 
   return (
