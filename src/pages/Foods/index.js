@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
@@ -12,6 +12,7 @@ function Foods() {
     getFoods,
     category,
     setCategory } = useContext(MyContext);
+
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
   const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
@@ -43,16 +44,15 @@ function Foods() {
             </button>
           ))}
         <ul style={ { display: 'grid', gridTemplateColumns: 'repeat(3, 100px' } }>
-          { foods.length !== 0 && slicedFoods
-            .map((food, index) => (
-              <Cards
-                key={ food.idMeal }
-                index={ index }
-                src={ food.strMealThumb }
-                id={ food.idMeal }
-                name={ food.strMeal }
-              />
-            ))}
+          { foods.length !== 0 && slicedFoods.map((food, index) => (
+            <Cards
+              key={ food.idMeal }
+              index={ index }
+              src={ food.strMealThumb }
+              id={ food.idMeal }
+              name={ food.strMeal }
+            />
+          ))}
 
         </ul>
         <Footer />

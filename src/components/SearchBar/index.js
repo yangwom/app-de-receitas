@@ -15,7 +15,7 @@ import { MyContext } from '../../context/MyContext';
 const FIRST_LETTER = 'First letter';
 
 function SearchBar() {
-  const { setFoodSearch, setDrinkSearch } = useContext(MyContext);
+  const { setFoods, setDrinks } = useContext(MyContext);
 
   const nameInput = useRef(null);
   const radioInput = useRef(null);
@@ -28,22 +28,23 @@ function SearchBar() {
       if (name.length === 1) {
         resultRecipes = await fetchFirstLetterFood(name);
       } else {
-        return global.alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
+        return;
       }
-    }
-    if (type === 'Ingredient') {
+    } else if (type === 'Ingredient') {
       resultRecipes = await fetchIngredientFood(name);
-    }
-    resultRecipes = await fetchNameFood(name);
-    setFoodSearch(resultRecipes.meals);
-
-    if (resultRecipes.meals === null || resultRecipes.meals.length === 0) {
-      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else {
+      resultRecipes = await fetchNameFood(name);
     }
 
-    if (resultRecipes.meals && resultRecipes.meals.length === 1) {
+    if (resultRecipes.meals === null) {
+      return global
+        .alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (resultRecipes.meals.length === 1) {
       history.push(`/foods/${resultRecipes.meals[0].idMeal}`);
     }
+    if (resultRecipes.meals.length > 1) return setFoods(resultRecipes.meals);
   }
 
   async function handleDrinks(name, type) {
@@ -51,22 +52,23 @@ function SearchBar() {
       if (name.length === 1) {
         resultRecipes = await fetchFirstLetterDrink(name);
       } else {
-        return global.alert('Your search must have only 1 (one) character');
+        global.alert('Your search must have only 1 (one) character');
+        return;
       }
-    }
-    if (type === 'Ingredient') {
+    } else if (type === 'Ingredient') {
       resultRecipes = await fetchIngredientDrink(name);
-    }
-    resultRecipes = await fetchNameDrink(name);
-    setDrinkSearch(resultRecipes.drinks);
-
-    if (resultRecipes.drinks === null || resultRecipes.drinks.length === 0) {
-      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    } else {
+      resultRecipes = await fetchNameDrink(name);
     }
 
-    if (resultRecipes.drinks && resultRecipes.drinks.length === 1) {
+    if (resultRecipes.drinks === null) {
+      return global
+        .alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+    if (resultRecipes.drinks.length === 1) {
       history.push(`/drinks/${resultRecipes.drinks[0].idDrink}`);
     }
+    if (resultRecipes.drinks.length > 1) return setDrinks(resultRecipes.drinks);
   }
 
   function handleClick() {

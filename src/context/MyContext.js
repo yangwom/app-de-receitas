@@ -12,8 +12,6 @@ import {
 export const MyContext = createContext();
 
 function MyProvider({ children }) {
-  const [foodSearch, setFoodSearch] = useState([]);
-  const [drinkSearch, setDrinkSearch] = useState([]);
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [foodCategory, setFoodCategory] = useState([]);
@@ -56,11 +54,11 @@ function MyProvider({ children }) {
     getFoodsCategory();
     getDrinksCategory();
   }, []);
+
   const contextValue = {
-    foodSearch,
-    drinkSearch,
-    setFoodSearch,
-    setDrinkSearch,
+    getFoods,
+    setFoods,
+    setDrinks,
     drinks,
     foodCategory,
     foods,

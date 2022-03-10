@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 function Details(props) {
   const { src, title, category, instructions, video, ingredients } = props;
+
   return (
     <div>
       <img
