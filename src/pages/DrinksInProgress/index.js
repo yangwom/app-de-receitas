@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { fetchDrinkId } from '../../services/fetchApiDrink';
 import getmeasureAndIngredients from '../../services/ingredients';
+import './styles.css';
 
 function DrinksInProgress() {
   const [drinkInProgress, setDrinkInProgress] = useState(undefined);
@@ -11,13 +12,24 @@ function DrinksInProgress() {
   async function getRecipesDrinkInProgress() {
     const response = await fetchDrinkId(id);
     setDrinkInProgress(response.drinks[0]);
-    setIngredients(getmeasureAndIngredients(response.drinks[0]));
+    const ingredientsAndMeasures = getmeasureAndIngredients(response.drinks[0]);
+    const ingredientsWithDone = Object.values(ingredientsAndMeasures)
+      .map((ingredient) => ({ ingredient, done: false }));
+    setIngredients(ingredientsWithDone);
+    setIngredients(ingredientsWithDone);
   }
 
   useEffect(() => {
     getRecipesDrinkInProgress();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function handleDone(index) {
+    setIngredients((prevState) => {
+      prevState[index].done = !prevState[index].done;
+      return [...prevState];
+    });
+  }
 
   return (
     <div>
@@ -49,20 +61,25 @@ function DrinksInProgress() {
           >
             {drinkInProgress.strDrink}
           </h1>
-          <ul>
-            {ingredients !== undefined && ingredients.map((ingredient, index) => (
-              <li
-                key={ index }
-                data-testid={ `${index}-ingredient-step` }
-              >
-                <input
-                  type="checkbox"
-                  value={ ingredient }
-                />
-                {ingredient}
-              </li>
-            ))}
-          </ul>
+          <div>
+            {ingredients !== undefined && ingredients
+              .map(({ ingredient, done }, index) => (
+                <label
+                  htmlFor={ `ingredient${index}` }
+                  key={ index }
+                  data-testid={ `${index}-ingredient-step` }
+                  className={ done ? 'done' : '' }
+                >
+                  <input
+                    id={ `ingredient${index}` }
+                    type="checkbox"
+                    checked={ done }
+                    onChange={ () => handleDone(index) }
+                  />
+                  {ingredient}
+                </label>
+              ))}
+          </div>
           <p
             data-testid="instructions"
           >
