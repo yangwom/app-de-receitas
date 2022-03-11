@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles.css';
+import { Link } from 'react-router-dom';
 
 function Details(props) {
   const {
@@ -10,9 +12,7 @@ function Details(props) {
     video,
     measureAndIngredients,
     alcoholic } = props;
-  console.log(title);
-  console.log(category);
-  
+
   return (
     <div>
       <img
@@ -66,11 +66,17 @@ function Details(props) {
       >
         <track kind="captions" />
       </video>
-      <input
-        type="button"
-        value="start recipe"
-        data-testid="start-recipe-btn"
-      />
+      <Link to="/foods:id/in-progress">
+        <div className="container__btn">
+          <input
+            className="btn__start-recipe"
+            type="button"
+            value="start recipe"
+            data-testid="start-recipe-btn"
+          />
+        </div>
+      </Link>
+
     </div>
 
   );

@@ -4,6 +4,7 @@ import Details from '../../components/Details';
 import { fetchDrinkId } from '../../services/fetchApiDrink';
 import { fetchRecomendationDrinks } from '../../services/fetchApiFood';
 import Recomendation from '../../components/Recomendation';
+import './styles.css';
 
 function DetailsRecipesDrinks() {
   const [useDrinks, setUseDrinks] = useState([]);
@@ -54,7 +55,7 @@ function DetailsRecipesDrinks() {
     <div>
       {useDrinks[0] !== undefined
       && <Details
-        src={ useDrinks[0].strMealThumb }
+        src={ useDrinks[0].strDrinkThumb }
         title={ useDrinks[0].strDrink }
         category={ useDrinks[0].strCategory }
         alcoholic={ useDrinks[0].strAlcoholic }
@@ -63,10 +64,20 @@ function DetailsRecipesDrinks() {
         video={ useDrinks[0].strYoutube }
         recomendation={ useRecommended }
       />}
-      {useDrinks[0] !== undefined
-      && <Recomendation
-        recomendation={ useRecommended }
-      />}
+      <div className="container__recomendation">
+        <div className="teste">
+          {useDrinks[0] !== undefined
+      && useRecommended.map((recomendation, index) => (
+        <div className="card__recomendation" key={ index }>
+          <Recomendation
+            src={ recomendation.strMealThumb }
+            title={ recomendation.strMeal }
+            id={ index }
+          />
+        </div>
+      ))}
+        </div>
+      </div>
     </div>
   );
 }

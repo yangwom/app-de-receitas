@@ -4,17 +4,19 @@
   border: 3px solid black;
   border-radius: 35px 35px 25px 25px;
   box-shadow: 0 0 10px black;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 640px;
   min-height: 640px;
   overflow: auto;
+  padding: 80px;
   position: relative;
   width: 360px;
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 0;
 }
 
 img {
