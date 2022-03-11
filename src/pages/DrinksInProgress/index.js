@@ -49,16 +49,20 @@ function DrinksInProgress() {
           >
             {drinkInProgress.strDrink}
           </h1>
-          <ol>
+          <ul>
             {ingredients !== undefined && ingredients.map((ingredient, index) => (
               <li
                 key={ index }
                 data-testid={ `${index}-ingredient-step` }
               >
+                <input
+                  type="checkbox"
+                  value={ ingredient }
+                />
                 {ingredient}
               </li>
             ))}
-          </ol>
+          </ul>
           <p
             data-testid="instructions"
           >
