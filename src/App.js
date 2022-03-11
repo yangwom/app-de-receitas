@@ -32,11 +32,11 @@ function App() {
             <Route exact path="/foods:id/in-progress" component={ FoodsInProgress } />
             <Route exact path="/drinks:id/in-progress" component={ DrinksInProgress } />
 
-            {/* <Route
+            <Route
               exact
               path="/explore/drinks/nationalities"
               component={ ExploreNationalities }
-            /> */}
+            />
             <Route exact path="/foods/:id" component={ DetailsRecipesFoods } />
             <Route exact path="/foods" component={ Foods } />
             <Route exact path="/drinks/:id" component={ DetailsRecipesDrinks } />
