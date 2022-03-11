@@ -4,17 +4,19 @@
   border: 3px solid black;
   border-radius: 35px 35px 25px 25px;
   box-shadow: 0 0 10px black;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   height: 640px;
   min-height: 640px;
-  overflow: auto; 
+  overflow: auto;
+  padding: 80px;
   position: relative;
   width: 360px;
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 0;
 }
 
 img {
@@ -28,7 +30,7 @@ img {
 
 .title-group h1 {
   color: #f4cd6d;
-  font-family: Caveat, cursive;
+  font-family: Caveat , cursive;
   font-size: 70px;
   margin: 0;
   text-shadow: 0 1px 10px #ffb70075;
@@ -36,7 +38,7 @@ img {
 
 .title-group span {
   color: #f1cb69;
-  font-family: Caveat, cursive;
+  font-family: Caveat , cursive;
   font-size: 40px;
   font-weight: 600;
   text-shadow: 0 1px 10px #fab300;

@@ -2,26 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Recomendation(props) {
-  const { recomendation } = props;
+  const { src, title, id } = props;
+
+  console.log(id);
+
   return (
-    <div>
-      <h1>Recomendation</h1>
-      <ul>
-        { recomendation.map((drink, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            { drink.strDrink }
-          </li>
-        )) }
-      </ul>
+    <div data-testid={ `${id}-recomendation-card` }>
+
+      <p data-testid={ `${id}-recomendation-title` }>
+        {title}
+      </p>
+
+      <img src={ src } alt="item" />
+
     </div>
   );
 }
 
 Recomendation.propTypes = {
-  recomendation: PropTypes.array,
+  src: PropTypes.string,
+  title: PropTypes.string,
+  id: PropTypes.number,
 }.isRequired;
 
 export default Recomendation;

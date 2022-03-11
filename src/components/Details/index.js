@@ -1,8 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles.css';
+import { Link } from 'react-router-dom';
 
 function Details(props) {
-  const { src, title, category, instructions, video, ingredients } = props;
+  const {
+    src,
+    title,
+    category,
+    instructions,
+    video,
+    measureAndIngredients,
+    alcoholic } = props;
 
   return (
     <div>
@@ -11,11 +20,6 @@ function Details(props) {
         alt="profile"
         data-testid="recipe-photo"
       />
-      <h1
-        data-testid="recipe-title"
-      >
-        {title}
-      </h1>
       <input
         type="button"
         data-testid="share-btn"
@@ -30,10 +34,16 @@ function Details(props) {
         data-testid="recipe-category"
       >
         { category }
+        { alcoholic }
 
       </h3>
-      <ul>
-        { ingredients.map((ingredient, index) => (
+      <h1
+        data-testid="recipe-title"
+      >
+        {title}
+      </h1>
+      <ol>
+        { measureAndIngredients.map((ingredient, index) => (
           <li
             key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
@@ -41,7 +51,7 @@ function Details(props) {
             { ingredient }
           </li>
         )) }
-      </ul>
+      </ol>
       <h3
         data-testid="instructions"
       >
@@ -56,11 +66,17 @@ function Details(props) {
       >
         <track kind="captions" />
       </video>
-      <input
-        type="button"
-        value="start recipe"
-        data-testid="start-recipe-btn"
-      />
+      <Link to="/foods:id/in-progress">
+        <div className="container__btn">
+          <input
+            className="btn__start-recipe"
+            type="button"
+            value="start recipe"
+            data-testid="start-recipe-btn"
+          />
+        </div>
+      </Link>
+
     </div>
 
   );
@@ -72,7 +88,7 @@ Details.propTypes = {
   category: PropTypes.string,
   instructions: PropTypes.string,
   video: PropTypes.video,
-  ingredients: PropTypes.array,
+  measureAndIngredients: PropTypes.array,
 }.isRequired;
 
 export default Details;
