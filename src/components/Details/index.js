@@ -3,16 +3,19 @@ import PropTypes from 'prop-types';
 import './styles.css';
 import { Link } from 'react-router-dom';
 
-function Details(props) {
-  const {
-    src,
-    title,
-    category,
-    instructions,
-    video,
-    measureAndIngredients,
-    alcoholic } = props;
-
+function Details({
+  src,
+  title,
+  category,
+  instructions,
+  video,
+  measureAndIngredients,
+  alcoholic,
+  id,
+  type = 'food',
+}) {
+  const route = type === 'food' ? `/foods/${id}/in-progress`
+    : `/drinks/${id}/in-progress`;
   return (
     <div>
       <img
@@ -66,7 +69,7 @@ function Details(props) {
       >
         <track kind="captions" />
       </video>
-      <Link to="/foods:id/in-progress">
+      <Link to={ route }>
         <div className="container__btn">
           <input
             className="btn__start-recipe"

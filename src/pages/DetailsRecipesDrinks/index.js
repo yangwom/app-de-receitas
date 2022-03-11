@@ -5,6 +5,7 @@ import { fetchDrinkId } from '../../services/fetchApiDrink';
 import { fetchRecomendationDrinks } from '../../services/fetchApiFood';
 import Recomendation from '../../components/Recomendation';
 import './styles.css';
+import getmeasureAndIngredients from '../../services/ingredients';
 
 function DetailsRecipesDrinks() {
   const [useDrinks, setUseDrinks] = useState([]);
@@ -12,7 +13,6 @@ function DetailsRecipesDrinks() {
   const [useRecommended, setUseRecommended] = useState([]);
 
   const { id } = useParams();
-  const NUMBER_INGREDIENTS = 20;
   const NUMBER_RECOMMENDED = 6;
 
   async function getDetailsRecipesDrinks() {
@@ -26,44 +26,23 @@ function DetailsRecipesDrinks() {
     setUseRecommended(response.meals);
   }
 
-  function getmeasureAndIngredients() {
-    const measureAndIngredients = [];
-
-    for (let i = 1; i <= NUMBER_INGREDIENTS; i += 1) {
-      if (useDrinks[0][`strIngredient${i}`]) {
-        measureAndIngredients.push(`${useDrinks[0][`strIngredient${i}`]}: 
-          ${useDrinks[0][`strMeasure${i}`]}`);
-      }
-    }
-    setUseMeasureAndIngredients(measureAndIngredients);
-  }
-
   useEffect(() => {
     if (useDrinks[0] !== undefined) {
-      getmeasureAndIngredients();
+      setUseMeasureAndIngredients(getmeasureAndIngredients(useDrinks[0]));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useDrinks]);
 
   useEffect(() => {
     getDetailsRecipesDrinks();
     getDetailsRecipesRecomendationFoods();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log(useDrinks);
 
   return (
     <div>
-      {useDrinks[0] !== undefined
-      && <Details
-        src={ useDrinks[0].strDrinkThumb }
-        title={ useDrinks[0].strDrink }
-        category={ useDrinks[0].strCategory }
-        alcoholic={ useDrinks[0].strAlcoholic }
-        instructions={ useDrinks[0].strInstructions }
-        measureAndIngredients={ useMeasureAndIngredients }
-        video={ useDrinks[0].strYoutube }
-        recomendation={ useRecommended }
-      />}
       <div className="container__recomendation">
         <div className="teste">
           {useDrinks[0] !== undefined
@@ -78,6 +57,19 @@ function DetailsRecipesDrinks() {
       ))}
         </div>
       </div>
+      {useDrinks[0] !== undefined
+      && <Details
+        src={ useDrinks[0].strDrinkThumb }
+        title={ useDrinks[0].strDrink }
+        category={ useDrinks[0].strCategory }
+        alcoholic={ useDrinks[0].strAlcoholic }
+        instructions={ useDrinks[0].strInstructions }
+        measureAndIngredients={ useMeasureAndIngredients }
+        video={ useDrinks[0].strYoutube }
+        recomendation={ useRecommended }
+        id={ useDrinks[0].idDrink }
+        type="drink"
+      />}
     </div>
   );
 }
