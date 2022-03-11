@@ -4,10 +4,18 @@ import { fetchFoodId } from '../../services/fetchApiFood';
 import getmeasureAndIngredients from '../../services/ingredients';
 import './styles.css';
 
+const CHAVE_RECIPES_IN_PROGRESS = 'inProgressRecipes';
+
 function FoodsInProgress() {
   const [foodInProgress, setFoodInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
   const { id } = useParams();
+
+  function saveRecipesInProgress() {
+    localStorage.setItem(CHAVE_RECIPES_IN_PROGRESS, JSON
+      .stringify({ cocktails: {},
+        meals: { [id]: ingredients } }));
+  }
 
   async function getRecipesFoodInProgress() {
     const response = await fetchFoodId(id);
@@ -23,16 +31,17 @@ function FoodsInProgress() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    saveRecipesInProgress();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, ingredients]);
+
   function handleDone(index) {
     setIngredients((prevState) => {
       prevState[index].done = !prevState[index].done;
       return [...prevState];
     });
   }
-
-  useEffect(() => {
-    console.log(ingredients);
-  }, [ingredients]);
 
   return (
     <div>
@@ -88,7 +97,12 @@ function FoodsInProgress() {
           >
             {foodInProgress.strInstructions}
           </p>
-          <input type="button" data-testid="finish-recipe-btn" value="Finish Recipe" />
+          <input
+            type="button"
+            data-testid="finish-recipe-btn"
+            value="Finish Recipe"
+            disabled
+          />
         </>)}
     </div>
   );

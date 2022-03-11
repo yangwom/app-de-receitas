@@ -4,10 +4,21 @@ import { fetchDrinkId } from '../../services/fetchApiDrink';
 import getmeasureAndIngredients from '../../services/ingredients';
 import './styles.css';
 
+const CHAVE_RECIPES_IN_PROGRESS = 'inProgressRecipes';
+
 function DrinksInProgress() {
+  const { id } = useParams();
   const [drinkInProgress, setDrinkInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
-  const { id } = useParams();
+  const ingredientsDone = [];
+
+  function saveRecipesInProgress() {
+    localStorage.setItem(CHAVE_RECIPES_IN_PROGRESS, JSON
+      .stringify({ cocktails: {
+        [id]: ingredientsDone,
+      },
+      meals: { } }));
+  }
 
   async function getRecipesDrinkInProgress() {
     const response = await fetchDrinkId(id);
@@ -23,6 +34,18 @@ function DrinksInProgress() {
     getRecipesDrinkInProgress();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (ingredients !== undefined) {
+      ingredients.forEach((ingredient) => {
+        if (ingredient.done) {
+          ingredientsDone.push(ingredient);
+          saveRecipesInProgress();
+        }
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, ingredients]);
 
   function handleDone(index) {
     setIngredients((prevState) => {
