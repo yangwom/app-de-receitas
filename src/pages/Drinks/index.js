@@ -63,6 +63,16 @@ function Drinks() {
               </div>
             ))}
         </div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => {
+            getDrink();
+          } }
+        >
+          All
+
+        </button>
         <div className="container__drinks--recipes">
           { drinks.length !== 0 && slicedDrink
             .map((item, index) => (
@@ -84,3 +94,4 @@ function Drinks() {
 }
 
 export default Drinks;
+

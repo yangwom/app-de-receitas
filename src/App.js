@@ -29,9 +29,8 @@ function App() {
       <MyProvider>
         <div className="App">
           <Switch>
-            <Route exact path="/foods:id/in-progress" component={ FoodsInProgress } />
-            <Route exact path="/drinks:id/in-progress" component={ DrinksInProgress } />
-
+            <Route exact path="/foods/:id/in-progress" component={ FoodsInProgress } />
+            <Route exact path="/drinks/:id/in-progress" component={ DrinksInProgress } />
             <Route
               exact
               path="/explore/drinks/nationalities"
@@ -64,7 +63,6 @@ function App() {
             <Route exact path="/explore" component={ Explore } />
             <Route exact path="/" component={ Login } />
           </Switch>
-
         </div>
       </MyProvider>
     </>
