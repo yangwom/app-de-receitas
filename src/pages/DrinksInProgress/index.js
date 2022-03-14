@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { fetchDrinkId } from '../../services/fetchApiDrink';
-import getmeasureAndIngredients from '../../services/ingredients';
+import getmeasureAndIngredients from '../../services/measureAndIngredients';
+import recipesInProgress from '../../services/recipesInProgress';
 import './styles.css';
 
-const CHAVE_RECIPES_IN_PROGRESS = 'inProgressRecipes';
+const TYPE = 'cocktails';
 
 function DrinksInProgress() {
   const { id } = useParams();
   const [drinkInProgress, setDrinkInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
-  const ingredientsDone = [];
-
-  function saveRecipesInProgress() {
-    localStorage.setItem(CHAVE_RECIPES_IN_PROGRESS, JSON
-      .stringify({ cocktails: {
-        [id]: ingredientsDone,
-      },
-      meals: { } }));
-  }
 
   async function getRecipesDrinkInProgress() {
     const response = await fetchDrinkId(id);
@@ -26,7 +18,17 @@ function DrinksInProgress() {
     const ingredientsAndMeasures = getmeasureAndIngredients(response.drinks[0]);
     const ingredientsWithDone = Object.values(ingredientsAndMeasures)
       .map((ingredient) => ({ ingredient, done: false }));
-    setIngredients(ingredientsWithDone);
+
+    const recipeInLocalStorage = recipesInProgress.get(id, TYPE);
+    if (recipeInLocalStorage) {
+      ingredientsWithDone.forEach((ingredient) => {
+        const exists = recipeInLocalStorage
+          .some((inLocalStorage) => inLocalStorage === ingredient.ingredient);
+        if (exists) {
+          ingredient.done = true;
+        }
+      });
+    }
     setIngredients(ingredientsWithDone);
   }
 
@@ -36,16 +38,12 @@ function DrinksInProgress() {
   }, []);
 
   useEffect(() => {
-    if (ingredients !== undefined) {
-      ingredients.forEach((ingredient) => {
-        if (ingredient.done) {
-          ingredientsDone.push(ingredient);
-          saveRecipesInProgress();
-        }
-      });
+    if (ingredients) {
+      const ingredientsDone = ingredients.filter((ingredient) => ingredient.done)
+        .map((ingredient) => ingredient.ingredient);
+      recipesInProgress.add(id, ingredientsDone, TYPE);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, ingredients]);
+  }, [ingredients, id]);
 
   function handleDone(index) {
     setIngredients((prevState) => {

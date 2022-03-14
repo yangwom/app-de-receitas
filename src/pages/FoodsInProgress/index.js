@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { fetchFoodId } from '../../services/fetchApiFood';
-import getmeasureAndIngredients from '../../services/ingredients';
+import getmeasureAndIngredients from '../../services/measureAndIngredients';
+import recipesInProgress from '../../services/recipesInProgress';
 import './styles.css';
 
-const CHAVE_RECIPES_IN_PROGRESS = 'inProgressRecipes';
+const TYPE = 'meals';
 
 function FoodsInProgress() {
+  const { id } = useParams();
   const [foodInProgress, setFoodInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
-  const { id } = useParams();
 
-  function saveRecipesInProgress() {
-    localStorage.setItem(CHAVE_RECIPES_IN_PROGRESS, JSON
-      .stringify({ cocktails: {},
-        meals: { [id]: ingredients } }));
+  function recipeInProgress(ingredientsWithDone) {
+    const recipeInLocalStorage = recipesInProgress.get(id, TYPE);
+    if (recipeInLocalStorage) {
+      ingredientsWithDone.forEach((ingredient) => {
+        const exists = recipeInLocalStorage
+          .some((inLocalStorage) => inLocalStorage === ingredient.ingredient);
+        if (exists) {
+          ingredient.done = true;
+        }
+      });
+    }
   }
 
   async function getRecipesFoodInProgress() {
@@ -23,6 +31,8 @@ function FoodsInProgress() {
     const ingredientsAndMeasures = getmeasureAndIngredients(response.meals[0]);
     const ingredientsWithDone = Object.values(ingredientsAndMeasures)
       .map((ingredient) => ({ ingredient, done: false }));
+
+    recipeInProgress(ingredientsWithDone);
     setIngredients(ingredientsWithDone);
   }
 
@@ -32,9 +42,12 @@ function FoodsInProgress() {
   }, []);
 
   useEffect(() => {
-    saveRecipesInProgress();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, ingredients]);
+    if (ingredients) {
+      const ingredientsDone = ingredients.filter((ingredient) => ingredient.done)
+        .map((ingredient) => ingredient.ingredient);
+      recipesInProgress.add(id, ingredientsDone, TYPE);
+    }
+  }, [ingredients, id]);
 
   function handleDone(index) {
     setIngredients((prevState) => {
