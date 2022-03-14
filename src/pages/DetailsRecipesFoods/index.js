@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Details from '../../components/Details';
 import { fetchFoodId } from '../../services/fetchApiFood';
 import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
+import {
+  setFavoriteRecipes, removeFavoriteRecipes } from '../../services/favorites';
 import Recomendation from '../../components/Recomendation';
+import './styles.css';
+import getmeasureAndIngredients from '../../services/measureAndIngredients';
 
 function DetailsRecipesFoods() {
   const [useFoods, setUseFoods] = useState([]);
-  const [useIngredients, setUseIngredients] = useState([]);
+  const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
+  const [useCopyVisible, setUseCopyVisible] = useState(false);
+  const [useFavorite, setUseFavorite] = useState(false);
 
   const { id } = useParams();
-  const NUMBER_INGREDIENTS = 20;
+  const { pathname } = useLocation();
   const NUMBER_RECOMMENDED = 6;
 
   async function getDetailsRecipesFoods() {
@@ -25,47 +31,92 @@ function DetailsRecipesFoods() {
     setUseRecommended(response.drinks);
   }
 
-  function getIngredients() {
-    const ingredients = [];
-    for (let i = 1; i <= NUMBER_INGREDIENTS; i += 1) {
-      if (useFoods[0][`strIngredient${i}`]) {
-        ingredients.push(useFoods[0][`strIngredient${i}`]);
+  const CopyLocationClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    setUseCopyVisible(true);
+  };
+
+  const FavoriteRecipes = () => {
+    const { idMeal, strMeal, strCategory, strArea, strMealThumb } = useFoods[0];
+    const obj = {
+      id: idMeal,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites === null) {
+      setFavoriteRecipes(obj);
+      setUseFavorite(true);
+    } else {
+      const findFavorite = favorites.find((favorite) => favorite.id === idMeal);
+      if (findFavorite === undefined) {
+        setFavoriteRecipes(obj);
+        setUseFavorite(true);
+      } else {
+        removeFavoriteRecipes(obj.id);
+        setUseFavorite(false);
       }
     }
-    setUseIngredients(ingredients);
-  }
+  };
 
-  console.log(useIngredients);
-  console.log(useFoods[0]);
-  console.log(useRecommended);
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites !== null) {
+      const findFavorite = favorites.find((favorite) => favorite.id === id);
+      if (findFavorite !== undefined) {
+        setUseFavorite(true);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (useFoods[0] !== undefined) {
-      getIngredients();
+      setUseMeasureAndIngredients(getmeasureAndIngredients(useFoods[0]));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useFoods]);
 
   useEffect(() => {
     getDetailsRecipesFoods();
     getDetailsRecipesRecomendationDrinks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
-      <h1>oi</h1>
+    <div className="container">
+      <div className="container__recomendation">
+        <div className="teste">
+          {useFoods[0] !== undefined
+        && useRecommended.map((recomendation, index) => (
+          <div key={ index } className="card__recomendation">
+            <Recomendation
+              src={ recomendation.strDrinkThumb }
+              title={ recomendation.strDrink }
+              id={ index }
+            />
+          </div>
+        ))}
+        </div>
+      </div>
       {useFoods[0] !== undefined
       && <Details
         src={ useFoods[0].strMealThumb }
-        title={ useFoods[0].srtMeal }
+        title={ useFoods[0].strMeal }
         category={ useFoods[0].strCategory }
         instructions={ useFoods[0].strInstructions }
-        ingredients={ useIngredients }
+        measureAndIngredients={ useMeasureAndIngredients }
         video={ useFoods[0].strYoutube }
-        recomendation={ useRecommended }
-      />}
-      {useFoods[0] !== undefined
-      && <Recomendation
-        recomendation={ useRecommended }
+        copyUrl={ CopyLocationClipboard }
+        copyVisible={ useCopyVisible }
+        favorite={ FavoriteRecipes }
+        isFavorite={ useFavorite }
+        pathname={ pathname }
       />}
     </div>
   );

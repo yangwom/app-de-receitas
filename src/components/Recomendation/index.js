@@ -1,27 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles.css';
 
 function Recomendation(props) {
-  const { recomendation } = props;
+  const { src, title, id } = props;
+
   return (
-    <div>
-      <h1>Recomendation</h1>
-      <ul>
-        { recomendation.map((drink, index) => (
-          <li
-            key={ index }
-            data-testid={ `${index}-recomendation-card` }
-          >
-            { drink.strDrink }
-          </li>
-        )) }
-      </ul>
+    <div
+      className="card"
+      data-testid={ `${id}-recomendation-card` }
+    >
+      <div className="card__image-gradient">
+
+        <div className="card__image">
+          <img src={ src } alt="item" />
+        </div>
+
+      </div>
+
+      <div className="card__recomendation-title">
+        <p data-testid={ `${id}-recomendation-title` }>
+          {title}
+        </p>
+      </div>
+
     </div>
   );
 }
 
 Recomendation.propTypes = {
-  recomendation: PropTypes.array,
+  src: PropTypes.string,
+  title: PropTypes.string,
+  id: PropTypes.number,
 }.isRequired;
 
 export default Recomendation;

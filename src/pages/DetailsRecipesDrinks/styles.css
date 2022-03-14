@@ -1,0 +1,17 @@
+.container__recomendation {
+  overflow: auto;
+  width: 360px;
+}
+
+.teste {
+  display: flex;
+  overflow-x: auto;
+}
+
+.card__recomendation {
+  margin-left: 35px;
+}
+
+.container {
+  margin-bottom: 80px;
+}
