@@ -71,10 +71,11 @@ function FoodsInProgress() {
             data-testid="share-btn"
             value="share"
           />
-          <input
+          <inpt
             type="button"
             data-testid="favorite-btn"
             value="favorite"
+            onClick={ () => navigator.clipboard.writeText('text') }
           />
           <h3
             data-testid="recipe-category"
