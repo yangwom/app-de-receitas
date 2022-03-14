@@ -28,7 +28,7 @@ const favoriteRecipes = [
   },
 ];
 
-const setFavoritesRecipes = () => localStorage.setItem('setFavoritesRecipes',
+const setFavoritesRecipes = () => localStorage.setItem('setFa',
   JSON.stringify(favoriteRecipes));
 
 setFavoritesRecipes();
