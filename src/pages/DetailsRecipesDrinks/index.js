@@ -83,35 +83,24 @@ function DetailsRecipesDrinks() {
         setUseFavorite(true);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (useDrinks[0] !== undefined) {
       getmeasureAndIngredients();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useDrinks]);
 
   useEffect(() => {
     getDetailsRecipesDrinks();
     getDetailsRecipesRecomendationFoods();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="container">
-      {useDrinks[0] !== undefined
-      && <Details
-        src={ useDrinks[0].strDrinkThumb }
-        title={ useDrinks[0].strDrink }
-        category={ useDrinks[0].strCategory }
-        alcoholic={ useDrinks[0].strAlcoholic }
-        instructions={ useDrinks[0].strInstructions }
-        measureAndIngredients={ useMeasureAndIngredients }
-        video={ useDrinks[0].strYoutube }
-        copyUrl={ CopyLocationClipboard }
-        copyVisible={ useCopyVisible }
-        favorite={ FavoriteRecipes }
-        isFavorite={ useFavorite }
-      />}
       <div className="container__recomendation">
         <div className="teste">
           {useDrinks[0] !== undefined
@@ -126,6 +115,20 @@ function DetailsRecipesDrinks() {
       ))}
         </div>
       </div>
+      {useDrinks[0] !== undefined
+      && <Details
+        src={ useDrinks[0].strDrinkThumb }
+        title={ useDrinks[0].strDrink }
+        category={ useDrinks[0].strCategory }
+        alcoholic={ useDrinks[0].strAlcoholic }
+        instructions={ useDrinks[0].strInstructions }
+        measureAndIngredients={ useMeasureAndIngredients }
+        video={ useDrinks[0].strYoutube }
+        copyUrl={ CopyLocationClipboard }
+        copyVisible={ useCopyVisible }
+        favorite={ FavoriteRecipes }
+        isFavorite={ useFavorite }
+      />}
     </div>
   );
 }
