@@ -25,9 +25,6 @@ function Details(props) {
 
   const route = `${pathname}/in-progress`;
 
-  console.log(thumbVideo);
-  console.log(video);
-
   function urlYouTube(url) {
     const urlVideo = url.split('=')[1];
     return `https://www.youtube.com/embed/${urlVideo}`;
