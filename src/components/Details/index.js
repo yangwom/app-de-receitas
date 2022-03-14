@@ -20,7 +20,10 @@ function Details(props) {
     favorite,
     isFavorite,
     thumbVideo,
+    pathname,
   } = props;
+
+  const route = `${pathname}/in-progress`;
 
   console.log(thumbVideo);
   console.log(video);
@@ -119,7 +122,7 @@ function Details(props) {
         src={ video ? urlYouTube(video) : '' }
         frameBorder="0"
       />
-      <Link to="/foods:id/in-progress">
+      <Link to={ route }>
         <div className="container__btn">
           <button
             type="button"

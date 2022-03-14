@@ -32,10 +32,14 @@ export const fetchFirstLetterFood = async (firstLetter) => {
 };
 
 export const fetchFoodId = async (id) => {
-  const endpointFirstLetter = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const response = await fetch(endpointFirstLetter);
-  const data = await response.json();
-  return data;
+  try {
+    const endpointFirstLetter = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const response = await fetch(endpointFirstLetter);
+    const data = await response.json();
+    return data;
+  } catch (e) {
+    return null;
+  }
 };
 
 export const fetchRecomendationDrinks = async () => {

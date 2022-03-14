@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Details from '../../components/Details';
 import { fetchFoodId } from '../../services/fetchApiFood';
 import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
@@ -7,6 +7,7 @@ import {
   setFavoriteRecipes, removeFavoriteRecipes } from '../../services/favorites';
 import Recomendation from '../../components/Recomendation';
 import './styles.css';
+import getmeasureAndIngredients from '../../services/measureAndIngredients';
 
 function DetailsRecipesFoods() {
   const [useFoods, setUseFoods] = useState([]);
@@ -16,7 +17,7 @@ function DetailsRecipesFoods() {
   const [useFavorite, setUseFavorite] = useState(false);
 
   const { id } = useParams();
-  const NUMBER_INGREDIENTS = 20;
+  const { pathname } = useLocation();
   const NUMBER_RECOMMENDED = 6;
 
   async function getDetailsRecipesFoods() {
@@ -28,18 +29,6 @@ function DetailsRecipesFoods() {
     const response = await fetchRecomendationFoods();
     response.drinks.splice(NUMBER_RECOMMENDED);
     setUseRecommended(response.drinks);
-  }
-
-  function getmeasureAndIngredients() {
-    const measureAndIngredients = [];
-
-    for (let i = 1; i <= NUMBER_INGREDIENTS; i += 1) {
-      if (useFoods[0][`strIngredient${i}`]) {
-        measureAndIngredients.push(`${useFoods[0][`strIngredient${i}`]}: 
-          ${useFoods[0][`strMeasure${i}`]}`);
-      }
-    }
-    setUseMeasureAndIngredients(measureAndIngredients);
   }
 
   const CopyLocationClipboard = () => {
@@ -83,34 +72,24 @@ function DetailsRecipesFoods() {
         setUseFavorite(true);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (useFoods[0] !== undefined) {
-      getmeasureAndIngredients();
+      setUseMeasureAndIngredients(getmeasureAndIngredients(useFoods[0]));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useFoods]);
 
   useEffect(() => {
     getDetailsRecipesFoods();
     getDetailsRecipesRecomendationDrinks();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="container">
-      {useFoods[0] !== undefined
-      && <Details
-        src={ useFoods[0].strMealThumb }
-        title={ useFoods[0].strMeal }
-        category={ useFoods[0].strCategory }
-        instructions={ useFoods[0].strInstructions }
-        measureAndIngredients={ useMeasureAndIngredients }
-        video={ useFoods[0].strYoutube }
-        copyUrl={ CopyLocationClipboard }
-        copyVisible={ useCopyVisible }
-        favorite={ FavoriteRecipes }
-        isFavorite={ useFavorite }
-      />}
       <div className="container__recomendation">
         <div className="teste">
           {useFoods[0] !== undefined
@@ -125,6 +104,20 @@ function DetailsRecipesFoods() {
         ))}
         </div>
       </div>
+      {useFoods[0] !== undefined
+      && <Details
+        src={ useFoods[0].strMealThumb }
+        title={ useFoods[0].strMeal }
+        category={ useFoods[0].strCategory }
+        instructions={ useFoods[0].strInstructions }
+        measureAndIngredients={ useMeasureAndIngredients }
+        video={ useFoods[0].strYoutube }
+        copyUrl={ CopyLocationClipboard }
+        copyVisible={ useCopyVisible }
+        favorite={ FavoriteRecipes }
+        isFavorite={ useFavorite }
+        pathname={ pathname }
+      />}
     </div>
   );
 }
