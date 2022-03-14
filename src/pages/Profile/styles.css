@@ -1,0 +1,54 @@
+.container__profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.container__profile--content--email {
+  background-color: #f27b50;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  height: 130px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.container__profile--content--btns {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 100%;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.container__profile--content--btns button {
+  background-color: #f27b50;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 15px 32px;
+  text-align: center;
+  width: 250px;
+}
+
+.container__profile--content--btns button:hover {
+  background-color: #d68060;
+}
+
+.phrase {
+  color: #734e40;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}

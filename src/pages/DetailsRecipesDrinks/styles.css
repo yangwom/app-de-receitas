@@ -1,15 +1,17 @@
-.container__recomendation-foods {
+.container__recomendation {
   overflow: auto;
   width: 360px;
 }
 
-.teste__foods {
+.teste {
   display: flex;
   overflow-x: auto;
 }
 
-.card__recomendation-foods {
-  background-color: white;
-  margin-left: 60px;
-  padding: 40px;
+.card__recomendation {
+  margin-left: 35px;
+}
+
+.container {
+  margin-bottom: 80px;
 }

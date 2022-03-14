@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import Details from '../../components/Details';
 import { fetchDrinkId } from '../../services/fetchApiDrink';
 import { fetchRecomendationDrinks } from '../../services/fetchApiFood';
+import {
+  setFavoriteRecipes, removeFavoriteRecipes } from '../../services/favorites';
 import Recomendation from '../../components/Recomendation';
 import './styles.css';
 
@@ -10,6 +12,8 @@ function DetailsRecipesDrinks() {
   const [useDrinks, setUseDrinks] = useState([]);
   const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
+  const [useCopyVisible, setUseCopyVisible] = useState(false);
+  const [useFavorite, setUseFavorite] = useState(false);
 
   const { id } = useParams();
   const NUMBER_INGREDIENTS = 20;
@@ -38,6 +42,49 @@ function DetailsRecipesDrinks() {
     setUseMeasureAndIngredients(measureAndIngredients);
   }
 
+  const CopyLocationClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    setUseCopyVisible(true);
+  };
+
+  const FavoriteRecipes = () => {
+    const { idDrink, strDrink, strCategory, strAlcoholic, strDrinkThumb } = useDrinks[0];
+    const obj = {
+      id: idDrink,
+      type: 'drink',
+      nationality: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    };
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites === null) {
+      setFavoriteRecipes(obj);
+      setUseFavorite(true);
+    } else {
+      const findFavorite = favorites.find((favorite) => favorite.id === idDrink);
+      if (findFavorite === undefined) {
+        setFavoriteRecipes(obj);
+        setUseFavorite(true);
+      } else {
+        removeFavoriteRecipes(obj.id);
+        setUseFavorite(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites !== null) {
+      const findFavorite = favorites.find((favorite) => favorite.id === id);
+      if (findFavorite !== undefined) {
+        setUseFavorite(true);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (useDrinks[0] !== undefined) {
       getmeasureAndIngredients();
@@ -49,10 +96,8 @@ function DetailsRecipesDrinks() {
     getDetailsRecipesRecomendationFoods();
   }, []);
 
-  console.log(useDrinks);
-
   return (
-    <div>
+    <div className="container">
       {useDrinks[0] !== undefined
       && <Details
         src={ useDrinks[0].strDrinkThumb }
@@ -62,7 +107,10 @@ function DetailsRecipesDrinks() {
         instructions={ useDrinks[0].strInstructions }
         measureAndIngredients={ useMeasureAndIngredients }
         video={ useDrinks[0].strYoutube }
-        recomendation={ useRecommended }
+        copyUrl={ CopyLocationClipboard }
+        copyVisible={ useCopyVisible }
+        favorite={ FavoriteRecipes }
+        isFavorite={ useFavorite }
       />}
       <div className="container__recomendation">
         <div className="teste">

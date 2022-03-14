@@ -3,6 +3,15 @@ import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { MyContext } from '../../context/MyContext';
+import './styles.css';
+import beef from '../../images/beef.jpg';
+import breakfast from '../../images/breakfast.jpg';
+import dessert from '../../images/dessert.jpeg';
+import chicken from '../../images/chicken.jpg';
+import goat from '../../images/goat.jpeg';
+
+const images = [beef, breakfast, chicken, dessert, goat];
+const backgroundColor = ['#373B45', '#F2AA6B', '#734E40', '#F27B50', '#A69F7C'];
 
 function Foods() {
   const {
@@ -24,6 +33,37 @@ function Foods() {
         Foods
       </Header>
       <div className="container__foods">
+        <div className="container__foods--categories">
+          { foodCategory.length !== 0 && slicedCategory
+            .map(({ strCategory }, index) => (
+              <div
+                className="container__foods--categories--button"
+                key={ index }
+              >
+                <button
+                  data-testid={ `${strCategory}-category-filter` }
+                  type="button"
+                  style={ { backgroundColor: backgroundColor[index] } }
+                  onClick={ () => {
+                    if (category === strCategory) {
+                      getFoods();
+                      setCategory();
+                    } else {
+                      getSearchByCategory(strCategory);
+                      setCategory(strCategory);
+                    }
+                  } }
+                >
+                  <img
+                    src={ images[index] }
+                    alt="foods"
+                    className="foods__category-image"
+                  />
+                  {strCategory }
+                </button>
+              </div>
+            ))}
+        </div>
         <button
           type="button"
           data-testid="All-category-filter"
@@ -34,39 +74,21 @@ function Foods() {
           All
 
         </button>
-        { foodCategory.length !== 0 && slicedCategory
-          .map(({ strCategory }, index) => (
-            <button
-              data-testid={ `${strCategory}-category-filter` }
-              key={ index }
-              type="button"
-              onClick={ () => {
-                if (category === strCategory) {
-                  getFoods();
-                  setCategory();
-                } else {
-                  getSearchByCategory(strCategory);
-                  setCategory(strCategory);
-                }
-              } }
-            >
-              {strCategory }
-            </button>
-          ))}
-        <ul style={ { display: 'grid', gridTemplateColumns: 'repeat(3, 100px' } }>
+        <div className="container__foods--recipes">
           { foods.length !== 0 && slicedFoods.map((food, index) => (
-            <Cards
-              key={ food.idMeal }
-              index={ index }
-              src={ food.strMealThumb }
-              id={ food.idMeal }
-              name={ food.strMeal }
-            />
+            <div key={ index } className="container__foods--card">
+              <Cards
+                key={ food.idMeal }
+                index={ index }
+                src={ food.strMealThumb }
+                id={ food.idMeal }
+                name={ food.strMeal }
+              />
+            </div>
           ))}
-
-        </ul>
-        <Footer />
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }

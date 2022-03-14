@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import Details from '../../components/Details';
 import { fetchFoodId } from '../../services/fetchApiFood';
 import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
+import {
+  setFavoriteRecipes, removeFavoriteRecipes } from '../../services/favorites';
 import Recomendation from '../../components/Recomendation';
 import './styles.css';
 
@@ -10,8 +12,8 @@ function DetailsRecipesFoods() {
   const [useFoods, setUseFoods] = useState([]);
   const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
-
-  console.log(useRecommended);
+  const [useCopyVisible, setUseCopyVisible] = useState(false);
+  const [useFavorite, setUseFavorite] = useState(false);
 
   const { id } = useParams();
   const NUMBER_INGREDIENTS = 20;
@@ -40,7 +42,48 @@ function DetailsRecipesFoods() {
     setUseMeasureAndIngredients(measureAndIngredients);
   }
 
-  console.log(useFoods[0]);
+  const CopyLocationClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    setUseCopyVisible(true);
+  };
+
+  const FavoriteRecipes = () => {
+    const { idMeal, strMeal, strCategory, strArea, strMealThumb } = useFoods[0];
+    const obj = {
+      id: idMeal,
+      type: 'food',
+      nationality: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+    };
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites === null) {
+      setFavoriteRecipes(obj);
+      setUseFavorite(true);
+    } else {
+      const findFavorite = favorites.find((favorite) => favorite.id === idMeal);
+      if (findFavorite === undefined) {
+        setFavoriteRecipes(obj);
+        setUseFavorite(true);
+      } else {
+        removeFavoriteRecipes(obj.id);
+        setUseFavorite(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites !== null) {
+      const findFavorite = favorites.find((favorite) => favorite.id === id);
+      if (findFavorite !== undefined) {
+        setUseFavorite(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (useFoods[0] !== undefined) {
@@ -63,6 +106,10 @@ function DetailsRecipesFoods() {
         instructions={ useFoods[0].strInstructions }
         measureAndIngredients={ useMeasureAndIngredients }
         video={ useFoods[0].strYoutube }
+        copyUrl={ CopyLocationClipboard }
+        copyVisible={ useCopyVisible }
+        favorite={ FavoriteRecipes }
+        isFavorite={ useFavorite }
       />}
       <div className="container__recomendation">
         <div className="teste">

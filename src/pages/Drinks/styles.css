@@ -1,0 +1,52 @@
+.container__drinks {
+  margin-bottom: 70px;
+}
+
+.container__drinks--categories {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.container__drinks--categories--button button {
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  margin-right: 5px;
+  padding: 0;
+  transition: all 0.3s ease-in-out;
+  word-wrap: wrap;
+}
+
+.container__drinks--categories--button button:hover {
+  transform: scale(1.1);
+}
+
+.container__drinks--categories--button img {
+  border-radius: 10px;
+  height: 45px;
+  mask-image: linear-gradient(to top, transparent 4%, black 30%);
+  width: 60px;
+}
+
+.container__drinks--recipes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 18px;
+  margin-top: 40px;
+  width: 320px;
+}
+
+.container__drinks--card {
+  background-color: #f2c08f;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
