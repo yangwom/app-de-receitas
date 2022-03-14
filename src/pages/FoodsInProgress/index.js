@@ -12,7 +12,7 @@ function FoodsInProgress() {
   const [foodInProgress, setFoodInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
 
-  function recipeInProgress(ingredientsWithDone) {
+  function createRecipeInProgressLocalStorage(ingredientsWithDone) {
     const recipeInLocalStorage = recipesInProgress.get(id, TYPE);
     if (recipeInLocalStorage) {
       ingredientsWithDone.forEach((ingredient) => {
@@ -32,7 +32,7 @@ function FoodsInProgress() {
     const ingredientsWithDone = Object.values(ingredientsAndMeasures)
       .map((ingredient) => ({ ingredient, done: false }));
 
-    recipeInProgress(ingredientsWithDone);
+    createRecipeInProgressLocalStorage(ingredientsWithDone);
     setIngredients(ingredientsWithDone);
   }
 
@@ -56,6 +56,7 @@ function FoodsInProgress() {
     });
   }
 
+  console.log(ingredients);
   return (
     <div>
       { foodInProgress !== undefined && (
@@ -92,8 +93,8 @@ function FoodsInProgress() {
                 <label
                   htmlFor={ `ingredient${index}` }
                   key={ index }
-                  data-testid={ `${index}-ingredient-step` }
                   className={ done ? 'done' : '' }
+                  data-testid={ `${index}-ingredient-step` }
                 >
                   <input
                     id={ `ingredient${index}` }

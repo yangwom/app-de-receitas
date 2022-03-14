@@ -9,9 +9,11 @@ const save = (content) => {
 };
 
 const read = () => {
-  const content = window.localStorage.getItem(KEY_RECIPES_IN_PROGRESS);
+  let content = window.localStorage.getItem(KEY_RECIPES_IN_PROGRESS);
   if (!content) {
     save(initialStructureForRecipesInProgress);
+    content = initialStructureForRecipesInProgress;
+    return content;
   }
   return JSON.parse(content);
 };
