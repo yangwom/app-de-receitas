@@ -25,7 +25,9 @@ function DetailsRecipesFoods() {
 
   async function getDetailsRecipesFoods() {
     const response = await fetchFoodId(id);
-    setUseFoods(response.meals);
+    if (response) {
+      setUseFoods(response.meals);
+    }
   }
 
   async function getDetailsRecipesRecomendationDrinks() {

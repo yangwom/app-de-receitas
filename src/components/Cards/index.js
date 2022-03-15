@@ -12,7 +12,7 @@ export default function Cards({ id, src, name, index }) {
       className="container__card--content"
     >
       <div>
-        <Link to={ `${pathName}${id}` } className="card__content">
+        <Link to={ `${pathName}/${id}` } className="card__content">
           <div
             className="card-food"
             data-testid={ `${index}-recipe-card` }
