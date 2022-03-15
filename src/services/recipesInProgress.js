@@ -29,21 +29,21 @@ const recipesInProgress = {
   get(id, type) {
     const items = read();
     const itemsOfType = items[type];
-    if (!itemsOfType[id]) {
-      itemsOfType[id] = this.add(id, [], type);
-    }
     return itemsOfType[id];
+  },
+  getAllFromType(type) {
+    const items = read();
+    return items[type];
+  },
+  remove(id, type) {
+    const items = read();
+    const itemsOfType = items[type];
+    if (itemsOfType[id] === undefined) {
+      return;
+    }
+    delete itemsOfType[id];
+    save(items);
   },
 };
 
 export default recipesInProgress;
-
-// remove(id, type) {
-// const items = read();
-// const itemsOfType = items[type];
-// if (itemsOfType[id] === undefined) {
-// return;
-// }
-// delete itemsOfType[id];
-// save(items);
-// },
