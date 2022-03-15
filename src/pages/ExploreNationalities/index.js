@@ -4,26 +4,47 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Select from '../../components/Select';
 import { MyContext } from '../../context/MyContext';
+import fetchNationality from '../../services/fetchNationality';
+
+const MAX_RECIPES = 12;
+const MAX_CATEGORY = 5;
 
 function ExploreNationalities() {
   const { foods,
     foodCategory,
     nationalities,
-    // getSearchByCategory,
+    setFoods,
+    getSearchByCategory,
     // getFoods,
-    // category,
-    // setCategory
-  } = useContext(MyContext);
-  const [filter, setFilter] = useState('');
 
-  const MAX_RECIPES = 12;
-  const MAX_CATEGORY = 5;
+  } = useContext(MyContext);
+  const [filterNationality, setFilterNationality] = useState('');
+  const [filterCategory, setFilterCategory] = useState('');
+
   const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
+  slicedCategory.push({ strCategory: 'All' });
   const slicedFoods = foods.slice(0, MAX_RECIPES);
 
+  async function createListFromNationality() {
+    const response = await fetchNationality(filterNationality);
+    if (response) {
+      setFoods(response.meals);
+    }
+  }
+
   useEffect(() => {
-    console.log(filter);
-  }, [filter]);
+    if (filterNationality !== '') {
+      createListFromNationality();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterNationality]);
+
+  useEffect(() => {
+    if (filterCategory !== '') {
+      getSearchByCategory(filterCategory);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterCategory]);
 
   return (
     <>
@@ -37,29 +58,25 @@ function ExploreNationalities() {
             id="nationality"
             name="nationality"
             handleChange={
-              ({ target: { value } }) => setFilter(value)
+              ({ target: { value } }) => setFilterNationality(value)
             }
-            value={ filter }
+            value={ filterNationality }
+            type="nationality"
             options={ nationalities.length !== 0 ? nationalities.meals : [] }
           />
         </div>
         <div>
-          <select
-            data-testid="explore-by-nationality-dropdown"
-          >
-            {foodCategory.length !== 0 && slicedCategory
-              .map(({ strCategory }, index) => (
-                <option
-                  key={ index }
-                  data-testid={ `${strCategory}-option` }
-                  value={ strCategory }
-                >
-                  {strCategory}
-                </option>
-              ))}
-          </select>
+          <Select
+            dataTestid="explore-by-nationality-dropdown"
+            id="nationality"
+            name="nationality"
+            handleChange={
+              ({ target: { value } }) => setFilterCategory(value)
+            }
+            value={ filterCategory }
+            options={ foodCategory.length !== 0 ? slicedCategory : [] }
+          />
         </div>
-
       </div>
       <div className="container__foods--recipes">
         {foods.length !== 0 && slicedFoods.map((food, index) => (
@@ -80,20 +97,3 @@ function ExploreNationalities() {
 }
 
 export default memo(ExploreNationalities);
-
-/*               onClick={() => {
-                if (category === strCategory) {
-                  getFoods();
-                  setCategory();
-                } else {
-                  getSearchByCategory(strCategory);
-                  setCategory(strCategory);
-                    <button
-      type="button"
-      data-testid="All-category-filter"
-      onClick={() => {
-        getFoods();
-      } }
-    >
-        All
-      </button>} */

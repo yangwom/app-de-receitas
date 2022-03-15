@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Select(props) {
-  const { dataTestid, value, name, id, options, handleChange } = props;
+  const { dataTestid, value, name, id, options, handleChange, type } = props;
   return (
     <select
       data-testid={ dataTestid }
@@ -11,14 +11,24 @@ function Select(props) {
       onChange={ handleChange }
       value={ value }
     >
-      {options.map((option, i) => (
-        <option
-          key={ i }
-          value={ option.strArea }
-        >
-          {option.strArea}
-        </option>
-      ))}
+      {options.map((option, i) => {
+        if (type === 'nationality') {
+          return (
+            <option
+              key={ i }
+              value={ option.strArea }
+            >
+              {option.strArea}
+            </option>);
+        }
+        return (
+          <option
+            key={ i }
+            value={ option.strCategory }
+          >
+            {option.strCategory}
+          </option>);
+      })}
     </select>
   );
 }
