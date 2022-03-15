@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import CardRecipe from '../../components/CardRecipe';
 import { fetchFoodId } from '../../services/fetchApiFood';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
 import recipesInProgress from '../../services/recipesInProgress';
@@ -11,6 +12,8 @@ function FoodsInProgress() {
   const { id } = useParams();
   const [foodInProgress, setFoodInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
+  const [finishEnabled, setFinishEnabled] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   function createRecipeInProgressLocalStorage(ingredientsWithDone) {
     const recipeInLocalStorage = recipesInProgress.get(id, TYPE);
@@ -38,6 +41,13 @@ function FoodsInProgress() {
 
   useEffect(() => {
     getRecipesFoodInProgress();
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites !== null) {
+      const findFavorite = favorites.find((_favorite) => _favorite.id === id);
+      if (findFavorite !== undefined) {
+        setFavorite(true);
+      }
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,79 +56,28 @@ function FoodsInProgress() {
       const ingredientsDone = ingredients.filter((ingredient) => ingredient.done)
         .map((ingredient) => ingredient.ingredient);
       recipesInProgress.add(id, ingredientsDone, TYPE);
+      setFinishEnabled(ingredients.every((ingredient) => ingredient.done));
     }
   }, [ingredients, id]);
 
-  function handleDone(index) {
-    setIngredients((prevState) => {
-      prevState[index].done = !prevState[index].done;
-      return [...prevState];
-    });
-  }
-
-  console.log(ingredients);
   return (
     <div>
       { foodInProgress !== undefined && (
-        <>
-          <img
-            src={ foodInProgress.strMealThumb }
-            alt="profile"
-            data-testid="recipe-photo"
-          />
-          <input
-            type="button"
-            data-testid="share-btn"
-            value="share"
-          />
-          <inpt
-            type="button"
-            data-testid="favorite-btn"
-            value="favorite"
-            onClick={ () => navigator.clipboard.writeText('text') }
-          />
-          <h3
-            data-testid="recipe-category"
-          >
-            {foodInProgress.strCategory}
-
-          </h3>
-          <h1
-            data-testid="recipe-title"
-          >
-            {foodInProgress.strMeal}
-          </h1>
-          <div>
-            {ingredients !== undefined && ingredients
-              .map(({ ingredient, done }, index) => (
-                <label
-                  htmlFor={ `ingredient${index}` }
-                  key={ index }
-                  className={ done ? 'done' : '' }
-                  data-testid={ `${index}-ingredient-step` }
-                >
-                  <input
-                    id={ `ingredient${index}` }
-                    type="checkbox"
-                    checked={ done }
-                    onChange={ () => handleDone(index) }
-                  />
-                  {ingredient}
-                </label>
-              ))}
-          </div>
-          <p
-            data-testid="instructions"
-          >
-            {foodInProgress.strInstructions}
-          </p>
-          <input
-            type="button"
-            data-testid="finish-recipe-btn"
-            value="Finish Recipe"
-            disabled
-          />
-        </>)}
+        <CardRecipe
+          srcThumb={ foodInProgress.strMealThumb }
+          favorite={ favorite }
+          setFavorite={ setFavorite }
+          category={ foodInProgress.strCategory }
+          title={ foodInProgress.strMeal }
+          type="food"
+          alcoholic=""
+          id={ foodInProgress.idMeal }
+          area={ foodInProgress.strArea }
+          ingredients={ ingredients }
+          instructions={ foodInProgress.strInstructions }
+          setIngredients={ setIngredients }
+          finishEnabled={ finishEnabled }
+        />)}
     </div>
   );
 }
