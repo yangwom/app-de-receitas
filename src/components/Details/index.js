@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
 import { Link } from 'react-router-dom';
@@ -6,6 +6,9 @@ import share from '../../images/shareIcon.svg';
 import BtnFavorite from '../BtnFavorite';
 
 function Details(props) {
+  const [isInProgress, setIsInProgress] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+
   const {
     src,
     title,
@@ -33,7 +36,21 @@ function Details(props) {
   }
 
   useEffect(() => {
-    console.log(recipesInProgressfromType, recipesDone);
+    const recipesInProgress = Object.keys(recipesInProgressfromType).filter(
+      (key) => key === id,
+    );
+    if (recipesInProgress.length > 0) {
+      setIsInProgress(true);
+    }
+
+    if (recipesDone) {
+      const recipesIsDone = recipesDone.filter((key) => key.id === id);
+      console.log(recipesIsDone);
+      if (recipesIsDone.length > 0) {
+        setIsDone(true);
+      }
+    }
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recipesInProgressfromType, recipesDone]);
 
@@ -124,18 +141,23 @@ function Details(props) {
         src={ video ? urlYouTube(video) : '' }
         frameBorder="0"
       />
-      <Link to={ route }>
-        <div className="container__btn">
-          <button
-            type="button"
-            className="btn__start-recipe"
-            data-testid="start-recipe-btn"
-          >
-            Start Recipe
-          </button>
 
-        </div>
-      </Link>
+      {!isDone && (
+        <Link to={ route }>
+          <div
+            className="container__btn"
+          >
+            <button
+              type="button"
+              className="btn__start-recipe"
+              data-testid="start-recipe-btn"
+            >
+              { isInProgress ? 'Continue Recipe' : 'Start Recipe' }
+            </button>
+          </div>
+        </Link>
+      )}
+
     </div>
 
   );
@@ -156,7 +178,6 @@ Details.propTypes = {
   favorite: PropTypes.func,
   thumbVideo: PropTypes.string,
   nationality: PropTypes.string,
-  id: PropTypes.number,
 }.isRequired;
 
 export default Details;
