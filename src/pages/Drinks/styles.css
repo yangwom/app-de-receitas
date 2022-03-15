@@ -24,6 +24,26 @@
   word-wrap: wrap;
 }
 
+.container__drinks--btnAll {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.btnAll {
+  background-color: #fc6432e5;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  width: 35%;
+}
+
+.btnAll:hover {
+  background-color: #fc6432;
+}
+
 .container__drinks--categories--button button:hover {
   transform: scale(1.1);
 }

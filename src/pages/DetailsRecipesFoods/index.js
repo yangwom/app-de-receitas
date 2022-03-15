@@ -88,6 +88,7 @@ function DetailsRecipesFoods() {
         copyUrl={ CopyLocationClipboard }
         copyVisible={ useCopyVisible }
         pathname={ pathname }
+        type="food"
         recipesInProgressfromType={ inProgress }
         recipesDone={ done }
       />}
