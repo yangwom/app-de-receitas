@@ -11,8 +11,8 @@ export default function Cards({ id, src, name, index }) {
       key={ id }
       className="container__card--content"
     >
-      <div className="card__content--img">
-        <Link to={ `${pathName}/${id}` }>
+      <div>
+        <Link to={ `${pathName}/${id}` } className="card__content">
           <div
             className="card-food"
             data-testid={ `${index}-recipe-card` }
@@ -24,12 +24,13 @@ export default function Cards({ id, src, name, index }) {
               alt="imagem"
             />
           </div>
-          <h4
-            data-testid={ `${index}-card-name` }
-            className="card__content--name"
-          >
-            { name }
-          </h4>
+          <div className="card__content--name">
+            <h4
+              data-testid={ `${index}-card-name` }
+            >
+              { name }
+            </h4>
+          </div>
         </Link>
       </div>
     </div>
