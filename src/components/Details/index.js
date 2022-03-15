@@ -2,31 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
 import { Link } from 'react-router-dom';
-import heartIconWhite from '../../images/whiteHeartIcon.svg';
-import heartIconBlack from '../../images/blackHeartIcon.svg';
 import share from '../../images/shareIcon.svg';
+import BtnFavorite from '../BtnFavorite';
 
 function Details(props) {
   const {
     src,
     title,
     category,
+    nationality,
+    id,
     instructions,
     video,
     measureAndIngredients,
     alcoholic,
     copyUrl,
     copyVisible,
-    favorite,
-    isFavorite,
     thumbVideo,
     pathname,
   } = props;
 
   const route = `${pathname}/in-progress`;
-
-  console.log(thumbVideo);
-  console.log(video);
 
   function urlYouTube(url) {
     const urlVideo = url.split('=')[1];
@@ -69,18 +65,15 @@ function Details(props) {
               alt="share"
             />
           </button>
-          <button
-            type="button"
-            value="favorite"
-            onClick={ favorite }
-            className="details__btns"
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ isFavorite ? heartIconBlack : heartIconWhite }
-              alt="favorite"
-            />
-          </button>
+          <BtnFavorite
+            id={ id }
+            name={ title }
+            nationality={ nationality }
+            category={ category }
+            image={ src }
+            alcoholic={ alcoholic }
+          />
+
           <span
             className="copyUrl"
             style={ { display: copyVisible ? 'block' : 'none' } }
@@ -134,7 +127,6 @@ function Details(props) {
 
         </div>
       </Link>
-
     </div>
 
   );
@@ -152,6 +144,8 @@ Details.propTypes = {
   copyVisible: PropTypes.bool,
   favorite: PropTypes.func,
   thumbVideo: PropTypes.string,
+  nationality: PropTypes.string,
+  id: PropTypes.number,
 }.isRequired;
 
 export default Details;
