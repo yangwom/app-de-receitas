@@ -76,7 +76,7 @@ function DetailsRecipesDrinks() {
         src={ useDrinks[0].strDrinkThumb }
         title={ useDrinks[0].strDrink }
         category={ useDrinks[0].strCategory }
-        nationality={ useDrinks[0].strArea }
+        nationality=""
         id={ useDrinks[0].idDrink }
         alcoholic={ useDrinks[0].strAlcoholic }
         instructions={ useDrinks[0].strInstructions }

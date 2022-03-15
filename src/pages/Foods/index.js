@@ -64,16 +64,19 @@ function Foods() {
               </div>
             ))}
         </div>
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => {
-            getFoods();
-          } }
-        >
-          All
+        <div className="container__foods--btnAll">
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            className="btnAll"
+            onClick={ () => {
+              getFoods();
+            } }
+          >
+            All
 
-        </button>
+          </button>
+        </div>
         <div className="container__foods--recipes">
           { foods.length !== 0 && slicedFoods.map((food, index) => (
             <div key={ index } className="container__foods--card">
