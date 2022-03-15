@@ -7,6 +7,9 @@ import {
   fetchDrinksCategory,
   fetchSeachByCategory,
   fetchDrinkByCategory,
+  fetchSurpriseFood,
+  fetchSurpriseDrink,
+
 } from '../services/fechApi';
 
 export const MyContext = createContext();
@@ -17,6 +20,8 @@ function MyProvider({ children }) {
   const [foodCategory, setFoodCategory] = useState([]);
   const [drinkCategory, setDrinkCategory] = useState([]);
   const [category, setCategory] = useState();
+  const [surpriseFood, setSurpriseFood] = useState([]);
+  const [surpriseDrink, setSurpriseDrink] = useState([]);
 
   const getFoods = async () => {
     const data = await fetchFoods();
@@ -48,11 +53,23 @@ function MyProvider({ children }) {
     setDrinks(data.drinks);
   };
 
+  const getSurpriseFood = async () => {
+    const data = await fetchSurpriseFood();
+    setSurpriseFood(data.meals);
+  };
+
+  const getSurpriseDrink = async () => {
+    const data = await fetchSurpriseDrink();
+    setSurpriseDrink(data.drinks);
+  };
+
   useEffect(() => {
     getFoods();
     getDrink();
     getFoodsCategory();
     getDrinksCategory();
+    getSurpriseDrink();
+    getSurpriseFood();
   }, []);
 
   const contextValue = {
@@ -68,6 +85,8 @@ function MyProvider({ children }) {
     getDrink,
     category,
     setCategory,
+    surpriseFood,
+    surpriseDrink,
   };
 
   return (

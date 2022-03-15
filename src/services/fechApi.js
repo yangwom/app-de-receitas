@@ -39,3 +39,17 @@ export const fetchDrinkByCategory = async (drinkName) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchSurpriseFood = async () => {
+  const urlSurprise = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const response = await fetch(urlSurprise);
+  const data = await response.json();
+  return data;
+};
+
+export const fetchSurpriseDrink = async () => {
+  const urlSurprise = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const response = await fetch(urlSurprise);
+  const data = await response.json();
+  return data;
+};
