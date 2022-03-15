@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Details from '../../components/Details';
-import { fetchFoodId } from '../../services/fetchApiFood';
-import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
 import Recomendation from '../../components/Recomendation';
-import './styles.css';
+import doneRecipes from '../../services/doneRecipes';
+import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
+import { fetchFoodId } from '../../services/fetchApiFood';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
+import recipesInProgress from '../../services/recipesInProgress';
+import './styles.css';
+
+const TYPE = 'meals';
 
 function DetailsRecipesFoods() {
   const [useFoods, setUseFoods] = useState([]);
   const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
   const [useCopyVisible, setUseCopyVisible] = useState(false);
+  const [done, setDone] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
 
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -44,25 +50,13 @@ function DetailsRecipesFoods() {
   useEffect(() => {
     getDetailsRecipesFoods();
     getDetailsRecipesRecomendationDrinks();
+    setDone(doneRecipes.get(TYPE));
+    setInProgress(recipesInProgress.getAllFromType(TYPE));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="container">
-      {useFoods[0] !== undefined
-      && <Details
-        src={ useFoods[0].strMealThumb }
-        title={ useFoods[0].strMeal } //
-        category={ useFoods[0].strCategory } //
-        nationality={ useFoods[0].strArea } //
-        id={ useFoods[0].idMeal } //
-        instructions={ useFoods[0].strInstructions }
-        measureAndIngredients={ useMeasureAndIngredients }
-        video={ useFoods[0].strYoutube }
-        copyUrl={ CopyLocationClipboard }
-        copyVisible={ useCopyVisible }
-        pathname={ pathname }
-      />}
       <div className="container__recomendation">
         <div className="teste">
           {useFoods[0] !== undefined
@@ -81,6 +75,22 @@ function DetailsRecipesFoods() {
         ))}
         </div>
       </div>
+      {useFoods[0] !== undefined
+      && <Details
+        src={ useFoods[0].strMealThumb }
+        title={ useFoods[0].strMeal } //
+        category={ useFoods[0].strCategory } //
+        nationality={ useFoods[0].strArea } //
+        id={ useFoods[0].idMeal } //
+        instructions={ useFoods[0].strInstructions }
+        measureAndIngredients={ useMeasureAndIngredients }
+        video={ useFoods[0].strYoutube }
+        copyUrl={ CopyLocationClipboard }
+        copyVisible={ useCopyVisible }
+        pathname={ pathname }
+        recipesInProgressfromType={ inProgress }
+        recipesDone={ done }
+      />}
     </div>
   );
 }

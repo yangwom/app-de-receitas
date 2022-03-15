@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
 import { Link } from 'react-router-dom';
@@ -20,6 +20,9 @@ function Details(props) {
     copyVisible,
     thumbVideo,
     pathname,
+    type,
+    recipesInProgressfromType,
+    recipesDone,
   } = props;
 
   const route = `${pathname}/in-progress`;
@@ -28,6 +31,11 @@ function Details(props) {
     const urlVideo = url.split('=')[1];
     return `https://www.youtube.com/embed/${urlVideo}`;
   }
+
+  useEffect(() => {
+    console.log(recipesInProgressfromType, recipesDone);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recipesInProgressfromType, recipesDone]);
 
   return (
     <div className="container__details">
@@ -72,6 +80,7 @@ function Details(props) {
             category={ category }
             image={ src }
             alcoholic={ alcoholic }
+            type={ type }
           />
 
           <span
@@ -139,6 +148,8 @@ Details.propTypes = {
   instructions: PropTypes.string,
   video: PropTypes.video,
   measureAndIngredients: PropTypes.array,
+  recipesInProgressfromType: PropTypes.array,
+  done: PropTypes.array,
   alcoholic: PropTypes.string,
   copyUrl: PropTypes.func,
   copyVisible: PropTypes.bool,

@@ -6,12 +6,18 @@ import { fetchRecomendationDrinks } from '../../services/fetchApiFood';
 import Recomendation from '../../components/Recomendation';
 import './styles.css';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
+import doneRecipes from '../../services/doneRecipes';
+import recipesInProgress from '../../services/recipesInProgress';
+
+const TYPE = 'cocktails';
 
 function DetailsRecipesDrinks() {
   const [useDrinks, setUseDrinks] = useState([]);
   const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
   const [useCopyVisible, setUseCopyVisible] = useState(false);
+  const [done, setDone] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
 
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -44,26 +50,13 @@ function DetailsRecipesDrinks() {
   useEffect(() => {
     getDetailsRecipesDrinks();
     getDetailsRecipesRecomendationFoods();
+    setDone(doneRecipes.get(TYPE));
+    setInProgress(recipesInProgress.getAllFromType(TYPE));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="container">
-      {useDrinks[0] !== undefined
-      && <Details
-        src={ useDrinks[0].strDrinkThumb }
-        title={ useDrinks[0].strDrink }
-        category={ useDrinks[0].strCategory }
-        nationality={ useDrinks[0].strArea }
-        id={ useDrinks[0].idDrink }
-        alcoholic={ useDrinks[0].strAlcoholic }
-        instructions={ useDrinks[0].strInstructions }
-        measureAndIngredients={ useMeasureAndIngredients }
-        video={ useDrinks[0].strYoutube }
-        copyUrl={ CopyLocationClipboard }
-        copyVisible={ useCopyVisible }
-        pathname={ pathname }
-      />}
       <div className="container__recomendation">
         <div className="teste">
           {useDrinks[0] !== undefined
@@ -78,6 +71,24 @@ function DetailsRecipesDrinks() {
       ))}
         </div>
       </div>
+      {useDrinks[0] !== undefined
+      && <Details
+        src={ useDrinks[0].strDrinkThumb }
+        title={ useDrinks[0].strDrink }
+        category={ useDrinks[0].strCategory }
+        nationality={ useDrinks[0].strArea }
+        id={ useDrinks[0].idDrink }
+        alcoholic={ useDrinks[0].strAlcoholic }
+        instructions={ useDrinks[0].strInstructions }
+        measureAndIngredients={ useMeasureAndIngredients }
+        video={ useDrinks[0].strYoutube }
+        copyUrl={ CopyLocationClipboard }
+        copyVisible={ useCopyVisible }
+        type="drink"
+        pathname={ pathname }
+        recipesInProgressfromType={ inProgress }
+        recipesDone={ done }
+      />}
     </div>
   );
 }

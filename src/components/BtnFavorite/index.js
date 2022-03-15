@@ -12,17 +12,18 @@ const BtnFavorite = (props) => {
     category,
     image,
     alcoholic,
+    type,
     index } = props;
   const [useFavorite, setUseFavorite] = useState(false);
 
   const FavoriteRecipes = () => {
     const obj = {
-      id, //
-      type: 'food',
+      id,
+      type,
       nationality,
       category,
       alcoholicOrNot: alcoholic || '',
-      name, //
+      name,
       image,
     };
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));

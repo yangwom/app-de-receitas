@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import CardRecipe from '../../components/CardRecipe';
+import doneRecipes from '../../services/doneRecipes';
 import { fetchDrinkId } from '../../services/fetchApiDrink';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
 import recipesInProgress from '../../services/recipesInProgress';
@@ -13,10 +14,10 @@ function DrinksInProgress() {
   const [drinkInProgress, setDrinkInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
   const [finishEnabled, setFinishEnabled] = useState(false);
-  const [favorite, setFavorite] = useState(false);
 
   function createRecipeInProgressLocalStorage(ingredientsWithDone) {
-    const recipeInLocalStorage = recipesInProgress.get(id, TYPE);
+    const recipeInLocalStorage = recipesInProgress.get(id, TYPE)
+    || recipesInProgress.add(id, [], TYPE);
     if (recipeInLocalStorage) {
       ingredientsWithDone.forEach((ingredient) => {
         const exists = recipeInLocalStorage
@@ -25,6 +26,26 @@ function DrinksInProgress() {
           ingredient.done = true;
         }
       });
+    }
+  }
+
+  function DoneRecipesInLocalStorage() {
+    const objDoneRecipe = {
+      id: drinkInProgress.idDrink,
+      type: 'drink',
+      nationality: drinkInProgress.strArea ? drinkInProgress.strArea : '',
+      category: drinkInProgress.strCategory,
+      alcoholicOrNot: drinkInProgress.strAlcoholic,
+      name: drinkInProgress.strDrink,
+      image: drinkInProgress.strDrinkThumb,
+      doneDate: new Date(),
+      tags: drinkInProgress.strTags ? [drinkInProgress.strTags] : [],
+    };
+    const finishedRecipe = ingredients.every((ingredient) => ingredient.done);
+    if (finishedRecipe) {
+      setFinishEnabled(finishedRecipe);
+      recipesInProgress.remove(id, TYPE);
+      doneRecipes.add(TYPE, objDoneRecipe);
     }
   }
 
@@ -41,13 +62,6 @@ function DrinksInProgress() {
 
   useEffect(() => {
     getRecipesDrinkInProgress();
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorites !== null) {
-      const findFavorite = favorites.find((_favorite) => _favorite.id === id);
-      if (findFavorite !== undefined) {
-        setFavorite(true);
-      }
-    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -56,8 +70,9 @@ function DrinksInProgress() {
       const ingredientsDone = ingredients.filter((ingredient) => ingredient.done)
         .map((ingredient) => ingredient.ingredient);
       recipesInProgress.add(id, ingredientsDone, TYPE);
-      setFinishEnabled(ingredients.every((ingredient) => ingredient.done));
+      DoneRecipesInLocalStorage();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ingredients, id]);
 
   return (
@@ -65,14 +80,12 @@ function DrinksInProgress() {
       { drinkInProgress !== undefined && (
         <CardRecipe
           srcThumb={ drinkInProgress.strDrinkThumb }
-          favorite={ favorite }
-          setFavorite={ setFavorite }
           category={ drinkInProgress.strCategory }
           title={ drinkInProgress.strDrink }
           type="drink"
           alcoholic={ drinkInProgress.strAlcoholic }
           id={ drinkInProgress.idDrink }
-          area=""
+          nationality=""
           ingredients={ ingredients }
           instructions={ drinkInProgress.strInstructions }
           setIngredients={ setIngredients }
