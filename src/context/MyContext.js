@@ -35,7 +35,7 @@ function MyProvider({ children }) {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
     const data = await response.json();
     if (data) {
-      setNationalities(data);
+      setNationalities([...data.meals, { strArea: 'All' }]);
     }
   }
 
@@ -55,8 +55,12 @@ function MyProvider({ children }) {
   };
 
   const getSearchByCategory = async (categoryName) => {
-    const data = await fetchSeachByCategory(categoryName);
-    setFoods(data.meals);
+    if (categoryName !== 'All') {
+      const data = await fetchSeachByCategory(categoryName);
+      setFoods(data.meals);
+    } else {
+      getFoods();
+    }
   };
 
   const getFetchDrinkByCategory = async (drinkName) => {

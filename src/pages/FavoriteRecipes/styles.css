@@ -1,0 +1,35 @@
+.container__content {
+  padding: 20px;
+}
+
+.container__content__buttons {
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 275px;
+}
+
+.container__buttons--foodsdrinks {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.container__buttons--all {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  background-color: #fc6836;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px 20px;
+  width: 100px;
+}
+
+.btn:hover {
+  filter: brightness(90%);
+}

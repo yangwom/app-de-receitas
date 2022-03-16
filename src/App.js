@@ -1,23 +1,24 @@
 import React from 'react';
-import './App.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
+import './App.css';
 import Login from './components/Login/Login';
-import Foods from './pages/Foods';
-import Drinks from './pages/Drinks';
-import Profile from './pages/Profile';
-import Explore from './pages/Explore';
-import FavoriteRecipes from './pages/FavoriteRecipes';
+import PageNotFound from './components/PageNotFound';
+import MyProvider from './context/MyContext';
+import DetailsRecipesDrinks from './pages/DetailsRecipesDrinks';
+import DetailsRecipesFoods from './pages/DetailsRecipesFoods';
 import DoneRecipes from './pages/DoneRecipes';
-import ExploreFoods from './pages/ExploreFoods';
+import Drinks from './pages/Drinks';
+import DrinksInProgress from './pages/DrinksInProgress';
+import Explore from './pages/Explore';
 import ExploreDrinks from './pages/ExploreDrinks';
+import ExploreFoods from './pages/ExploreFoods';
 import ExploreIngredients from './pages/ExploreIngredients';
 import ExploreNationalities from './pages/ExploreNationalities';
-import MyProvider from './context/MyContext';
-import DetailsRecipesFoods from './pages/DetailsRecipesFoods';
-import DetailsRecipesDrinks from './pages/DetailsRecipesDrinks';
-import DrinksInProgress from './pages/DrinksInProgress';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import Foods from './pages/Foods';
 import FoodsInProgress from './pages/FoodsInProgress';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
             <Route
               exact
               path="/explore/drinks/nationalities"
-              component={ ExploreNationalities }
+              component={ PageNotFound }
             />
             <Route exact path="/foods/:id" component={ DetailsRecipesFoods } />
             <Route exact path="/foods" component={ Foods } />
