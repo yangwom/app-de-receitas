@@ -14,9 +14,8 @@ function Profile() {
     if (emailLocalStorage) {
       setUseEmail(emailLocalStorage.email);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(useEmail);
 
   return (
     <div>

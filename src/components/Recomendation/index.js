@@ -8,9 +8,8 @@ function Recomendation(props) {
   return (
     <div
       className="card"
-      data-testid={ `${id}-recomendation-card` }
     >
-      <div className="card__image-gradient">
+      <div className="card__image-gradient" data-testid={ `${id}-recomendation-card` }>
 
         <div className="card__image">
           <img src={ src } alt="item" />

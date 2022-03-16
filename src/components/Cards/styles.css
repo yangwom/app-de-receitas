@@ -4,13 +4,15 @@
   display: flex;
 }
 
-.card__content--img {
+.card__content {
   display: flex;
   margin-right: 40px;
+  text-decoration: none;
 }
 
-.card__content--img img {
+.card__content img {
   border-radius: 15px;
+  margin-right: 50px;
   mask-image: linear-gradient(to left, transparent 1%, black 40%);
   width: 110px;
 }

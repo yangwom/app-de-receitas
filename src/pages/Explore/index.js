@@ -1,14 +1,31 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import ExploreCard from '../../components/ExploreCard';
 
 function Explore() {
+  const history = useHistory();
   return (
     <div>
       <Header>
-        <ExploreCard />
+        Explore
       </Header>
+      <button
+        onClick={ () => history.push('/explore/foods') }
+        type="button"
+        data-testid="explore-foods"
+      >
+        Explore Foods
+
+      </button>
+      <button
+        onClick={ () => history.push('/explore/drinks') }
+        type="button"
+        data-testid="explore-drinks"
+      >
+        Explore Drinks
+
+      </button>
       <Footer />
     </div>
   );

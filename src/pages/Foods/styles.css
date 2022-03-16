@@ -35,6 +35,22 @@
   width: 60px;
 }
 
+.container__foods--btnAll {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.btnAll {
+  background-color: #fc6432e5;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  cursor: pointer;
+  padding: 4px;
+  width: 35%;
+}
+
 .container__foods--recipes {
   display: flex;
   flex-direction: column;

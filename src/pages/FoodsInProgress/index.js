@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import CardRecipe from '../../components/CardRecipe';
+import doneRecipes from '../../services/doneRecipesInLocalStorage';
 import { fetchFoodId } from '../../services/fetchApiFood';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
 import recipesInProgress from '../../services/recipesInProgress';
@@ -11,9 +13,11 @@ function FoodsInProgress() {
   const { id } = useParams();
   const [foodInProgress, setFoodInProgress] = useState(undefined);
   const [ingredients, setIngredients] = useState(undefined);
+  const [finishEnabled, setFinishEnabled] = useState(false);
 
   function createRecipeInProgressLocalStorage(ingredientsWithDone) {
-    const recipeInLocalStorage = recipesInProgress.get(id, TYPE);
+    const recipeInLocalStorage = recipesInProgress.get(id, TYPE)
+    || recipesInProgress.add(id, [], TYPE);
     if (recipeInLocalStorage) {
       ingredientsWithDone.forEach((ingredient) => {
         const exists = recipeInLocalStorage
@@ -22,6 +26,26 @@ function FoodsInProgress() {
           ingredient.done = true;
         }
       });
+    }
+  }
+
+  function DoneRecipesInLocalStorage() {
+    const objDoneRecipe = {
+      id: foodInProgress.idMeal,
+      type: 'food',
+      nationality: foodInProgress.strArea,
+      category: foodInProgress.strCategory,
+      alcoholicOrNot: '',
+      name: foodInProgress.strMeal,
+      image: foodInProgress.strMealThumb,
+      doneDate: new Date(),
+      tags: foodInProgress.strTags ? [foodInProgress.strTags] : [],
+    };
+    const finishedRecipe = ingredients.every((ingredient) => ingredient.done);
+    if (finishedRecipe) {
+      setFinishEnabled(finishedRecipe);
+      recipesInProgress.remove(id, TYPE);
+      doneRecipes.add(objDoneRecipe);
     }
   }
 
@@ -46,79 +70,27 @@ function FoodsInProgress() {
       const ingredientsDone = ingredients.filter((ingredient) => ingredient.done)
         .map((ingredient) => ingredient.ingredient);
       recipesInProgress.add(id, ingredientsDone, TYPE);
+      DoneRecipesInLocalStorage();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ingredients, id]);
 
-  function handleDone(index) {
-    setIngredients((prevState) => {
-      prevState[index].done = !prevState[index].done;
-      return [...prevState];
-    });
-  }
-
-  console.log(ingredients);
   return (
     <div>
       { foodInProgress !== undefined && (
-        <>
-          <img
-            src={ foodInProgress.strMealThumb }
-            alt="profile"
-            data-testid="recipe-photo"
-          />
-          <input
-            type="button"
-            data-testid="share-btn"
-            value="share"
-          />
-          <inpt
-            type="button"
-            data-testid="favorite-btn"
-            value="favorite"
-            onClick={ () => navigator.clipboard.writeText('text') }
-          />
-          <h3
-            data-testid="recipe-category"
-          >
-            {foodInProgress.strCategory}
-
-          </h3>
-          <h1
-            data-testid="recipe-title"
-          >
-            {foodInProgress.strMeal}
-          </h1>
-          <div>
-            {ingredients !== undefined && ingredients
-              .map(({ ingredient, done }, index) => (
-                <label
-                  htmlFor={ `ingredient${index}` }
-                  key={ index }
-                  className={ done ? 'done' : '' }
-                  data-testid={ `${index}-ingredient-step` }
-                >
-                  <input
-                    id={ `ingredient${index}` }
-                    type="checkbox"
-                    checked={ done }
-                    onChange={ () => handleDone(index) }
-                  />
-                  {ingredient}
-                </label>
-              ))}
-          </div>
-          <p
-            data-testid="instructions"
-          >
-            {foodInProgress.strInstructions}
-          </p>
-          <input
-            type="button"
-            data-testid="finish-recipe-btn"
-            value="Finish Recipe"
-            disabled
-          />
-        </>)}
+        <CardRecipe
+          srcThumb={ foodInProgress.strMealThumb }
+          category={ foodInProgress.strCategory }
+          title={ foodInProgress.strMeal }
+          type="food"
+          alcoholic=""
+          id={ foodInProgress.idMeal }
+          nationality={ foodInProgress.strArea }
+          ingredients={ ingredients }
+          instructions={ foodInProgress.strInstructions }
+          setIngredients={ setIngredients }
+          finishEnabled={ finishEnabled }
+        />)}
     </div>
   );
 }

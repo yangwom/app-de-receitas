@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Details from '../../components/Details';
-import { fetchFoodId } from '../../services/fetchApiFood';
-import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
-import {
-  setFavoriteRecipes, removeFavoriteRecipes } from '../../services/favorites';
 import Recomendation from '../../components/Recomendation';
-import './styles.css';
+import doneRecipes from '../../services/doneRecipesInLocalStorage';
+import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
+import { fetchFoodId } from '../../services/fetchApiFood';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
+import recipesInProgress from '../../services/recipesInProgress';
+import './styles.css';
+
+const TYPE = 'meals';
 
 function DetailsRecipesFoods() {
   const [useFoods, setUseFoods] = useState([]);
   const [useMeasureAndIngredients, setUseMeasureAndIngredients] = useState([]);
   const [useRecommended, setUseRecommended] = useState([]);
   const [useCopyVisible, setUseCopyVisible] = useState(false);
-  const [useFavorite, setUseFavorite] = useState(false);
+  const [done, setDone] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
 
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -22,7 +25,9 @@ function DetailsRecipesFoods() {
 
   async function getDetailsRecipesFoods() {
     const response = await fetchFoodId(id);
-    setUseFoods(response.meals);
+    if (response) {
+      setUseFoods(response.meals);
+    }
   }
 
   async function getDetailsRecipesRecomendationDrinks() {
@@ -37,44 +42,6 @@ function DetailsRecipesFoods() {
     setUseCopyVisible(true);
   };
 
-  const FavoriteRecipes = () => {
-    const { idMeal, strMeal, strCategory, strArea, strMealThumb } = useFoods[0];
-    const obj = {
-      id: idMeal,
-      type: 'food',
-      nationality: strArea,
-      category: strCategory,
-      alcoholicOrNot: '',
-      name: strMeal,
-      image: strMealThumb,
-    };
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorites === null) {
-      setFavoriteRecipes(obj);
-      setUseFavorite(true);
-    } else {
-      const findFavorite = favorites.find((favorite) => favorite.id === idMeal);
-      if (findFavorite === undefined) {
-        setFavoriteRecipes(obj);
-        setUseFavorite(true);
-      } else {
-        removeFavoriteRecipes(obj.id);
-        setUseFavorite(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (favorites !== null) {
-      const findFavorite = favorites.find((favorite) => favorite.id === id);
-      if (findFavorite !== undefined) {
-        setUseFavorite(true);
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   useEffect(() => {
     if (useFoods[0] !== undefined) {
       setUseMeasureAndIngredients(getmeasureAndIngredients(useFoods[0]));
@@ -85,8 +52,12 @@ function DetailsRecipesFoods() {
   useEffect(() => {
     getDetailsRecipesFoods();
     getDetailsRecipesRecomendationDrinks();
+    setDone(doneRecipes.get());
+    setInProgress(recipesInProgress.getAllFromType(TYPE));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(done);
 
   return (
     <div className="container">
@@ -94,7 +65,11 @@ function DetailsRecipesFoods() {
         <div className="teste">
           {useFoods[0] !== undefined
         && useRecommended.map((recomendation, index) => (
-          <div key={ index } className="card__recomendation">
+          <div
+            key={ index }
+            className="card__recomendation"
+
+          >
             <Recomendation
               src={ recomendation.strDrinkThumb }
               title={ recomendation.strDrink }
@@ -107,16 +82,19 @@ function DetailsRecipesFoods() {
       {useFoods[0] !== undefined
       && <Details
         src={ useFoods[0].strMealThumb }
-        title={ useFoods[0].strMeal }
-        category={ useFoods[0].strCategory }
+        title={ useFoods[0].strMeal } //
+        category={ useFoods[0].strCategory } //
+        nationality={ useFoods[0].strArea } //
+        id={ useFoods[0].idMeal } //
         instructions={ useFoods[0].strInstructions }
         measureAndIngredients={ useMeasureAndIngredients }
         video={ useFoods[0].strYoutube }
         copyUrl={ CopyLocationClipboard }
         copyVisible={ useCopyVisible }
-        favorite={ FavoriteRecipes }
-        isFavorite={ useFavorite }
         pathname={ pathname }
+        type="food"
+        recipesInProgressfromType={ inProgress }
+        recipesDone={ done }
       />}
     </div>
   );

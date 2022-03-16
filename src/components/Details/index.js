@@ -1,37 +1,59 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.css';
-import { Link } from 'react-router-dom';
-import heartIconWhite from '../../images/whiteHeartIcon.svg';
-import heartIconBlack from '../../images/blackHeartIcon.svg';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import share from '../../images/shareIcon.svg';
+import BtnFavorite from '../BtnFavorite';
+import './styles.css';
 
 function Details(props) {
+  const [isInProgress, setIsInProgress] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+  const history = useHistory();
+
   const {
     src,
     title,
     category,
+    nationality,
+    id,
     instructions,
     video,
     measureAndIngredients,
     alcoholic,
     copyUrl,
     copyVisible,
-    favorite,
-    isFavorite,
     thumbVideo,
     pathname,
+    type,
+    recipesInProgressfromType,
+    recipesDone,
   } = props;
 
   const route = `${pathname}/in-progress`;
-
-  console.log(thumbVideo);
-  console.log(video);
+  console.log(recipesDone);
 
   function urlYouTube(url) {
     const urlVideo = url.split('=')[1];
     return `https://www.youtube.com/embed/${urlVideo}`;
   }
+
+  useEffect(() => {
+    const recipesInProgress = Object.keys(recipesInProgressfromType).filter(
+      (key) => key === id,
+    );
+    if (recipesInProgress.length > 0) {
+      setIsInProgress(true);
+    }
+
+    if (recipesDone) {
+      const recipesIsDone = recipesDone.filter((key) => key.id === id);
+      if (recipesIsDone.length > 0) {
+        setIsDone(true);
+      }
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recipesInProgressfromType, recipesDone]);
 
   return (
     <div className="container__details">
@@ -69,18 +91,16 @@ function Details(props) {
               alt="share"
             />
           </button>
-          <button
-            type="button"
-            value="favorite"
-            onClick={ favorite }
-            className="details__btns"
-          >
-            <img
-              data-testid="favorite-btn"
-              src={ isFavorite ? heartIconBlack : heartIconWhite }
-              alt="favorite"
-            />
-          </button>
+          <BtnFavorite
+            id={ id }
+            name={ title }
+            nationality={ nationality }
+            category={ category }
+            image={ src }
+            alcoholic={ alcoholic }
+            type={ type }
+          />
+
           <span
             className="copyUrl"
             style={ { display: copyVisible ? 'block' : 'none' } }
@@ -122,18 +142,21 @@ function Details(props) {
         src={ video ? urlYouTube(video) : '' }
         frameBorder="0"
       />
-      <Link to={ route }>
-        <div className="container__btn">
+
+      {!isDone && (
+        <div
+          className="container__btn"
+        >
           <button
             type="button"
             className="btn__start-recipe"
             data-testid="start-recipe-btn"
+            onClick={ () => history.push(route) }
           >
-            Start Recipe
+            { isInProgress ? 'Continue Recipe' : 'Start Recipe' }
           </button>
-
         </div>
-      </Link>
+      )}
 
     </div>
 
@@ -147,11 +170,14 @@ Details.propTypes = {
   instructions: PropTypes.string,
   video: PropTypes.video,
   measureAndIngredients: PropTypes.array,
+  recipesInProgressfromType: PropTypes.array,
+  done: PropTypes.array,
   alcoholic: PropTypes.string,
   copyUrl: PropTypes.func,
   copyVisible: PropTypes.bool,
   favorite: PropTypes.func,
   thumbVideo: PropTypes.string,
+  nationality: PropTypes.string,
 }.isRequired;
 
 export default Details;

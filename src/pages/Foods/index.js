@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import { MyContext } from '../../context/MyContext';
-import './styles.css';
 import beef from '../../images/beef.jpg';
 import breakfast from '../../images/breakfast.jpg';
-import dessert from '../../images/dessert.jpeg';
 import chicken from '../../images/chicken.jpg';
+import dessert from '../../images/dessert.jpeg';
 import goat from '../../images/goat.jpeg';
+import './styles.css';
 
 const images = [beef, breakfast, chicken, dessert, goat];
 const backgroundColor = ['#373B45', '#F2AA6B', '#734E40', '#F27B50', '#A69F7C'];
@@ -21,6 +22,7 @@ function Foods() {
     getFoods,
     category,
     setCategory } = useContext(MyContext);
+  const { pathname } = useLocation();
 
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
@@ -64,16 +66,19 @@ function Foods() {
               </div>
             ))}
         </div>
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => {
-            getFoods();
-          } }
-        >
-          All
+        <div className="container__foods--btnAll">
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            className="btnAll"
+            onClick={ () => {
+              getFoods();
+            } }
+          >
+            All
 
-        </button>
+          </button>
+        </div>
         <div className="container__foods--recipes">
           { foods.length !== 0 && slicedFoods.map((food, index) => (
             <div key={ index } className="container__foods--card">
@@ -83,6 +88,7 @@ function Foods() {
                 src={ food.strMealThumb }
                 id={ food.idMeal }
                 name={ food.strMeal }
+                pathName={ pathname }
               />
             </div>
           ))}

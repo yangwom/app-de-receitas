@@ -12,7 +12,7 @@ function ExploreIngredientsDrinks() {
   return (
     <div>
       <Header>
-        ingredients
+        Explore Ingredients
       </Header>
       {listIngredientDrinks && slicedListIngredientsDrinks
         .map((ingredient, index) => (<ExploreCard

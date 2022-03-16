@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export default function Cards({ id, src, name, index }) {
-  const history = useHistory();
-  const pathName = history.location.pathname;
+export default function Cards({ id, src, name, index, pathName }) {
   return (
     <div
       key={ id }
       className="container__card--content"
     >
-      <div className="card__content--img">
-        <Link to={ `${pathName}/${id}` }>
+      <div>
+        <Link to={ `${pathName}/${id}` } className="card__content">
           <div
             className="card-food"
             data-testid={ `${index}-recipe-card` }
@@ -24,12 +22,13 @@ export default function Cards({ id, src, name, index }) {
               alt="imagem"
             />
           </div>
-          <h4
-            data-testid={ `${index}-card-name` }
-            className="card__content--name"
-          >
-            { name }
-          </h4>
+          <div className="card__content--name">
+            <h4
+              data-testid={ `${index}-card-name` }
+            >
+              { name }
+            </h4>
+          </div>
         </Link>
       </div>
     </div>

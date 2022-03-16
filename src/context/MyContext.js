@@ -7,6 +7,9 @@ import {
   fetchDrinksCategory,
   fetchSeachByCategory,
   fetchDrinkByCategory,
+  fetchSurpriseFood,
+  fetchSurpriseDrink,
+
 } from '../services/fechApi';
 import {
   fetchIngredientsFoodList,
@@ -29,11 +32,24 @@ function MyProvider({ children }) {
   const [foodCategory, setFoodCategory] = useState([]);
   const [drinkCategory, setDrinkCategory] = useState([]);
   const [category, setCategory] = useState();
+  const [surpriseFood, setSurpriseFood] = useState([]);
+  const [surpriseDrink, setSurpriseDrink] = useState([]);
+  const [nationalities, setNationalities] = useState([]);
 
   const getFoods = async () => {
     const data = await fetchFoods();
-    setFoods(data.meals);
+    if (data) {
+      setFoods(data.meals);
+    }
   };
+
+  async function getApiNationalities() {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const data = await response.json();
+    if (data) {
+      setNationalities([...data.meals, { strArea: 'All' }]);
+    }
+  }
 
   const getFoodsCategory = async () => {
     const data = await fetchFoodsCategory();
@@ -51,8 +67,12 @@ function MyProvider({ children }) {
   };
 
   const getSearchByCategory = async (categoryName) => {
-    const data = await fetchSeachByCategory(categoryName);
-    setFoods(data.meals);
+    if (categoryName !== 'All') {
+      const data = await fetchSeachByCategory(categoryName);
+      setFoods(data.meals);
+    } else {
+      getFoods();
+    }
   };
 
   const getFetchDrinkByCategory = async (drinkName) => {
@@ -69,7 +89,6 @@ function MyProvider({ children }) {
     const data = await fetchIngredientsDrinkList();
     setlistIngredientDrinks(data.drinks);
   };
-
   const getIngredientByType = async ({ type, title }) => {
     if (type === 'foods') {
       const data = await fetchIngredientFood(title);
@@ -83,6 +102,15 @@ function MyProvider({ children }) {
       }
     }
   };
+  const getSurpriseFood = async () => {
+    const data = await fetchSurpriseFood();
+    setSurpriseFood(data.meals);
+  };
+
+  const getSurpriseDrink = async () => {
+    const data = await fetchSurpriseDrink();
+    setSurpriseDrink(data.drinks);
+  };
 
   useEffect(() => {
     getFoods();
@@ -91,11 +119,13 @@ function MyProvider({ children }) {
     getDrinksCategory();
     getIngredientsListDrinks();
     getIngredientsListFood();
+    getSurpriseDrink();
+    getSurpriseFood();
+    getApiNationalities();
   }, []);
 
   useEffect(() => {
     getIngredientByType(ingredient);
-    console.log(ingredient);
   }, [ingredient]);
 
   const contextValue = {
@@ -115,6 +145,9 @@ function MyProvider({ children }) {
     listIngredientFoods,
     ingredient,
     setIngredient,
+    surpriseFood,
+    surpriseDrink,
+    nationalities,
   };
 
   return (
