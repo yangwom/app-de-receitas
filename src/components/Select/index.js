@@ -15,6 +15,7 @@ function Select(props) {
         if (type === 'nationality') {
           return (
             <option
+              data-testid={ `${option.strArea}-option` }
               key={ i }
               value={ option.strArea }
             >

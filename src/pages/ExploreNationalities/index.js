@@ -13,27 +13,34 @@ function ExploreNationalities() {
   const { foods,
     foodCategory,
     nationalities,
-    setFoods,
     getSearchByCategory,
-    // getFoods,
-
+    getFoods,
+    setFoods,
   } = useContext(MyContext);
   const [filterNationality, setFilterNationality] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
+
+  console.log(nationalities);
 
   const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
   slicedCategory.push({ strCategory: 'All' });
   const slicedFoods = foods.slice(0, MAX_RECIPES);
 
   async function createListFromNationality() {
-    const response = await fetchNationality(filterNationality);
-    if (response) {
-      setFoods(response.meals);
+    if (filterNationality !== 'All') {
+      const response = await fetchNationality(filterNationality);
+      if (response) {
+        setFoods(response.meals);
+      }
+    } else {
+      getFoods();
     }
   }
 
   useEffect(() => {
-    if (filterNationality !== '') {
+    if (filterNationality === '') {
+      setFoods(foods.slice(0, MAX_RECIPES));
+    } else {
       createListFromNationality();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,30 +63,32 @@ function ExploreNationalities() {
           <Select
             dataTestid="explore-by-nationality-dropdown"
             id="nationality"
-            name="nationality"
             handleChange={
               ({ target: { value } }) => setFilterNationality(value)
             }
-            value={ filterNationality }
+            name="nationality"
+            options={ nationalities.length !== 0 ? nationalities : [] }
+            text="Filter by Nationality"
             type="nationality"
-            options={ nationalities.length !== 0 ? nationalities.meals : [] }
+            value={ filterNationality }
           />
         </div>
         <div>
           <Select
-            dataTestid="explore-by-nationality-dropdown"
             id="nationality"
-            name="nationality"
             handleChange={
               ({ target: { value } }) => setFilterCategory(value)
             }
-            value={ filterCategory }
+            name="category"
             options={ foodCategory.length !== 0 ? slicedCategory : [] }
+            text="Filter by Category"
+            value={ filterCategory }
           />
         </div>
       </div>
       <div className="container__foods--recipes">
-        {foods.length !== 0 && slicedFoods.map((food, index) => (
+
+        { foods.length !== 0 && slicedFoods.map((food, index) => (
           <div key={ index } className="container__foods--card">
             <Cards
               key={ food.idMeal }
@@ -87,6 +96,7 @@ function ExploreNationalities() {
               src={ food.strMealThumb }
               id={ food.idMeal }
               name={ food.strMeal }
+              pathName="/foods"
             />
           </div>
         ))}

@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import { useLocation } from 'react-router';
 import Cards from '../../components/Cards';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 import { MyContext } from '../../context/MyContext';
-import './styles.css';
-import ordinaryDrinks from '../../images/ordinaryDrinks.jpg';
 import cocktail from '../../images/cocktail.jpg';
-import shake from '../../images/shake.jpg';
-import other from '../../images/other.jpg';
 import cocoa from '../../images/cocoa.jpg';
+import ordinaryDrinks from '../../images/ordinaryDrinks.jpg';
+import other from '../../images/other.jpg';
+import shake from '../../images/shake.jpg';
+import './styles.css';
 
 const images = [ordinaryDrinks, cocktail, shake, other, cocoa];
 const backgroundColor = ['#373B45', '#F2AA6B', '#734E40', '#F27B50', '#A69F7C'];
@@ -20,6 +21,7 @@ function Drinks() {
     getDrink,
     category,
     setCategory } = useContext(MyContext);
+  const { pathname } = useLocation();
 
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
@@ -86,6 +88,7 @@ function Drinks() {
                   src={ item.strDrinkThumb }
                   id={ item.idDrink }
                   name={ item.strDrink }
+                  pathName={ pathname }
                 />
               </div>
             ))}
