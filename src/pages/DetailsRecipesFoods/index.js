@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Details from '../../components/Details';
 import Recomendation from '../../components/Recomendation';
-import doneRecipes from '../../services/doneRecipes';
+import doneRecipes from '../../services/doneRecipesInLocalStorage';
 import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
 import { fetchFoodId } from '../../services/fetchApiFood';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
@@ -25,7 +25,9 @@ function DetailsRecipesFoods() {
 
   async function getDetailsRecipesFoods() {
     const response = await fetchFoodId(id);
-    setUseFoods(response.meals);
+    if (response) {
+      setUseFoods(response.meals);
+    }
   }
 
   async function getDetailsRecipesRecomendationDrinks() {
@@ -50,10 +52,12 @@ function DetailsRecipesFoods() {
   useEffect(() => {
     getDetailsRecipesFoods();
     getDetailsRecipesRecomendationDrinks();
-    setDone(doneRecipes.get(TYPE));
+    setDone(doneRecipes.get());
     setInProgress(recipesInProgress.getAllFromType(TYPE));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log(done);
 
   return (
     <div className="container">

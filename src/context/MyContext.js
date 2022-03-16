@@ -22,11 +22,22 @@ function MyProvider({ children }) {
   const [category, setCategory] = useState();
   const [surpriseFood, setSurpriseFood] = useState([]);
   const [surpriseDrink, setSurpriseDrink] = useState([]);
+  const [nationalities, setNationalities] = useState([]);
 
   const getFoods = async () => {
     const data = await fetchFoods();
-    setFoods(data.meals);
+    if (data) {
+      setFoods(data.meals);
+    }
   };
+
+  async function getApiNationalities() {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const data = await response.json();
+    if (data) {
+      setNationalities(data);
+    }
+  }
 
   const getFoodsCategory = async () => {
     const data = await fetchFoodsCategory();
@@ -70,6 +81,7 @@ function MyProvider({ children }) {
     getDrinksCategory();
     getSurpriseDrink();
     getSurpriseFood();
+    getApiNationalities();
   }, []);
 
   const contextValue = {
@@ -87,6 +99,7 @@ function MyProvider({ children }) {
     setCategory,
     surpriseFood,
     surpriseDrink,
+    nationalities,
   };
 
   return (

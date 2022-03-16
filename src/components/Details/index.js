@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import './styles.css';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import share from '../../images/shareIcon.svg';
 import BtnFavorite from '../BtnFavorite';
+import './styles.css';
 
 function Details(props) {
   const [isInProgress, setIsInProgress] = useState(false);
   const [isDone, setIsDone] = useState(false);
+  const history = useHistory();
 
   const {
     src,
@@ -46,7 +47,6 @@ function Details(props) {
 
     if (recipesDone) {
       const recipesIsDone = recipesDone.filter((key) => key.id === id);
-      console.log(recipesIsDone);
       if (recipesIsDone.length > 0) {
         setIsDone(true);
       }
@@ -144,19 +144,18 @@ function Details(props) {
       />
 
       {!isDone && (
-        <Link to={ route }>
-          <div
-            className="container__btn"
+        <div
+          className="container__btn"
+        >
+          <button
+            type="button"
+            className="btn__start-recipe"
+            data-testid="start-recipe-btn"
+            onClick={ () => history.push(route) }
           >
-            <button
-              type="button"
-              className="btn__start-recipe"
-              data-testid="start-recipe-btn"
-            >
-              { isInProgress ? 'Continue Recipe' : 'Start Recipe' }
-            </button>
-          </div>
-        </Link>
+            { isInProgress ? 'Continue Recipe' : 'Start Recipe' }
+          </button>
+        </div>
       )}
 
     </div>

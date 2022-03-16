@@ -1,9 +1,6 @@
 const KEY_DONE_RECIPES = 'doneRecipes';
 
-const initialStructureForRecipesInProgress = {
-  meals: [],
-  cocktails: [],
-};
+const initialStructureForRecipesInProgress = [];
 
 const save = (content) => {
   window.localStorage.setItem(KEY_DONE_RECIPES, JSON.stringify(content));
@@ -20,15 +17,15 @@ const read = () => {
 };
 
 const doneRecipes = {
-  add(type, obj) {
+  add(obj) {
     const items = read();
-    items[type].push(obj);
+    items.push(obj);
     save(items);
-    return items[type];
+    return items;
   },
-  get(type) {
+  get() {
     const items = read();
-    return items[type];
+    return items;
   },
 };
 
