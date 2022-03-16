@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import CardsFavorite from '../../components/CardsFavorite';
 
 function FavoriteRecipes() {
   const [btnPressured, setBtnPressured] = useState('all');
-  const getRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  console.log(getRecipes);
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    const getRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (getRecipes) {
+      setFavorites(getRecipes);
+    }
+  }, []);
 
   return (
     <div>
@@ -32,7 +38,7 @@ function FavoriteRecipes() {
         Drinks
       </button>
       <div>
-        {btnPressured === 'all' ? getRecipes.map((recipe, index) => (
+        {btnPressured === 'all' ? favorites.map((recipe, index) => (
           <CardsFavorite
             type={ recipe.type }
             key={ recipe.id }
@@ -46,7 +52,7 @@ function FavoriteRecipes() {
             alcoholicOrNot={ recipe.alcoholicOrNot }
           />
 
-        )) : getRecipes
+        )) : favorites
           .filter((recipe) => recipe.type === btnPressured)
           .map((recipe, index) => (
             <CardsFavorite
