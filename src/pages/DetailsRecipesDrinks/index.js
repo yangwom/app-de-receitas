@@ -6,7 +6,7 @@ import { fetchRecomendationDrinks } from '../../services/fetchApiFood';
 import Recomendation from '../../components/Recomendation';
 import './styles.css';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
-import doneRecipes from '../../services/doneRecipes';
+import doneRecipes from '../../services/doneRecipesInLocalStorage';
 import recipesInProgress from '../../services/recipesInProgress';
 
 const TYPE = 'cocktails';

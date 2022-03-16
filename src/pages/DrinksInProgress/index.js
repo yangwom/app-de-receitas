@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import CardRecipe from '../../components/CardRecipe';
-import doneRecipes from '../../services/doneRecipes';
+import doneRecipes from '../../services/doneRecipesInLocalStorage';
 import { fetchDrinkId } from '../../services/fetchApiDrink';
 import getmeasureAndIngredients from '../../services/measureAndIngredients';
 import recipesInProgress from '../../services/recipesInProgress';
@@ -45,7 +45,7 @@ function DrinksInProgress() {
     if (finishedRecipe) {
       setFinishEnabled(finishedRecipe);
       recipesInProgress.remove(id, TYPE);
-      doneRecipes.add(TYPE, objDoneRecipe);
+      doneRecipes.add(objDoneRecipe);
     }
   }
 
