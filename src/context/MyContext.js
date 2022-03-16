@@ -8,10 +8,22 @@ import {
   fetchSeachByCategory,
   fetchDrinkByCategory,
 } from '../services/fechApi';
+import {
+  fetchIngredientsFoodList,
+  fetchIngredientsDrinkList,
+} from '../services/ingredientsList';
+import { fetchIngredientDrink } from '../services/fetchApiDrink';
+import { fetchIngredientFood } from '../services/fetchApiFood';
 
 export const MyContext = createContext();
 
 function MyProvider({ children }) {
+  const [ingredient, setIngredient] = useState({
+    type: '',
+    title: '',
+  });
+  const [listIngredientDrinks, setlistIngredientDrinks] = useState([]);
+  const [listIngredientFoods, setlistIngredientFoods] = useState([]);
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [foodCategory, setFoodCategory] = useState([]);
@@ -48,12 +60,43 @@ function MyProvider({ children }) {
     setDrinks(data.drinks);
   };
 
+  const getIngredientsListFood = async () => {
+    const data = await fetchIngredientsFoodList();
+    setlistIngredientFoods(data.meals);
+  };
+
+  const getIngredientsListDrinks = async () => {
+    const data = await fetchIngredientsDrinkList();
+    setlistIngredientDrinks(data.drinks);
+  };
+
+  const getIngredientByType = async ({ type, title }) => {
+    if (type === 'foods') {
+      const data = await fetchIngredientFood(title);
+      if (data) {
+        setFoods(data.meals);
+      }
+    } else {
+      const data = await fetchIngredientDrink(title);
+      if (data) {
+        setDrinks(data.drinks);
+      }
+    }
+  };
+
   useEffect(() => {
     getFoods();
     getDrink();
     getFoodsCategory();
     getDrinksCategory();
+    getIngredientsListDrinks();
+    getIngredientsListFood();
   }, []);
+
+  useEffect(() => {
+    getIngredientByType(ingredient);
+    console.log(ingredient);
+  }, [ingredient]);
 
   const contextValue = {
     getFoods,
@@ -68,6 +111,10 @@ function MyProvider({ children }) {
     getDrink,
     category,
     setCategory,
+    listIngredientDrinks,
+    listIngredientFoods,
+    ingredient,
+    setIngredient,
   };
 
   return (

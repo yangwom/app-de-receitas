@@ -11,7 +11,8 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 import DoneRecipes from './pages/DoneRecipes';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
-import ExploreIngredients from './pages/ExploreIngredients';
+import ExploreIngredientsDrinks from './pages/ExploreIngredientsDrinks';
+import ExploreIngredientsFoods from './pages/ExploreIngredientsFoods';
 import ExploreNationalities from './pages/ExploreNationalities';
 import MyProvider from './context/MyContext';
 import DetailsRecipesFoods from './pages/DetailsRecipesFoods';
@@ -47,12 +48,12 @@ function App() {
             <Route
               exact
               path="/explore/drinks/ingredients"
-              component={ ExploreIngredients }
+              component={ ExploreIngredientsDrinks }
             />
             <Route
               exact
               path="/explore/foods/ingredients"
-              component={ ExploreIngredients }
+              component={ ExploreIngredientsFoods }
             />
             <Route exact path="/explore/drinks" component={ ExploreDrinks } />
             <Route exact path="/explore/foods" component={ ExploreFoods } />
