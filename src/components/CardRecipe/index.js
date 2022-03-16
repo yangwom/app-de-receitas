@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import shareIcon from '../../images/shareIcon.svg';
 import BtnFavorite from '../BtnFavorite';
+import './styles.css';
 
 function CardRecipe(props) {
   const { srcThumb,
@@ -37,45 +38,57 @@ function CardRecipe(props) {
   // referencia para copiar o link para o ClipBoard: https://www.codegrepper.com/code-examples/javascript/react+onclick+copy+to+clipboard
 
   return (
-    <>
-      <img
-        src={ srcThumb }
-        alt="profile"
-        data-testid="recipe-photo"
-      />
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ copyLinkUrlClipBoard }
-      >
-        <img
-          src={ shareIcon }
-          alt="share-button"
-        />
-      </button>
-      <BtnFavorite
-        id={ id }
-        name={ title }
-        nationality={ nationality }
-        category={ category }
-        image={ srcThumb }
-        alcoholic={ alcoholic }
-        type={ type }
-      />
-      {linkCopied && <span>Link copied!</span>}
-      <h3
-        data-testid="recipe-category"
-      >
-        {category}
-        { alcoholic }
+    <div className="container__inProgress">
+      <div className="container__inProgress__image-gradient">
+        <div className="container__inProgress-image">
+          <img
+            src={ srcThumb }
+            alt="profile"
+            data-testid="recipe-photo"
+          />
+        </div>
+      </div>
+      <div className="container__inProgress__titleAndCategory">
+        <h1
+          data-testid="recipe-title"
+        >
+          {title}
+        </h1>
+        <span
+          data-testid="recipe-category"
+        >
+          {category}
+          { alcoholic }
 
-      </h3>
-      <h1
-        data-testid="recipe-title"
-      >
-        {title}
-      </h1>
-      <div>
+        </span>
+        <div className="container__inProgress-shareFavorite">
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ copyLinkUrlClipBoard }
+            className="share-btn"
+          >
+            <img
+              src={ shareIcon }
+              alt="share-button"
+            />
+          </button>
+          <BtnFavorite
+            id={ id }
+            name={ title }
+            nationality={ nationality }
+            category={ category }
+            image={ srcThumb }
+            alcoholic={ alcoholic }
+            type={ type }
+          />
+          {linkCopied && <span>Link copied!</span>}
+        </div>
+      </div>
+      <div className="container__inProgress-ingredients">
+        <h2>
+          Ingredients!
+        </h2>
         {ingredients !== undefined && ingredients
           .map(({ ingredient, done }, index) => (
             <label
@@ -89,24 +102,33 @@ function CardRecipe(props) {
                 type="checkbox"
                 checked={ done }
                 onChange={ () => handleDone(index) }
+                className="checkbox"
               />
               {ingredient}
             </label>
           ))}
+
       </div>
-      <p
-        data-testid="instructions"
-      >
-        {instructions}
-      </p>
+      <div className="container__inProgress-instructions">
+        <h2>
+          Instructions!
+        </h2>
+        <p
+          data-testid="instructions"
+        >
+          {instructions}
+        </p>
+      </div>
+
       <input
         type="button"
+        className="btn-finish"
         data-testid="finish-recipe-btn"
         value="Finish Recipe"
         onClick={ () => history.push('/done-recipes') }
         disabled={ !finishEnabled }
       />
-    </>);
+    </div>);
 }
 
 CardRecipe.propTypes = {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
 import CardsFavorite from '../../components/CardsFavorite';
+import './styles.css';
 
 function FavoriteRecipes() {
   const [btnPressured, setBtnPressured] = useState('all');
@@ -10,49 +11,42 @@ function FavoriteRecipes() {
   return (
     <div>
       <Header>Favorite Recipes</Header>
-      <button
-        type="button"
-        onClick={ () => setBtnPressured('all') }
-        data-testid="filter-by-all-btn"
-      >
-        All
-      </button>
-      <button
-        type="button"
-        onClick={ () => setBtnPressured('food') }
-        data-testid="filter-by-food-btn"
-      >
-        Food
-      </button>
-      <button
-        type="button"
-        onClick={ () => setBtnPressured('drink') }
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-      </button>
-      <div>
-        {btnPressured === 'all' ? getRecipes.map((recipe, index) => (
-          <CardsFavorite
-            type={ recipe.type }
-            key={ recipe.id }
-            id={ recipe.id }
-            img={ recipe.image }
-            index={ index }
-            category={ recipe.category }
-            name={ recipe.name }
-            date={ recipe.doneDate }
-            nationality={ recipe.nationality }
-            alcoholicOrNot={ recipe.alcoholicOrNot }
-          />
-
-        )) : getRecipes
-          .filter((recipe) => recipe.type === btnPressured)
-          .map((recipe, index) => (
+      <div className="container__content">
+        <div className="container__content__buttons">
+          <div className="container__buttons--foodsdrinks">
+            <button
+              type="button"
+              className="btn"
+              onClick={ () => setBtnPressured('food') }
+              data-testid="filter-by-food-btn"
+            >
+              Food
+            </button>
+            <button
+              type="button"
+              className="btn"
+              onClick={ () => setBtnPressured('drink') }
+              data-testid="filter-by-drink-btn"
+            >
+              Drinks
+            </button>
+          </div>
+          <div className="container__buttons--all">
+            <button
+              type="button"
+              className="btn"
+              onClick={ () => setBtnPressured('all') }
+              data-testid="filter-by-all-btn"
+            >
+              All
+            </button>
+          </div>
+        </div>
+        <div>
+          {btnPressured === 'all' ? getRecipes.map((recipe, index) => (
             <CardsFavorite
-              key={ recipe.id }
-              stateBtn={ btnPressured }
               type={ recipe.type }
+              key={ recipe.id }
               id={ recipe.id }
               img={ recipe.image }
               index={ index }
@@ -62,7 +56,25 @@ function FavoriteRecipes() {
               nationality={ recipe.nationality }
               alcoholicOrNot={ recipe.alcoholicOrNot }
             />
-          ))}
+
+          )) : getRecipes
+            .filter((recipe) => recipe.type === btnPressured)
+            .map((recipe, index) => (
+              <CardsFavorite
+                key={ recipe.id }
+                stateBtn={ btnPressured }
+                type={ recipe.type }
+                id={ recipe.id }
+                img={ recipe.image }
+                index={ index }
+                category={ recipe.category }
+                name={ recipe.name }
+                date={ recipe.doneDate }
+                nationality={ recipe.nationality }
+                alcoholicOrNot={ recipe.alcoholicOrNot }
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
