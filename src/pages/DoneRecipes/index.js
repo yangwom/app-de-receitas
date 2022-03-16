@@ -1,41 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardsDone from '../../components/cardsDone';
+import doneRecipes from '../../services/doneRecipesInLocalStorage';
 import Header from '../../components/Header';
-
-const favoriteRecipes = [
-  {
-    id: '52771',
-    type: 'food',
-    nationality: 'Italian',
-    category: 'Vegetarian',
-    alcoholicOrNot: '',
-    name: 'Spicy Arrabiata Penne',
-    image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-    doneDate: '23/06/2020',
-    tags: ['Pasta', 'Curry'],
-  },
-  {
-    id: '178319',
-    type: 'drink',
-    nationality: '',
-    category: 'Cocktail',
-    alcoholicOrNot: 'Alcoholic',
-    name: 'Aquamarine',
-    image:
-      'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-    doneDate: '23/06/2020',
-    tags: [],
-  },
-];
-
-const setFavoritesRecipes = () => localStorage.setItem('setFa',
-  JSON.stringify(favoriteRecipes));
-
-setFavoritesRecipes();
 
 function DoneRecipes() {
   const [btnPressured, setBtnPressured] = useState('all');
-  const getRecipes = JSON.parse(localStorage.getItem('setFavoritesRecipes'));
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const getRecipes = doneRecipes.get();
+    if (getRecipes) {
+      setRecipes(getRecipes);
+    }
+  }, []);
+
   return (
     <div>
       <Header>Done Recipes</Header>
@@ -61,7 +39,7 @@ function DoneRecipes() {
         Drinks
       </button>
       <ul>
-        {btnPressured === 'all' ? getRecipes.map((recipe, index) => (
+        {btnPressured === 'all' ? recipes.map((recipe, index) => (
 
           <CardsDone
             type={ recipe.type }
@@ -77,7 +55,7 @@ function DoneRecipes() {
             alcoholicOrNot={ recipe.alcoholicOrNot }
           />
 
-        )) : getRecipes
+        )) : recipes
           .filter((recipe) => recipe.type === btnPressured)
           .map((recipe, index) => (
             <CardsDone
