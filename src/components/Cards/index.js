@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export default function Cards({ id, src, name, index }) {
-  const history = useHistory();
-  const pathName = history.location.pathname;
+export default function Cards({ id, src, name, index, pathName }) {
   return (
     <div
       key={ id }
