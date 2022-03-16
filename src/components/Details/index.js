@@ -30,6 +30,7 @@ function Details(props) {
   } = props;
 
   const route = `${pathname}/in-progress`;
+  console.log(recipesDone);
 
   function urlYouTube(url) {
     const urlVideo = url.split('=')[1];
