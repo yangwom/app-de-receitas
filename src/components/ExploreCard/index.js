@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { MyContext } from '../../context/MyContext';
 import './styles.css';
 
-export default function ExploreCard({ name, index, src, type }) {
+export default function ExploreCard({ index, name, src, type }) {
   const { setIngredient } = useContext(MyContext);
   const route = type === 'foods' ? '/foods' : '/drinks';
   const color = ['#373B45', '#F2AA6B', '#734E40', '#F27B50', '#A69F7C'];
@@ -56,7 +56,8 @@ export default function ExploreCard({ name, index, src, type }) {
 }
 
 ExploreCard.propTypes = {
-  name: PropTypes.string,
   index: PropTypes.number,
+  name: PropTypes.string,
   src: PropTypes.string,
+  type: PropTypes.string,
 }.isRequired;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -37,4 +37,4 @@ function Explore() {
   );
 }
 
-export default Explore;
+export default memo(Explore);

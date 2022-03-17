@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 function Select(props) {
-  const { dataTestid, value, name, id, options, handleChange, type } = props;
+  const { dataTestid, handleChange, id, name, options, type, value } = props;
   return (
     <select
       data-testid={ dataTestid }
@@ -37,11 +37,11 @@ function Select(props) {
 
 Select.propTypes = {
   dataTestid: PropTypes.string,
-  value: PropTypes.string,
-  name: PropTypes.string,
-  id: PropTypes.string,
-  options: PropTypes.string,
   handleChange: PropTypes.func,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  options: PropTypes.string,
+  value: PropTypes.string,
 }.isRequired;
 
 export default Select;

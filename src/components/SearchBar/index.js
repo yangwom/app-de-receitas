@@ -2,14 +2,14 @@ import React, { useContext, useRef } from 'react';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import './styles.css';
 import {
-  fetchIngredientFood,
-  fetchNameFood,
-  fetchFirstLetterFood } from '../../services/fetchApiFood';
+  fetchFoodByIngredient,
+  fetchFoodByName,
+  fetchFoodByFirstLetter } from '../../services/foods/fetchApiFood';
 
 import {
-  fetchIngredientDrink,
-  fetchNameDrink,
-  fetchFirstLetterDrink } from '../../services/fetchApiDrink';
+  fetchDrinkByIngredient,
+  fetchDrinkByName,
+  fetchDrinkByFirstLetter } from '../../services/drinks/fetchApiDrink';
 import { MyContext } from '../../context/MyContext';
 
 const FIRST_LETTER = 'First letter';
@@ -26,15 +26,15 @@ function SearchBar() {
   async function handleFoods(name, type) {
     if (type === FIRST_LETTER) {
       if (name.length === 1) {
-        resultRecipes = await fetchFirstLetterFood(name);
+        resultRecipes = await fetchFoodByFirstLetter(name);
       } else {
         global.alert('Your search must have only 1 (one) character');
         return;
       }
     } else if (type === 'Ingredient') {
-      resultRecipes = await fetchIngredientFood(name);
+      resultRecipes = await fetchFoodByIngredient(name);
     } else {
-      resultRecipes = await fetchNameFood(name);
+      resultRecipes = await fetchFoodByName(name);
     }
 
     if (resultRecipes.meals === null) {
@@ -50,15 +50,15 @@ function SearchBar() {
   async function handleDrinks(name, type) {
     if (type === FIRST_LETTER) {
       if (name.length === 1) {
-        resultRecipes = await fetchFirstLetterDrink(name);
+        resultRecipes = await fetchDrinkByFirstLetter(name);
       } else {
         global.alert('Your search must have only 1 (one) character');
         return;
       }
     } else if (type === 'Ingredient') {
-      resultRecipes = await fetchIngredientDrink(name);
+      resultRecipes = await fetchDrinkByIngredient(name);
     } else {
-      resultRecipes = await fetchNameDrink(name);
+      resultRecipes = await fetchDrinkByName(name);
     }
 
     if (resultRecipes.drinks === null) {

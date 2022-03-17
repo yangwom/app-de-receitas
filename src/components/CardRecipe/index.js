@@ -6,17 +6,18 @@ import BtnFavorite from '../BtnFavorite';
 import './styles.css';
 
 function CardRecipe(props) {
-  const { srcThumb,
-    category,
-    title,
-    type,
-    id,
-    nationality,
+  const {
     alcoholic,
+    category,
+    id,
+    finishEnabled,
     ingredients,
     instructions,
+    nationality,
     setIngredients,
-    finishEnabled,
+    srcThumb,
+    title,
+    type,
   } = props;
 
   const history = useHistory();

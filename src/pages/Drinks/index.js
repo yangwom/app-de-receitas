@@ -15,11 +15,12 @@ const images = [ordinaryDrinks, cocktail, shake, other, cocoa];
 const backgroundColor = ['#373B45', '#F2AA6B', '#734E40', '#F27B50', '#A69F7C'];
 
 function Drinks() {
-  const { drinks,
-    drinkCategory,
-    getFetchDrinkByCategory,
-    getDrink,
+  const {
     category,
+    drinkCategory,
+    drinks,
+    getDrinks,
+    getForDrinksByCategory,
     setCategory } = useContext(MyContext);
   const { pathname } = useLocation();
 
@@ -47,10 +48,10 @@ function Drinks() {
                   style={ { backgroundColor: backgroundColor[index] } }
                   onClick={ () => {
                     if (category === strCategory) {
-                      getDrink();
+                      getDrinks();
                       setCategory();
                     } else {
-                      getFetchDrinkByCategory(strCategory);
+                      getForDrinksByCategory(strCategory);
                       setCategory(strCategory);
                     }
                   } }
@@ -71,7 +72,7 @@ function Drinks() {
             data-testid="All-category-filter"
             className="btnAll"
             onClick={ () => {
-              getDrink();
+              getDrinks();
             } }
           >
             All

@@ -2,7 +2,7 @@ import React from 'react';
 import Switch from 'react-bootstrap/esm/Switch';
 import { Route } from 'react-router';
 import './App.css';
-import Login from './components/Login/Login';
+import Login from './components/Login';
 import PageNotFound from './components/PageNotFound';
 import MyProvider from './context/MyContext';
 import DetailsRecipesDrinks from './pages/DetailsRecipesDrinks';
