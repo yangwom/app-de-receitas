@@ -15,10 +15,6 @@ function DoneRecipes() {
     }
   }, []);
 
-  /*   const formatDate = () => {
-    const data = recipe.doneDate;
-  };
- */
   return (
     <div>
       <Header>Done Recipes</Header>
@@ -53,7 +49,7 @@ function DoneRecipes() {
             </button>
           </div>
         </div>
-        <ul>
+        <div>
           {btnPressured === 'all' ? recipes.map((recipe, index) => (
 
             <CardsDone
@@ -88,7 +84,7 @@ function DoneRecipes() {
                 alcoholicOrNot={ recipe.alcoholicOrNot }
               />
             ))}
-        </ul>
+        </div>
       </div>
     </div>
   );

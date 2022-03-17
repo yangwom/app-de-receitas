@@ -1,0 +1,41 @@
+.container__cardDoneRecipes {
+  background-color: #f2b67e;
+  border-radius: 25px;
+  display: flex;
+  height: 150px;
+  margin-top: 30px;
+}
+
+.cardDoneRecipes__img {
+  width: 130px;
+}
+
+.cardDoneRecipes__img img {
+  border-radius: 25px 0 0 25px;
+  height: 100%;
+  mask-image: linear-gradient(to left, transparent 4%, black 30%);
+  width: 100px;
+}
+
+.cardDoneRecipes__infos {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 164px;
+}
+
+.cardFavorite__infos--share {
+  display: flex;
+  justify-content: center;
+  width: 160px;
+}
+
+.cardFavorite__infos--share p {
+  color: #734e40;
+  margin: 0;
+}
+
+
+.iconShare {
+  width: 25px;
+}

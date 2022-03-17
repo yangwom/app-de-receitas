@@ -1,0 +1,25 @@
+.container--buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 35%;
+}
+
+.btn-explorer {
+  background-color: #fc6836;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  height: 45px;
+  margin-top: 20px;
+  padding: 10px;
+  width: 195px;
+}
+
+.btn-explorer:hover {
+  filter: brightness(90%);
+}
+

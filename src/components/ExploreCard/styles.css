@@ -1,0 +1,41 @@
+.container__exploreIngredients {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin: 11px auto;
+}
+
+.link__exploreIngredients {
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  padding: 0;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  width: 90px;
+}
+
+.link__exploreIngredients:hover {
+  transform: scale(1.1);
+}
+
+.link__exploreIngredients img {
+  mask-image: linear-gradient(to top, transparent 4%, black 30%);
+  width: 65px;
+}
+
+.cardIngredients__name {
+  border-radius: 0 0 15px 15px;
+  height: 30px;
+  width: 100%;
+
+}
+
+.cardIngredients__name p {
+  margin: 0;
+  text-align: center;
+}

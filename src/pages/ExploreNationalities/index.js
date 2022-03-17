@@ -5,6 +5,7 @@ import Header from '../../components/Header';
 import Select from '../../components/Select';
 import { MyContext } from '../../context/MyContext';
 import fetchNationality from '../../services/fetchNationality';
+import './styles.css';
 
 const MAX_RECIPES = 12;
 const MAX_CATEGORY = 5;
@@ -59,7 +60,7 @@ function ExploreNationalities() {
         <Header>
           Explore Nationalities
         </Header>
-        <div>
+        <div className="container__dropdown">
           <Select
             dataTestid="explore-by-nationality-dropdown"
             id="nationality"
@@ -73,7 +74,7 @@ function ExploreNationalities() {
             value={ filterNationality }
           />
         </div>
-        <div>
+        <div className="container__dropdown">
           <Select
             id="nationality"
             handleChange={

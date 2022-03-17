@@ -13,14 +13,17 @@ function ExploreIngredientsFoods() {
       <Header>
         Explore Ingredients
       </Header>
-      {listIngredientFoods && slicedListIngredientsFoods
-        .map((ingredient, index) => (<ExploreCard
-          key={ index }
-          src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
-          index={ index }
-          name={ ingredient.strIngredient }
-          type="foods"
-        />))}
+      <div className="container__exploreIngredients">
+        {listIngredientFoods && slicedListIngredientsFoods
+          .map((ingredient, index) => (<ExploreCard
+            key={ index }
+            src={ `https://www.themealdb.com/images/ingredients/${ingredient.strIngredient}-Small.png` }
+            index={ index }
+            name={ ingredient.strIngredient }
+            type="foods"
+          />))}
+      </div>
+      <div className="margin-bottom-footer" style={ { marginBottom: '80px' } } />
       <Footer />
     </div>
   );
