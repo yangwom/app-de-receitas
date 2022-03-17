@@ -21,8 +21,6 @@ function ExploreNationalities() {
   const [filterNationality, setFilterNationality] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
 
-  console.log(nationalities);
-
   const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
   slicedCategory.push({ strCategory: 'All' });
   const slicedFoods = foods.slice(0, MAX_RECIPES);

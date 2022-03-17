@@ -9,7 +9,6 @@ export default function CardsFavorite({
   id,
   index,
   name,
-  /* date, */
   category,
   img,
   type,

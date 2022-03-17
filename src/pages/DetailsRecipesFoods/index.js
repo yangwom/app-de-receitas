@@ -57,8 +57,6 @@ function DetailsRecipesFoods() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(done);
-
   return (
     <div className="container">
       <div className="container__recomendation">

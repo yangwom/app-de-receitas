@@ -18,7 +18,7 @@ function Foods() {
   const {
     foods,
     foodCategory,
-    getSearchByCategory,
+    getForFoodsByCategory,
     getFoods,
     category,
     setCategory } = useContext(MyContext);
@@ -51,7 +51,7 @@ function Foods() {
                       getFoods();
                       setCategory();
                     } else {
-                      getSearchByCategory(strCategory);
+                      getForFoodsByCategory(strCategory);
                       setCategory(strCategory);
                     }
                   } }

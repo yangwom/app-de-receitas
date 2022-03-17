@@ -17,7 +17,7 @@ const backgroundColor = ['#373B45', '#F2AA6B', '#734E40', '#F27B50', '#A69F7C'];
 function Drinks() {
   const { drinks,
     drinkCategory,
-    getFetchDrinkByCategory,
+    getForDrinksByCategory,
     getDrink,
     category,
     setCategory } = useContext(MyContext);
@@ -50,7 +50,7 @@ function Drinks() {
                       getDrink();
                       setCategory();
                     } else {
-                      getFetchDrinkByCategory(strCategory);
+                      getForDrinksByCategory(strCategory);
                       setCategory(strCategory);
                     }
                   } }
