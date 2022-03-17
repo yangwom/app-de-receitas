@@ -4,24 +4,23 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Select from '../../components/Select';
 import { MyContext } from '../../context/MyContext';
-import fetchNationality from '../../services/fetchNationality';
+import { fetchForFoodByNationality } from '../../services/foods/fetchApiFood';
 import './styles.css';
 
 const MAX_RECIPES = 12;
 const MAX_CATEGORY = 5;
 
 function ExploreNationalities() {
-  const { foods,
+  const {
     foodCategory,
-    nationalities,
-    getSearchByCategory,
+    foods,
     getFoods,
+    getForFoodsByCategory,
+    nationalities,
     setFoods,
   } = useContext(MyContext);
   const [filterNationality, setFilterNationality] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
-
-  console.log(nationalities);
 
   const slicedCategory = foodCategory.slice(0, MAX_CATEGORY);
   slicedCategory.push({ strCategory: 'All' });
@@ -29,7 +28,7 @@ function ExploreNationalities() {
 
   async function createListFromNationality() {
     if (filterNationality !== 'All') {
-      const response = await fetchNationality(filterNationality);
+      const response = await fetchForFoodByNationality(filterNationality);
       if (response) {
         setFoods(response.meals);
       }
@@ -49,7 +48,7 @@ function ExploreNationalities() {
 
   useEffect(() => {
     if (filterCategory !== '') {
-      getSearchByCategory(filterCategory);
+      getForFoodsByCategory(filterCategory);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterCategory]);

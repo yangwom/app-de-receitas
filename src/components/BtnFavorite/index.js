@@ -2,18 +2,21 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import heartIconWhite from '../../images/whiteHeartIcon.svg';
 import heartIconBlack from '../../images/blackHeartIcon.svg';
-import { removeFavoriteRecipes, setFavoriteRecipes } from '../../services/favorites';
+import {
+  removeFavoriteRecipes,
+  setFavoriteRecipes } from '../../services/others/favorites';
 
 const BtnFavorite = (props) => {
   const {
+    alcoholic,
+    category,
     id,
+    image,
+    index,
     name,
     nationality,
-    category,
-    image,
-    alcoholic,
     type,
-    index } = props;
+  } = props;
   const [useFavorite, setUseFavorite] = useState(false);
 
   const FavoriteRecipes = () => {
@@ -77,13 +80,14 @@ const BtnFavorite = (props) => {
 };
 
 BtnFavorite.propTypes = {
+  alcoholic: PropTypes.string,
+  category: PropTypes.string,
   id: PropTypes.string,
+  image: PropTypes.string,
+  isFavorite: PropTypes.func,
   name: PropTypes.string,
   nationality: PropTypes.string,
-  category: PropTypes.string,
-  image: PropTypes.string,
-  alcoholic: PropTypes.string,
-  isFavorite: PropTypes.func,
+  type: PropTypes.string,
 }.isRequired;
 
 export default BtnFavorite;

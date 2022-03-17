@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Details from '../../components/Details';
-import { fetchDrinkId } from '../../services/fetchApiDrink';
-import { fetchRecomendationDrinks } from '../../services/fetchApiFood';
 import Recomendation from '../../components/Recomendation';
+import { fetchDrinkById,
+  fetchForFoodRecommendations } from '../../services/drinks/fetchApiDrink';
+import doneRecipes from '../../services/others/doneRecipesInLocalStorage';
+import getmeasureAndIngredients from '../../services/others/measureAndIngredients';
+import recipesInProgress from '../../services/others/recipesInProgress';
 import './styles.css';
-import getmeasureAndIngredients from '../../services/measureAndIngredients';
-import doneRecipes from '../../services/doneRecipesInLocalStorage';
-import recipesInProgress from '../../services/recipesInProgress';
 
 const TYPE = 'cocktails';
 
@@ -24,12 +24,12 @@ function DetailsRecipesDrinks() {
   const NUMBER_RECOMMENDED = 6;
 
   async function getDetailsRecipesDrinks() {
-    const response = await fetchDrinkId(id);
+    const response = await fetchDrinkById(id);
     setUseDrinks(response.drinks);
   }
 
   async function getDetailsRecipesRecomendationFoods() {
-    const response = await fetchRecomendationDrinks();
+    const response = await fetchForFoodRecommendations();
     response.meals.splice(NUMBER_RECOMMENDED);
     setUseRecommended(response.meals);
   }

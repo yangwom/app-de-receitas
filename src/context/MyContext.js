@@ -1,40 +1,38 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import {
-  fetchFoodsCategory,
+  fetchAllFoodCategories,
   fetchFoods,
-  fetchDrinksCards,
-  fetchDrinksCategory,
-  fetchSeachByCategory,
-  fetchDrinkByCategory,
+  fetchForFoodsByCategory,
   fetchSurpriseFood,
-  fetchSurpriseDrink,
+  fetchListOfAllFoodIngredients,
+  fetchFoodByIngredient } from '../services/foods/fetchApiFood';
 
-} from '../services/fechApi';
 import {
-  fetchIngredientsFoodList,
-  fetchIngredientsDrinkList,
-} from '../services/ingredientsList';
-import { fetchIngredientDrink } from '../services/fetchApiDrink';
-import { fetchIngredientFood } from '../services/fetchApiFood';
+  fetchDrinks,
+  fetchAllDrinkCategories,
+  fetchForDrinksByCategory,
+  fetchSurpriseDrink,
+  fetchListOfAllDrinkIngredients,
+  fetchDrinkByIngredient } from '../services/drinks/fetchApiDrink';
 
 export const MyContext = createContext();
 
 function MyProvider({ children }) {
+  const [category, setCategory] = useState();
+  const [drinkCategory, setDrinkCategory] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+  const [foodCategory, setFoodCategory] = useState([]);
+  const [foods, setFoods] = useState([]);
   const [ingredient, setIngredient] = useState({
     type: '',
     title: '',
   });
   const [listIngredientDrinks, setlistIngredientDrinks] = useState([]);
   const [listIngredientFoods, setlistIngredientFoods] = useState([]);
-  const [foods, setFoods] = useState([]);
-  const [drinks, setDrinks] = useState([]);
-  const [foodCategory, setFoodCategory] = useState([]);
-  const [drinkCategory, setDrinkCategory] = useState([]);
-  const [category, setCategory] = useState();
+  const [nationalities, setNationalities] = useState([]);
   const [surpriseFood, setSurpriseFood] = useState([]);
   const [surpriseDrink, setSurpriseDrink] = useState([]);
-  const [nationalities, setNationalities] = useState([]);
 
   const getFoods = async () => {
     const data = await fetchFoods();
@@ -43,68 +41,62 @@ function MyProvider({ children }) {
     }
   };
 
-  async function getApiNationalities() {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
-    const data = await response.json();
-    if (data) {
-      setNationalities([...data.meals, { strArea: 'All' }]);
-    }
-  }
-
-  const getFoodsCategory = async () => {
-    const data = await fetchFoodsCategory();
+  const getAllFoodCategories = async () => {
+    const data = await fetchAllFoodCategories();
     setFoodCategory(data.meals);
   };
 
-  const getDrink = async () => {
-    const data = await fetchDrinksCards();
-    setDrinks(data.drinks);
+  const getSurpriseFood = async () => {
+    const data = await fetchSurpriseFood();
+    setSurpriseFood(data.meals);
   };
 
-  const getDrinksCategory = async () => {
-    const data = await fetchDrinksCategory();
-    setDrinkCategory(data.drinks);
+  const getListOfAllFoodIngredients = async () => {
+    const data = await fetchListOfAllFoodIngredients();
+    setlistIngredientFoods(data.meals);
   };
 
-  const getSearchByCategory = async (categoryName) => {
+  const getForFoodsByCategory = async (categoryName) => {
     if (categoryName !== 'All') {
-      const data = await fetchSeachByCategory(categoryName);
+      const data = await fetchForFoodsByCategory(categoryName);
       setFoods(data.meals);
     } else {
       getFoods();
     }
   };
 
-  const getFetchDrinkByCategory = async (drinkName) => {
-    const data = await fetchDrinkByCategory(drinkName);
+  const getDrinks = async () => {
+    const data = await fetchDrinks();
     setDrinks(data.drinks);
   };
 
-  const getIngredientsListFood = async () => {
-    const data = await fetchIngredientsFoodList();
-    setlistIngredientFoods(data.meals);
+  const getAllDrinkCategories = async () => {
+    const data = await fetchAllDrinkCategories();
+    setDrinkCategory(data.drinks);
   };
 
-  const getIngredientsListDrinks = async () => {
-    const data = await fetchIngredientsDrinkList();
+  const getForDrinksByCategory = async (drinkName) => {
+    const data = await fetchForDrinksByCategory(drinkName);
+    setDrinks(data.drinks);
+  };
+
+  const getListOfAllDrinkIngredients = async () => {
+    const data = await fetchListOfAllDrinkIngredients();
     setlistIngredientDrinks(data.drinks);
   };
+
   const getIngredientByType = async ({ type, title }) => {
     if (type === 'foods') {
-      const data = await fetchIngredientFood(title);
+      const data = await fetchFoodByIngredient(title);
       if (data) {
         setFoods(data.meals);
       }
     } else {
-      const data = await fetchIngredientDrink(title);
+      const data = await fetchDrinkByIngredient(title);
       if (data) {
         setDrinks(data.drinks);
       }
     }
-  };
-  const getSurpriseFood = async () => {
-    const data = await fetchSurpriseFood();
-    setSurpriseFood(data.meals);
   };
 
   const getSurpriseDrink = async () => {
@@ -112,16 +104,24 @@ function MyProvider({ children }) {
     setSurpriseDrink(data.drinks);
   };
 
+  async function getListNationalities() {
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+    const data = await response.json();
+    if (data) {
+      setNationalities([...data.meals, { strArea: 'All' }]);
+    }
+  }
+
   useEffect(() => {
+    getAllDrinkCategories();
+    getAllFoodCategories();
+    getDrinks();
     getFoods();
-    getDrink();
-    getFoodsCategory();
-    getDrinksCategory();
-    getIngredientsListDrinks();
-    getIngredientsListFood();
+    getListNationalities();
+    getListOfAllDrinkIngredients();
+    getListOfAllFoodIngredients();
     getSurpriseDrink();
     getSurpriseFood();
-    getApiNationalities();
   }, []);
 
   useEffect(() => {
@@ -129,25 +129,25 @@ function MyProvider({ children }) {
   }, [ingredient]);
 
   const contextValue = {
-    getFoods,
-    setFoods,
-    setDrinks,
+    category,
+    drinkCategory,
     drinks,
     foodCategory,
     foods,
-    drinkCategory,
-    getSearchByCategory,
-    getFetchDrinkByCategory,
-    getDrink,
-    category,
-    setCategory,
+    ingredient,
     listIngredientDrinks,
     listIngredientFoods,
-    ingredient,
-    setIngredient,
+    nationalities,
     surpriseFood,
     surpriseDrink,
-    nationalities,
+    getDrinks,
+    getFoods,
+    getForDrinksByCategory,
+    getForFoodsByCategory,
+    setCategory,
+    setDrinks,
+    setFoods,
+    setIngredient,
   };
 
   return (
@@ -161,4 +161,4 @@ MyProvider.propTypes = {
   children: PropTypes.string,
 }.isRequired;
 
-export default MyProvider;
+export default memo(MyProvider);

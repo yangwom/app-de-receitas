@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import CardRecipe from '../../components/CardRecipe';
-import doneRecipes from '../../services/doneRecipesInLocalStorage';
-import { fetchFoodId } from '../../services/fetchApiFood';
-import getmeasureAndIngredients from '../../services/measureAndIngredients';
-import recipesInProgress from '../../services/recipesInProgress';
+import doneRecipes from '../../services/others/doneRecipesInLocalStorage';
+import { fetchFoodById } from '../../services/foods/fetchApiFood';
+import getmeasureAndIngredients from '../../services/others/measureAndIngredients';
+import recipesInProgress from '../../services/others/recipesInProgress';
 import './styles.css';
 
 const TYPE = 'meals';
@@ -50,7 +50,7 @@ function FoodsInProgress() {
   }
 
   async function getRecipesFoodInProgress() {
-    const response = await fetchFoodId(id);
+    const response = await fetchFoodById(id);
     setFoodInProgress(response.meals[0]);
     const ingredientsAndMeasures = getmeasureAndIngredients(response.meals[0]);
     const ingredientsWithDone = Object.values(ingredientsAndMeasures)

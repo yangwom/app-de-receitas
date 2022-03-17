@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Validate from '../hooks/useValidateLogin';
+import Validate from '../../hooks/useValidateLogin';
 import logo from '../../images/logoApp.png';
 import './styles.css';
 

@@ -11,26 +11,25 @@ function Details(props) {
   const history = useHistory();
 
   const {
-    src,
-    title,
-    category,
-    nationality,
-    id,
-    instructions,
-    video,
-    measureAndIngredients,
     alcoholic,
+    category,
     copyUrl,
     copyVisible,
-    thumbVideo,
+    id,
+    instructions,
+    measureAndIngredients,
+    nationality,
     pathname,
-    type,
-    recipesInProgressfromType,
     recipesDone,
+    recipesInProgressfromType,
+    src,
+    thumbVideo,
+    title,
+    type,
+    video,
   } = props;
 
   const route = `${pathname}/in-progress`;
-  console.log(recipesDone);
 
   function urlYouTube(url) {
     const urlVideo = url.split('=')[1];
@@ -164,20 +163,20 @@ function Details(props) {
 }
 
 Details.propTypes = {
-  src: PropTypes.string,
-  title: PropTypes.string,
-  category: PropTypes.string,
-  instructions: PropTypes.string,
-  video: PropTypes.video,
-  measureAndIngredients: PropTypes.array,
-  recipesInProgressfromType: PropTypes.array,
-  done: PropTypes.array,
   alcoholic: PropTypes.string,
+  category: PropTypes.string,
   copyUrl: PropTypes.func,
   copyVisible: PropTypes.bool,
+  done: PropTypes.array,
   favorite: PropTypes.func,
-  thumbVideo: PropTypes.string,
+  instructions: PropTypes.string,
+  measureAndIngredients: PropTypes.array,
   nationality: PropTypes.string,
+  recipesInProgressfromType: PropTypes.array,
+  src: PropTypes.string,
+  thumbVideo: PropTypes.string,
+  title: PropTypes.string,
+  video: PropTypes.string,
 }.isRequired;
 
 export default Details;

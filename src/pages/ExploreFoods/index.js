@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ExploreButtons from '../../components/ExploreButtons';
@@ -15,4 +15,4 @@ function ExploreFoods() {
   );
 }
 
-export default ExploreFoods;
+export default memo(ExploreFoods);

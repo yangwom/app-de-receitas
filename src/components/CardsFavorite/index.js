@@ -6,15 +6,14 @@ import BtnFavorite from '../BtnFavorite';
 import './styles.css';
 
 export default function CardsFavorite({
+  alcoholicOrNot,
+  category,
   id,
+  img,
   index,
   name,
-  /* date, */
-  category,
-  img,
-  type,
   nationality,
-  alcoholicOrNot,
+  type,
 }) {
   const [copy, setCopy] = useState(false);
   const typeVerification = type === 'food' ? nationality : alcoholicOrNot;

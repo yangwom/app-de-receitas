@@ -64,7 +64,6 @@ function Header({ children }) {
 
 Header.propTypes = {
   children: PropTypes.string,
-  history: PropTypes.string,
 }.isRequired;
 
 export default Header;

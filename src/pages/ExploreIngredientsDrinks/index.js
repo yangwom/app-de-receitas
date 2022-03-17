@@ -8,7 +8,7 @@ function ExploreIngredientsDrinks() {
   const { listIngredientDrinks } = useContext(MyContext);
   const MAX_NUMBER = 12;
   const slicedListIngredientsDrinks = listIngredientDrinks.slice(0, MAX_NUMBER);
-  console.log(slicedListIngredientsDrinks);
+
   return (
     <div>
       <Header>
