@@ -14,13 +14,16 @@ function ExploreIngredientsDrinks() {
       <Header>
         Explore Ingredients
       </Header>
-      {listIngredientDrinks && slicedListIngredientsDrinks
-        .map((ingredient, index) => (<ExploreCard
-          key={ index }
-          src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
-          index={ index }
-          name={ ingredient.strIngredient1 }
-        />))}
+      <div className="container__exploreIngredients">
+        {listIngredientDrinks && slicedListIngredientsDrinks
+          .map((ingredient, index) => (<ExploreCard
+            key={ index }
+            src={ `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient1}-Small.png` }
+            index={ index }
+            name={ ingredient.strIngredient1 }
+          />))}
+      </div>
+      <div className="margin-bottom-footer" style={ { marginBottom: '80px' } } />
       <Footer />
     </div>
   );

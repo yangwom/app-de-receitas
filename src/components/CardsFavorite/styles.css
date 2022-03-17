@@ -21,6 +21,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
+  height: 138px;
   justify-content: center;
   width: 165px;
 }
@@ -53,9 +54,10 @@
 }
 
 .cardFavorites__infos--btns {
+  align-items: center;
   display: flex;
   justify-content: center;
-  width: 160px;
+  width: 189px;
 }
 
 .cardFavorites__infos--btns img {
@@ -65,14 +67,10 @@
 .btn-share {
   background-color: transparent;
   border: none;
-  margin-right: 20px;
-}
-
-button {  /* stylelint-disable-next-line declaration-no-important */
-  padding: 0 ! important;
 }
 
 .linkCopied {
   color: #734e40;
   margin: 0;
+  padding: 0;
 }
