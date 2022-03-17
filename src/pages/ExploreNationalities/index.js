@@ -4,7 +4,7 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Select from '../../components/Select';
 import { MyContext } from '../../context/MyContext';
-import fetchNationality from '../../services/fetchNationality';
+import { fetchForFoodByNationality } from '../../services/foods/fetchApiFood';
 import './styles.css';
 
 const MAX_RECIPES = 12;
@@ -29,7 +29,7 @@ function ExploreNationalities() {
 
   async function createListFromNationality() {
     if (filterNationality !== 'All') {
-      const response = await fetchNationality(filterNationality);
+      const response = await fetchForFoodByNationality(filterNationality);
       if (response) {
         setFoods(response.meals);
       }

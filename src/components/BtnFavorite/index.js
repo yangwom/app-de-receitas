@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import heartIconWhite from '../../images/whiteHeartIcon.svg';
 import heartIconBlack from '../../images/blackHeartIcon.svg';
-import { removeFavoriteRecipes, setFavoriteRecipes } from '../../services/favorites';
+import {
+  removeFavoriteRecipes,
+  setFavoriteRecipes } from '../../services/others/favorites';
 
 const BtnFavorite = (props) => {
   const {

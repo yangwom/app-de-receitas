@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import Details from '../../components/Details';
 import Recomendation from '../../components/Recomendation';
-import doneRecipes from '../../services/doneRecipesInLocalStorage';
-import { fetchRecomendationFoods } from '../../services/fetchApiDrink';
-import { fetchFoodId } from '../../services/fetchApiFood';
-import getmeasureAndIngredients from '../../services/measureAndIngredients';
-import recipesInProgress from '../../services/recipesInProgress';
+import doneRecipes from '../../services/others/doneRecipesInLocalStorage';
+import { fetchFoodById,
+  fetchForDrinkRecommendations } from '../../services/foods/fetchApiFood';
+import getmeasureAndIngredients from '../../services/others/measureAndIngredients';
+import recipesInProgress from '../../services/others/recipesInProgress';
 import './styles.css';
 
 const TYPE = 'meals';
@@ -24,14 +24,14 @@ function DetailsRecipesFoods() {
   const NUMBER_RECOMMENDED = 6;
 
   async function getDetailsRecipesFoods() {
-    const response = await fetchFoodId(id);
+    const response = await fetchFoodById(id);
     if (response) {
       setUseFoods(response.meals);
     }
   }
 
   async function getDetailsRecipesRecomendationDrinks() {
-    const response = await fetchRecomendationFoods();
+    const response = await fetchForDrinkRecommendations();
     response.drinks.splice(NUMBER_RECOMMENDED);
     setUseRecommended(response.drinks);
   }
@@ -82,10 +82,10 @@ function DetailsRecipesFoods() {
       {useFoods[0] !== undefined
       && <Details
         src={ useFoods[0].strMealThumb }
-        title={ useFoods[0].strMeal } //
-        category={ useFoods[0].strCategory } //
-        nationality={ useFoods[0].strArea } //
-        id={ useFoods[0].idMeal } //
+        title={ useFoods[0].strMeal }
+        category={ useFoods[0].strCategory }
+        nationality={ useFoods[0].strArea }
+        id={ useFoods[0].idMeal }
         instructions={ useFoods[0].strInstructions }
         measureAndIngredients={ useMeasureAndIngredients }
         video={ useFoods[0].strYoutube }
