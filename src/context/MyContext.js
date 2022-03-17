@@ -113,15 +113,15 @@ function MyProvider({ children }) {
   }
 
   useEffect(() => {
-    getFoods();
-    getDrinks();
-    getAllFoodCategories();
     getAllDrinkCategories();
+    getAllFoodCategories();
+    getDrinks();
+    getFoods();
+    getListNationalities();
     getListOfAllDrinkIngredients();
     getListOfAllFoodIngredients();
     getSurpriseDrink();
     getSurpriseFood();
-    getListNationalities();
   }, []);
 
   useEffect(() => {
@@ -129,25 +129,25 @@ function MyProvider({ children }) {
   }, [ingredient]);
 
   const contextValue = {
-    getFoods,
-    setFoods,
-    setDrinks,
+    category,
+    drinkCategory,
     drinks,
     foodCategory,
     foods,
-    drinkCategory,
-    getForFoodsByCategory,
-    getForDrinksByCategory,
-    getDrink: getDrinks,
-    category,
-    setCategory,
+    ingredient,
     listIngredientDrinks,
     listIngredientFoods,
-    ingredient,
-    setIngredient,
+    nationalities,
     surpriseFood,
     surpriseDrink,
-    nationalities,
+    getDrinks,
+    getFoods,
+    getForDrinksByCategory,
+    getForFoodsByCategory,
+    setCategory,
+    setDrinks,
+    setFoods,
+    setIngredient,
   };
 
   return (

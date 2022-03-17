@@ -11,11 +11,12 @@ const MAX_RECIPES = 12;
 const MAX_CATEGORY = 5;
 
 function ExploreNationalities() {
-  const { foods,
+  const {
     foodCategory,
-    nationalities,
-    getSearchByCategory,
+    foods,
     getFoods,
+    getForFoodsByCategory,
+    nationalities,
     setFoods,
   } = useContext(MyContext);
   const [filterNationality, setFilterNationality] = useState('');
@@ -47,7 +48,7 @@ function ExploreNationalities() {
 
   useEffect(() => {
     if (filterCategory !== '') {
-      getSearchByCategory(filterCategory);
+      getForFoodsByCategory(filterCategory);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterCategory]);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 function Recomendation(props) {
-  const { src, title, id } = props;
+  const { id, src, title } = props;
 
   return (
     <div
@@ -28,9 +28,9 @@ function Recomendation(props) {
 }
 
 Recomendation.propTypes = {
+  id: PropTypes.number,
   src: PropTypes.string,
   title: PropTypes.string,
-  id: PropTypes.number,
 }.isRequired;
 
 export default Recomendation;

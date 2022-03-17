@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.css';
 import { Link } from 'react-router-dom';
 
-export default function Cards({ id, src, name, index, pathName }) {
+export default function Cards({ id, index, name, pathName, src }) {
   return (
     <div
       key={ id }
@@ -37,7 +37,8 @@ export default function Cards({ id, src, name, index, pathName }) {
 
 Cards.propTypes = {
   id: PropTypes.number,
-  src: PropTypes.string,
-  name: PropTypes.string,
   index: PropTypes.number,
+  name: PropTypes.string,
+  pathName: PropTypes.string,
+  src: PropTypes.string,
 }.isRequired;

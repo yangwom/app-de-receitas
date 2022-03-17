@@ -5,16 +5,16 @@ import icon from '../../images/shareIcon.svg';
 import './styles.css';
 
 export default function CardsDone({
+  alcoholicOrNot,
+  category,
+  date,
   id,
+  img,
   index,
   name,
-  date,
-  category,
-  img,
+  nationality,
   tags,
   type,
-  nationality,
-  alcoholicOrNot,
 }) {
   const [copy, setCopy] = useState(false);
   const typeVerification = type === 'food' ? nationality : alcoholicOrNot;
@@ -77,8 +77,14 @@ export default function CardsDone({
 }
 
 CardsDone.propTypes = {
+  alcoholicOrNot: PropTypes.string,
+  category: PropTypes.string,
+  date: PropTypes.string,
   id: PropTypes.number,
   img: PropTypes.string,
-  name: PropTypes.string,
   index: PropTypes.number,
+  name: PropTypes.string,
+  nationality: PropTypes.string,
+  tags: PropTypes.arrayOf(PropTypes.string),
+  type: PropTypes.string,
 }.isRequired;
