@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './styles.css';
 
 function Select(props) {
   const { dataTestid, value, name, id, options, handleChange, type } = props;

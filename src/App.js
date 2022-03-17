@@ -12,8 +12,9 @@ import Drinks from './pages/Drinks';
 import DrinksInProgress from './pages/DrinksInProgress';
 import Explore from './pages/Explore';
 import ExploreDrinks from './pages/ExploreDrinks';
+import ExploreIngredientsDrinks from './pages/ExploreIngredientsDrinks';
+import ExploreIngredientsFoods from './pages/ExploreIngredientsFoods';
 import ExploreFoods from './pages/ExploreFoods';
-import ExploreIngredients from './pages/ExploreIngredients';
 import ExploreNationalities from './pages/ExploreNationalities';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Foods from './pages/Foods';
@@ -49,12 +50,12 @@ function App() {
             <Route
               exact
               path="/explore/drinks/ingredients"
-              component={ ExploreIngredients }
+              component={ ExploreIngredientsDrinks }
             />
             <Route
               exact
               path="/explore/foods/ingredients"
-              component={ ExploreIngredients }
+              component={ ExploreIngredientsFoods }
             />
             <Route exact path="/explore/drinks" component={ ExploreDrinks } />
             <Route exact path="/explore/foods" component={ ExploreFoods } />

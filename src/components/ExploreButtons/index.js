@@ -16,31 +16,36 @@ export default function ExploreButtons() {
     return getSurpriseDrink;
   };
   return (
-    <>
-      <button
-        onClick={ () => history.push(`/explore/${location}/ingredients`) }
-        type="button"
-        data-testid="explore-by-ingredient"
-      >
-        By Ingredient
-      </button>
-      {location === 'foods' && (
+    <div>
+      <div className="container--buttons">
         <button
-          onClick={ () => history.push(`/explore/${location}/nationalities`) }
+          onClick={ () => history.push(`/explore/${location}/ingredients`) }
           type="button"
-          data-testid="explore-by-nationality"
+          data-testid="explore-by-ingredient"
+          className="btn-explorer"
         >
-          By Nationality
+          By Ingredient
         </button>
-      )}
-      <button
-        onClick={ () => history.push(`/${location}/${getSuprise()}`) }
-        // onClick={ () => getSuprise() }
-        type="button"
-        data-testid="explore-surprise"
-      >
-        Surprise me!
-      </button>
-    </>
+        {location === 'foods' && (
+          <button
+            onClick={ () => history.push(`/explore/${location}/nationalities`) }
+            type="button"
+            data-testid="explore-by-nationality"
+            className="btn-explorer"
+          >
+            By Nationality
+          </button>
+        )}
+        <button
+          onClick={ () => history.push(`/${location}/${getSuprise()}`) }
+          // onClick={ () => getSuprise() }
+          type="button"
+          data-testid="explore-surprise"
+          className="btn-explorer"
+        >
+          Surprise me!
+        </button>
+      </div>
+    </div>
   );
 }
