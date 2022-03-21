@@ -38,4 +38,4 @@ Projeto realizado em grupo com meus colegas de turma!</p>
 
 <h3>Obs: O email e senha pode ser aleatorio, a senha tenhe que ter 7 digitos </h3>
 
-<a href="https://yangwom.github.io/app-de-receitas/" >Demonstação do app</a>
+<a href="https://yangwom.github.io/app-de-receitas/" >Demonstração do app</a>
