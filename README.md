@@ -35,3 +35,7 @@ Projeto realizado em grupo com meus colegas de turma!</p>
 <li>cd projeto-app-receitas</li>
 <li>npm start</li>
 </ol>
+
+<h3>Obs: O email e senha pode ser aleatorio, a senha tenhe que ter 7 digitos </h3>
+
+<a href="https://yangwom.github.io/app-de-receitas/" >Demonstação do app</a>
