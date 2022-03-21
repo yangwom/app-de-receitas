@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/app-de-receitas/static/css/main.f5a47e09.css",
-    "main.js": "/app-de-receitas/static/js/main.27562280.js",
+    "main.js": "/app-de-receitas/static/js/main.a644cfb8.js",
     "static/media/backgroud.jpg": "/app-de-receitas/static/media/backgroud.8a08507c903f500dc90d.jpg",
     "static/media/ordinaryDrinks.jpg": "/app-de-receitas/static/media/ordinaryDrinks.61bd28f01dfbdde78a5f.jpg",
     "static/media/cocktail.jpg": "/app-de-receitas/static/media/cocktail.7912e063ce46644f4295.jpg",
@@ -23,10 +23,10 @@
     "static/media/blackHeartIcon.svg": "/app-de-receitas/static/media/blackHeartIcon.83eae593d3aa99b30197460d608d233d.svg",
     "static/media/searchIcon.svg": "/app-de-receitas/static/media/searchIcon.d91078d0b2f6477a828b5ec00e0ac856.svg",
     "main.f5a47e09.css.map": "/app-de-receitas/static/css/main.f5a47e09.css.map",
-    "main.27562280.js.map": "/app-de-receitas/static/js/main.27562280.js.map"
+    "main.a644cfb8.js.map": "/app-de-receitas/static/js/main.a644cfb8.js.map"
   },
   "entrypoints": [
     "static/css/main.f5a47e09.css",
-    "static/js/main.27562280.js"
+    "static/js/main.a644cfb8.js"
   ]
 }
