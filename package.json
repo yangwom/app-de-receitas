@@ -1,6 +1,6 @@
 {
-  "name": "recipes-app-test",
   "homepage": "https://yangwom.github.io/app-de-receitas",
+  "name": "recipes-app-test",
   "version": "0.1.0",
   "private": true,
   "engines": {
