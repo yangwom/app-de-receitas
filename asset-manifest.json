@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/app-de-receitas/static/css/main.f5a47e09.css",
+    "main.js": "/app-de-receitas/static/js/main.27562280.js",
+    "static/media/backgroud.jpg": "/app-de-receitas/static/media/backgroud.8a08507c903f500dc90d.jpg",
+    "static/media/ordinaryDrinks.jpg": "/app-de-receitas/static/media/ordinaryDrinks.61bd28f01dfbdde78a5f.jpg",
+    "static/media/cocktail.jpg": "/app-de-receitas/static/media/cocktail.7912e063ce46644f4295.jpg",
+    "static/media/chicken.jpg": "/app-de-receitas/static/media/chicken.21802862afc2d2a32930.jpg",
+    "static/media/shake.jpg": "/app-de-receitas/static/media/shake.eaf2bfddc722c83aeedb.jpg",
+    "static/media/beef.jpg": "/app-de-receitas/static/media/beef.8917f701895290a7d074.jpg",
+    "static/media/goat.jpeg": "/app-de-receitas/static/media/goat.0811265d2ac4dc84b043.jpeg",
+    "static/media/breakfast.jpg": "/app-de-receitas/static/media/breakfast.5f8720ccdcf7b118410c.jpg",
+    "static/media/other.jpg": "/app-de-receitas/static/media/other.176017e13304bf7afdc2.jpg",
+    "static/media/cocoa.jpg": "/app-de-receitas/static/media/cocoa.9b148a369e19393dc9c2.jpg",
+    "static/media/dessert.jpeg": "/app-de-receitas/static/media/dessert.8dbb53682518dc532754.jpeg",
+    "static/media/exploreIcon.svg": "/app-de-receitas/static/media/exploreIcon.894fa93cb96287158f5ad33458bd4d68.svg",
+    "static/media/profileIcon.svg": "/app-de-receitas/static/media/profileIcon.8f761579b99f3efb339214d1f129b30a.svg",
+    "static/media/drinkIcon.svg": "/app-de-receitas/static/media/drinkIcon.21333b6f0b3efa6bc8f08cc662c8fac6.svg",
+    "static/media/mealIcon.svg": "/app-de-receitas/static/media/mealIcon.ee6dbe30931d41051268bcc609a2d8f5.svg",
+    "static/media/whiteHeartIcon.svg": "/app-de-receitas/static/media/whiteHeartIcon.a85691d59a060a7a6d23694b827331fb.svg",
+    "static/media/shareIcon.svg": "/app-de-receitas/static/media/shareIcon.595ff8184c300ff0dfd5e08cc0682bca.svg",
+    "index.html": "/app-de-receitas/index.html",
+    "static/media/blackHeartIcon.svg": "/app-de-receitas/static/media/blackHeartIcon.83eae593d3aa99b30197460d608d233d.svg",
+    "static/media/searchIcon.svg": "/app-de-receitas/static/media/searchIcon.d91078d0b2f6477a828b5ec00e0ac856.svg",
+    "main.f5a47e09.css.map": "/app-de-receitas/static/css/main.f5a47e09.css.map",
+    "main.27562280.js.map": "/app-de-receitas/static/js/main.27562280.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f5a47e09.css",
+    "static/js/main.27562280.js"
+  ]
+}
